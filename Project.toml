@@ -1,0 +1,13 @@
+name = "GreedyEquivalenceSearch"
+uuid = "e07db86e-26ad-48e0-bab0-7618b1130b09"
+authors = ["Robert Gregg <robwgregg@gmail.com> and contributors"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.11"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
