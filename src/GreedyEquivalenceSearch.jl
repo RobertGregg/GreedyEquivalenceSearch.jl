@@ -12,9 +12,14 @@ powerset(x::AbstractSmallSet) = Iterators.flatten(subsets(x,i) for i in 0:length
 
 
 include("GraphDataStructure.jl")
+include("GraphAlgorithms.jl")
+include("Operators.jl")
+include("Score.jl")
 
 
 export
+    #GreedyEquivalenceSearch.jl
+    powerset,
     #GraphStructure.jl
     Graph,
     GraphEdge,
@@ -43,7 +48,13 @@ export
     adjacencies,
     allPairs,
     edges,
-    undirectedEdges
-
+    undirectedEdges,
+    #GraphAlgorithms.jl
+    isClique,
+    isBlocked,
+    #Operators.jl
+    isValidInsert,
+    isValidDelete,
+    calculateMSE
 
 end

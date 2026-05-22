@@ -19,57 +19,50 @@ end
 
 
 
-#Maybe make a functor to store visited and queue?
 """
-    isBlocked(g, x, y,  nodesRemoved, visited::Vector, queue::BitSet)
-Return `true` if there is no semi-directed path between `x` and `y` in the graph `g`.
+    isBlocked(g, x, y, nodesRemoved)
 
-A set of vertices (`nodesRemoved`) can be removed from the graph before searching for a semi-directed path.
+Return true if every semi-directed path from y to x intersects `nodesRemoved`.
 
-`visited` is a BitVector sized by the number of vertices in the graph `g`.
+A semi-directed path from y to x contains only:
 
-`queue` is a BitSet used to search through the graph.
+    y → v₁ - v₂ → ... → x
 
-A semi-directed path between `x` and `y` is a list of edges in `g` where every edge is either undirected or points toward `y`. 
-
-    x → v₁ - v₂ → y ✓
-    x → v₁ ← v₂ - y ✖
+where directed edges point away from y.
 """
-function isBlocked(g, x, y, nodesRemoved, visited::BitVector, queue::BitSet)
+function isBlocked(g, x, y, nodesRemoved)
 
-    #For there to be a semi-directed path...
-    #src needs to have a descendent not in nodesRemoved
-    descendents(g,x) ⊆ nodesRemoved && return true
-    #dst needs an ancestor not in nodesRemoved
-    ancestors(g,y) ⊆ nodesRemoved && return true
+    visited = falses(nv(g))
 
-
-    #Keep track of all the nodes visited
-    visited .= false
-
-    # mark excluded vertices as visited
-    for vᵢ in nodesRemoved 
-        visited[vᵢ] = true
+    # Remove blocked nodes
+    for v in nodesRemoved
+        visited[v] = true
     end
-    
-    #Put y in the queue and mark as visited
-    push!(empty!(queue),y)
+
+    # Start backward search from y
+    queue = [y]
     visited[y] = true
 
-    #We're actually going to work backwards because nodesRemoved are nodes all connected to y, meaning y is likely to have less edges compared to x. (using BFS)
     while !isempty(queue)
-        currentNode = popfirst!(queue) # get new element from queue
-        for vᵢ in ancestors(g,currentNode)
-            vᵢ == x && return false
-            if !visited[vᵢ]
-                push!(queue, vᵢ) # push onto queue
-                visited[vᵢ] = true
+
+        current = popfirst!(queue)
+
+        # parents + undirected neighbors
+        for v in descendents(g, current)
+
+            if v == x
+                return false   # semi-directed path exists
             end
+
+            if !visited[v]
+                visited[v] = true
+                push!(queue, v)
+            end
+
         end
     end
 
     return true
-
 end
 
 
