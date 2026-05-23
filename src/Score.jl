@@ -1,10 +1,36 @@
+####################################################################
+# Precomputed statisitics for scoring
+####################################################################
+
 """
-    calculateMSE(Σ, X, y, k)
+Pre-computed sufficient statistics for Gaussian BIC.
+Stores the covariance matrix, sample size, and feature count.
+"""
+struct SufficientStats{T<:AbstractMatrix{<:AbstractFloat}}
+    covariance::T
+    observationsCount::Int
+    variablesCount::Int
+end
+
+
+function SufficientStats(data)
+    covariance = cov(data, corrected=false)
+    observationsCount, variablesCount = size(data)
+
+    return SufficientStats(covariance, observationsCount, variablesCount)
+end
+
+####################################################################
+# Calculate Mean Square Error (MSE) for regression
+####################################################################
+
+"""
+    calculateMSE(Σ, y, X, k)
 Fits a linear model y=Xβ and returns the mean squared error (mse) from the model fit.
 
 Here we take advantage of a precomputed covariance matrix to solve for mse directly. `k` determines the number of free parameters (i.e. number of columns in X) in the model.
 """
-function calculateMSE(Σ, X, y, k)
+function calculateMSE(Σ, y, X, k)
     
     #The regression is a horizontal line at mean so...
     #mse = (1/n)(y-ȳ)² = var(y) = Cov(y,y) 
@@ -22,8 +48,7 @@ function calculateMSE(Σ, X, y, k)
 
     #Okay this is getting involved
     if k == 2
-        x₁ = first(X)
-        x₂ = last(X)
+        x₁, x₂ = X
 
         v₁ = Σ[x₁, x₁]
         v₂ = Σ[x₂, x₂]
@@ -44,4 +69,38 @@ function calculateMSE(Σ, X, y, k)
 
     #TODO Consider cholesky
     return @views Σ[y,y] - Σ[X,y]' * (Σ[X,X] \ Σ[X,y])
+end
+
+
+####################################################################
+# Scoring function
+####################################################################
+
+#TODO Add penalty value for GES: -p⋅k⋅log(n) - n⋅log(mse)
+"""
+    score(state::CurrentState, node, nodeSet)
+
+Calculates a score using the mean-squared error found by regressing `node` onto the `nodeSet`. 
+
+More Info: we want to calculate the log likelihood that `nodeSet` are the parents of our node
+
+    score = log(P(data|Model)) ≈ -BIC/2
+
+because we're only comparing log likelihoods we'll ignore the 1/2 factor. When P(⋅) is Guassian, log(P(data|Model)) takes the form:
+    score = -k⋅log(n) - n⋅log(mse)
+k is the number of free parameters, n is the number of observations, and mse is mean squared error
+"""
+function score(stats::SufficientStats, node, nodeSet)
+    
+    #Number of observations
+    n = stats.observationsCount
+
+    #Number of free parameters
+    k = length(nodeSet)
+    
+    #Calculate the mean squared error (using covariance matrix approach)
+    mse = calculateMSE(stats.covariance, node, nodeSet, k)
+    
+    #Return the score
+    return -k*log(n) - n*log(mse)
 end

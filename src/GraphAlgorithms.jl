@@ -18,7 +18,7 @@ function isClique(g, nodes)
 end
 
 
-
+#TODO eliminate allocations with visited and queue
 """
     isBlocked(g, x, y, nodesRemoved)
 
@@ -72,20 +72,29 @@ end
 ####################################################################
 
 
-#Revert a graph to undirected edges and unshielded colliders (i.e. parents not adjacent)
+#Revert a graph to undirected edges and unshielded colliders
+#An unshielded collider at node y look like: x → y ← z and requires that x and z are not adjacent.
 function graphVStructure!(g)
     
-    #undirect an edge if it does not participate in an unshielded collider
-    for edge in edges(g)
-        if edge.directed && allshielded(g,edge) 
-            #undirect by adding reverse edge
-            addEdge!(g, edge.child, edge.parent)
+    edgesToUndirect = Set{GraphEdge}()
+    
+    #Find and store all edges that are a part of shielded colliders
+    for x in vertices(g)
+        for (p₁, p₂) in allPairs(parents(g,x))
+            if isAdjacent(g, p₁, p₂)
+                push!(edgesToUndirect, GraphEdge(p₁, x, true))
+                push!(edgesToUndirect, GraphEdge(p₂, x, true))
+            end
         end
     end
+
+    #Loop through edges and undirect edges in shielded colliders
+    for edge in edgesToUndirect
+        unorientEdge!(g,edge)
+    end
+
 end
 
-allshielded(g,x,y) = all(isAdjacent(g, p, x) for p in parents(g, y) if p ≠ x)
-allshielded(g,edge) = allshielded(g, edge.parent, edge.child)
 
 
 function meekRules!(g)

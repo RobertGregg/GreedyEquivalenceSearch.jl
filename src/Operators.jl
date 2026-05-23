@@ -3,23 +3,23 @@
 ####################################################################
 
 
-struct InsertOp{S<:AbstractSmallSet}
+struct InsertOperator{S<:AbstractSmallSet}
     x::Int
     y::Int
     T::S   # subset of Ne(y) \ Ad(x)
-    score_delta::Float64
+    scoreDelta::Float64
 end
 
-struct DeleteOp{S<:AbstractSmallSet}
+struct DeleteOperator{S<:AbstractSmallSet}
     x::Int
     y::Int
     H::S   # subset of Ne(y) ∩ Ad(x)
-    score_delta::Float64
+    scoreDelta::Float64
 end
 
 #Used to compare operators for binary heap
-Base.isless(a::InsertOp, b::InsertOp) = a.score_delta < b.score_delta
-Base.isless(a::DeleteOp, b::DeleteOp) = a.score_delta < b.score_delta
+Base.isless(a::InsertOperator, b::InsertOperator) = a.scoreDelta < b.scoreDelta
+Base.isless(a::DeleteOperator, b::DeleteOperator) = a.scoreDelta < b.scoreDelta
 
 
 
@@ -52,7 +52,7 @@ function isValidInsert(g, x, y, T)
     return isBlocked(g, x, y, NAyxT)
 end
 
-isValidInsert(g, op::InsertOp) = isValidInsert(g, op.x, op.y, op.T)
+isValidInsert(g, op::InsertOperator) = isValidInsert(g, op.x, op.y, op.T)
 
 """
 Delete validity (Chickering 2002, Theorem 17):
@@ -74,4 +74,4 @@ function isValidDelete(g, x, y, H)
     return isClique(g, setdiff(NAyx, H))
 end
 
-isValidInsert(g, op::DeleteOp) = isValidInsert(g, op.x, op.y, op.H)
+isValidInsert(g, op::DeleteOperator) = isValidInsert(g, op.x, op.y, op.H)

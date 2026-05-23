@@ -28,7 +28,7 @@ Graph(n; maxDegree=16) = Graph(
 """
     maxDegree(g::Graph)
 
-Return the maximum number of edges per vertex in `g`.
+Return the maximum allowed number of edges per vertex in `g`.
 """
 maxDegree(g::Graph) = capacity(eltype(g.heads))
 
@@ -172,32 +172,51 @@ function addEdge!(g,x,y; directed=true)
     return nothing
 end
 
+addEdge!(g, edge::GraphEdge) = addEdge!(g, edge.parent, edge.child; directed=edge.directed)
+
 """
-    removeEdge!(g,x,y)
+removeEdge!(g,x,y)
 Remove the edge `x`→`y` or `x`-`y` from the graph `g`. 
 """
 function removeEdge!(g,x,y)
-
+    
     g.heads[x] = delete(heads(g,x),y)
     g.tails[y] = delete(tails(g,y),x)
-
+    
     g.heads[y] = delete(heads(g,y),x)
     g.tails[x] = delete(tails(g,x),y)
     return nothing
 end
 
+removeEdge!(g, edge::GraphEdge) = removeEdge!(g, edge.parent, edge.child)
+
 """
-    orientEdge!(g, x, y)
+orientEdge!(g, x, y)
 Update the edge `x`-`y` to `x`→`y` in the graph `g`. 
 
 This function does not check for the presence of an edge beforehand. Orienting a nonexistent edge will do nothing.
 """
 function orientEdge!(g, x, y)
-
+    
     g.heads[y] = delete(heads(g,y),x)
     g.tails[x] = delete(tails(g,x),y)
     return nothing
 end
+    
+orientEdge!(g, edge::GraphEdge) = orientEdge!(g, edge.parent, edge.child)
+
+"""
+unorientEdge!(g, x, y)
+Update the edge `x`→`y` to `x`-`y` in the graph `g`. 
+"""
+function unorientEdge!(g, x, y)
+    
+    g.heads[y] = push(heads(g,y),x)
+    g.tails[x] = push(tails(g,x),y)
+    return nothing
+end
+
+unorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
 
 ####################################################################
 # Relationship between two verticies

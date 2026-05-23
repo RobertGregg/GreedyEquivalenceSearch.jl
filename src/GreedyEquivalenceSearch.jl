@@ -2,6 +2,7 @@ module GreedyEquivalenceSearch
 
 using SmallCollections, SmallCombinatorics #for handling node neighbors, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
+using DataStructures: MutableBinaryMaxHeap
 using OhMyThreads #parallelization
 
 
@@ -52,9 +53,13 @@ export
     #GraphAlgorithms.jl
     isClique,
     isBlocked,
+    graphVStructure!,
     #Operators.jl
     isValidInsert,
     isValidDelete,
-    calculateMSE
+    InsertOperator,
+    #Score.jl
+    SufficientStats,
+    score
 
 end
