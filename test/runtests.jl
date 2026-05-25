@@ -20,19 +20,15 @@ end
 
 
 
-data = rand(100,50)
+data = rand(100,100)
 data .-= mean(data, dims=1)
 
 stats = SufficientStats(data)
 g = Graph(stats.variablesCount)
 
-∅ = SmallSet{maxDegree(g),Int}()
 
-validInserts = PriorityQueue{InsertOperator, Float64, DataStructures.FasterReverse}(
-           DataStructures.FasterReverse()
-       )
+@benchmark forwardPhase(g_copy, $stats) setup=(g_copy = deepcopy(g)) evals=1
 
-for (x,y) in allPairs(vertices(g))
-    deltaScore = score(stats, y, x) - score(stats, y, ∅)
-    validInserts[InsertOperator(x,y,∅)] = deltaScore
-end
+@profview forwardPhase(g, stats)
+
+@code_warntype forwardPhase(g, stats)

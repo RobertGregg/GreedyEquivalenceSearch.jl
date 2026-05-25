@@ -8,7 +8,7 @@ Return `true` if all vertices in `nodes` are undirected neighbors in the graph `
 """
 function isClique(g, nodes)
 
-    for (x,y) in allPairs(nodes)
+    for (x,y) in allCombinationPairs(nodes)
         if !isNeighbor(g, x, y)
             return false
         end
@@ -165,7 +165,7 @@ end
 function R3(g,x,y)
         
     #given x-y, find x-v₁→y and x-v₂→y and v₁-v₂
-    for (v₁,v₂) in allPairs(neighbors(g,x))
+    for (v₁,v₂) in allCombinationPairs(neighbors(g,x))
         if isParent(g,v₁,y) && isParent(g,v₂,y) && !isAdjacent(g,v₁,v₂)
             return true
         end

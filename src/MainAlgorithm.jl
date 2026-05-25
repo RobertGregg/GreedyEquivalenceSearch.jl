@@ -28,32 +28,64 @@ Search equivance class space and continually add edges to `g` until the score st
 """
 function forwardPhase(g, stats)
     
-
-    #Create a Binary Heap to store valid, scored insert operators. We use a mutable verison to update valid inserts
-    # validInserts = MutableBinaryMaxHeap{InsertOperator}()
-
-    #This might be easier to use because it acts more like a dictionary, but still sorts. 
-    validInserts = PriorityQueue{InsertOperator, Float64, DataStructures.FasterReverse}(
-           DataStructures.FasterReverse()
-       )
-
     #The first edge is always the pair of variables with the highest covariance 
-    x, y = argmax(((i,j),) -> stats.covariance[i,j], allPairs(vertices(g)))
+    x, y = argmax(((i,j),) -> stats.covariance[i,j], allCombinationPairs(vertices(g)))
     ∅ = SmallSet{maxDegree(g),Int}()
 
     bestInsertOperator = InsertOperator(x, y, ∅)
     Insert!(g, bestInsertOperator)
+
+
+    #This might be easier to use because it acts more like a dictionary, but still sorts. 
+    validInserts = PriorityQueue{InsertOperator{typeof(∅)}, Float64, DataStructures.FasterReverse}(
+           DataStructures.FasterReverse()
+       )
+
     
+    #1. For each pair of nodes, generate all possible candidates
+    #2. Iterate candidates and test if they are valid
+    #3. If valid score and store in PriorityQueue
+    #4. After iterating all nodes, insert the best candidate
     while true
         
-        for (x,y) in allPairs(vertices(g))
+        for (x,y) in allPermutationPairs(vertices(g))
             
-            # (bestInsertOperator, bestScore) = popfirst!(validInserts)
+            for op in candidates(g,x,y)
+                if isValidInsert(g, op)
+                    deltaScore = score(stats, y, op.T ∪ parents(g,y) ∪ x) - score(stats, y, op.T ∪ parents(g,y))
+                    validInserts[op] = deltaScore
+                elseif haskey(validInserts,op)
+                    delete!(validInserts, op)
+                end
+            end
+        end
+            
+        (bestInsertOperator, bestScore) = popfirst!(validInserts)
+
+        if bestScore > 0
+            Insert!(g, bestInsertOperator)
+        else
+            break
         end
 
+        printState("Forward Search", bestScore, bestInsertOperator, validInserts)
     end
+
+    return g
 end
 
+
+function printState(stage, score, op, pq)
+
+    printstyled("Current State\n", bold=true, color=:blue)
+    print("Stage: ")
+    printstyled("$stage\n", color= stage == "Forward Search" ? :green : :red)
+    println("Score: $score")
+    println("Edge: $(op.x)→$(op.y)")
+    println("Subset: $(op.T)")
+    println("Cache: $(length(pq))")
+    println("----------------------------------")
+end 
 
 function candidates(g,x,y)
     
@@ -64,7 +96,7 @@ function candidates(g,x,y)
     T = setdiff(neighbors(g,y), adjacencies(g,x))
 
 
-    return (InsertOperator(x, y, NAyx ∪ Tᵢ, 0.0) for Tᵢ in powerset(T))
+    return (InsertOperator(x, y, NAyx ∪ Tᵢ) for Tᵢ in powerset(T))
 end
 
 

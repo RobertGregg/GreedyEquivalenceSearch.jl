@@ -2,7 +2,7 @@ module GreedyEquivalenceSearch
 
 using SmallCollections, SmallCombinatorics #for handling node neighbors, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
-using DataStructures: MutableBinaryMaxHeap
+using DataStructures
 using OhMyThreads #parallelization
 
 
@@ -48,7 +48,8 @@ export
     descendents,
     ancestors,
     adjacencies,
-    allPairs,
+    allPermutationPairs,
+    allCombinationPairs,
     edges,
     undirectedEdges,
     directedEdges,
@@ -62,6 +63,8 @@ export
     InsertOperator,
     #Score.jl
     SufficientStats,
-    score
+    score,
+    #MainAlgorithm.jl
+    forwardPhase
 
 end

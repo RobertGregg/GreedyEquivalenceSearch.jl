@@ -30,7 +30,7 @@ Graph(n; maxDegree=16) = Graph(
 
 Return the maximum allowed number of edges per vertex in `g`.
 """
-maxDegree(g::Graph) = capacity(eltype(g.heads))
+maxDegree(g::Graph) = SmallCollections.capacity(eltype(g.heads))
 
 
 """
@@ -323,23 +323,30 @@ adjacencies(g, x) = heads(g,x) ∪ tails(g,x)
 ####################################################################
 
 """
-    allPairs(v)
-Iterate through all pairs of elements in `v`. Assumes that all elements in `v` are unique.
+    allPermutationPairs(v)
+Iterate through all pairs of elements in `v` where order does matter. Here (x,y) is not the same as (y,x) so both are produced. Assumes that all elements in `v` are unique.
 """
-struct allPairs{C}
+allPermutationPairs(v) = ((x,y) for x in v for y in v if x≠y)
+
+
+"""
+    allCombinationPairs(v)
+Iterate through all pairs of elements in `v` where order does not matter. Here (x,y) is the same as (y,x) so only the former is given. Assumes that all elements in `v` are unique.
+"""
+struct allCombinationPairs{C}
     collection::C
 end
 
-Base.IteratorSize(::Type{<:allPairs}) = Base.HasLength()
+Base.IteratorSize(::Type{<:allCombinationPairs}) = Base.HasLength()
 
-Base.length(p::allPairs) = begin
+Base.length(p::allCombinationPairs) = begin
     n = length(p.collection)
     n * (n - 1) ÷ 2
 end
 
-Base.eltype(p::allPairs)= (T = eltype(p.collection); Tuple{T,T})
+Base.eltype(p::allCombinationPairs)= (T = eltype(p.collection); Tuple{T,T})
 
-Base.iterate(p::allPairs) = begin
+Base.iterate(p::allCombinationPairs) = begin
     r1 = iterate(p.collection)
     r1 === nothing && return nothing
     r2 = iterate(p.collection, r1[2])
@@ -350,7 +357,7 @@ Base.iterate(p::allPairs) = begin
     ((r1[1], r2[1]), (r1[1], r1[2], r2[2], first_j_state))
 end
 
-function Base.iterate(p::allPairs, (vi, si, sj, sj0))
+function Base.iterate(p::allCombinationPairs, (vi, si, sj, sj0))
     # Try advancing j
     r = iterate(p.collection, sj)
     if r !== nothing

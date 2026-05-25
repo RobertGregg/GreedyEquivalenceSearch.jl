@@ -96,8 +96,8 @@ using SmallCollections
         addEdge!(g, 2, 3, directed=false)
         addEdge!(g, 1, 3, directed=false)
         
-        # allPairs check
-        pairs = collect(allPairs([1, 2, 3]))
+        # allCombinationPairs check
+        pairs = collect(allCombinationPairs([1, 2, 3]))
         @test length(pairs) == 3
         @test (1, 2) ∈ pairs && (1, 3) ∈ pairs && (2, 3) ∈ pairs
         

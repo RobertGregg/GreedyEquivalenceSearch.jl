@@ -67,8 +67,10 @@ function calculateMSE(Σ, y, X, k)
     #mse = (1/n)*(yᵀy - yᵀX(XᵀX)⁻¹Xᵀy)
     #mse = Cov(y,y) - Cov(X,y)ᵀCov(X,X)⁻¹Cov(X,y)
 
+    #Convert set to vector with no allocations
+    Xᵥ = SmallVector{SmallCollections.capacity(X)}(X)
     #TODO Consider cholesky
-    return @views Σ[y,y] - Σ[X,y]' * (Σ[X,X] \ Σ[X,y])
+    return @views Σ[y,y] - Σ[Xᵥ,y]' * (Σ[Xᵥ,Xᵥ] \ Σ[Xᵥ,y])
 end
 
 
