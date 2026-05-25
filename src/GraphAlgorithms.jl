@@ -74,6 +74,7 @@ end
 
 #Revert a graph to undirected edges and unshielded colliders
 #An unshielded collider at node y look like: x → y ← z and requires that x and z are not adjacent.
+#TODO Currently no correct because it should keep edges directed if they are in an unshielded collider. Right now it only un-orients shielded colliders. (e.g., If there is only one directed edge in the entire graph it will be missed)
 function graphVStructure!(g)
     
     edgesToUndirect = Set{GraphEdge}()

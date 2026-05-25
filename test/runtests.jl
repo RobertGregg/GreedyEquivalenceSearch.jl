@@ -1,7 +1,7 @@
 using GreedyEquivalenceSearch
 using SmallCollections
-using DataStructures: MutableBinaryMaxHeap
 using Test
+using DataStructures
 
 @testset "Powerset Iterator" begin
     function test_powerset(x)
@@ -28,8 +28,11 @@ g = Graph(stats.variablesCount)
 
 ∅ = SmallSet{maxDegree(g),Int}()
 
-validInserts = MutableBinaryMaxHeap{InsertOperator}()
+validInserts = PriorityQueue{InsertOperator, Float64, DataStructures.FasterReverse}(
+           DataStructures.FasterReverse()
+       )
 
 for (x,y) in allPairs(vertices(g))
-    push!(validInserts,InsertOperator(x,y,∅,score(stats, y, x) - score(stats, y, ∅)))
+    deltaScore = score(stats, y, x) - score(stats, y, ∅)
+    validInserts[InsertOperator(x,y,∅)] = deltaScore
 end

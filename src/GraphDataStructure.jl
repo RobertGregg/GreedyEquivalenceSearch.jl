@@ -326,8 +326,36 @@ adjacencies(g, x) = heads(g,x) ∪ tails(g,x)
     allPairs(v)
 Iterate through all pairs of elements in `v`. Assumes that all elements in `v` are unique.
 """
-allPairs(v) = ((x,y) for (i,x) in enumerate(v) for y in Iterators.drop(v,i)) 
+struct allPairs{T}
+    v::T
+end
 
+Base.IteratorSize(::Type{<:allPairs}) = Base.HasLength()
+
+Base.length(ap::allPairs) = begin
+    n = length(ap.v)
+    n * (n - 1) ÷ 2
+end
+
+Base.eltype(ap::allPairs)= (T = eltype(ap.v); Tuple{T,T})
+
+function Base.iterate(ap::allPairs, state=(1,2))
+    v = ap.v
+    n = length(v)
+    i, j = state
+
+    i ≥ n && return nothing
+
+    result = (v[i], v[j])
+
+    if j < n
+        nextstate = (i, j + 1)
+    else
+        nextstate = (i + 1, i + 2)
+    end
+
+    return result, nextstate
+end
 
 """
     edges(g)
@@ -349,8 +377,20 @@ Return an iterator to generate all edges within the graph `g` that are undirecte
 undirectedEdges(g) =  (
     GraphEdge(src, dst, false)
     for src in vertices(g)
-    for dst in descendents(g,src)
-    if src < dst && isNeighbor(g,src,dst)
+    for dst in neighbors(g,src)
+    if src < dst
+)
+
+
+"""
+    directedEdges(g)
+
+Return an iterator to generate all edges within the graph `g` that are directed.
+"""
+directedEdges(g) =  (
+    GraphEdge(src, dst, true)
+    for src in vertices(g)
+    for dst in children(g,src)
 )
 
 

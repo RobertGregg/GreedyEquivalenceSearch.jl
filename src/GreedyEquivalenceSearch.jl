@@ -16,6 +16,7 @@ include("GraphDataStructure.jl")
 include("GraphAlgorithms.jl")
 include("Operators.jl")
 include("Score.jl")
+include("MainAlgorithm.jl")
 
 
 export
@@ -50,6 +51,7 @@ export
     allPairs,
     edges,
     undirectedEdges,
+    directedEdges,
     #GraphAlgorithms.jl
     isClique,
     isBlocked,
