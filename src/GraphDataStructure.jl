@@ -326,35 +326,46 @@ adjacencies(g, x) = heads(g,x) ∪ tails(g,x)
     allPairs(v)
 Iterate through all pairs of elements in `v`. Assumes that all elements in `v` are unique.
 """
-struct allPairs{T}
-    v::T
+struct allPairs{C}
+    collection::C
 end
 
 Base.IteratorSize(::Type{<:allPairs}) = Base.HasLength()
 
-Base.length(ap::allPairs) = begin
-    n = length(ap.v)
+Base.length(p::allPairs) = begin
+    n = length(p.collection)
     n * (n - 1) ÷ 2
 end
 
-Base.eltype(ap::allPairs)= (T = eltype(ap.v); Tuple{T,T})
+Base.eltype(p::allPairs)= (T = eltype(p.collection); Tuple{T,T})
 
-function Base.iterate(ap::allPairs, state=(1,2))
-    v = ap.v
-    n = length(v)
-    i, j = state
+Base.iterate(p::allPairs) = begin
+    r1 = iterate(p.collection)
+    r1 === nothing && return nothing
+    r2 = iterate(p.collection, r1[2])
+    r2 === nothing && return nothing
+    # State: (elem_i, state_i, state_j, initial_j_state)
+    # We need initial_j_state to reset j's position when i advances
+    first_j_state = r1[2]
+    ((r1[1], r2[1]), (r1[1], r1[2], r2[2], first_j_state))
+end
 
-    i ≥ n && return nothing
-
-    result = (v[i], v[j])
-
-    if j < n
-        nextstate = (i, j + 1)
-    else
-        nextstate = (i + 1, i + 2)
+function Base.iterate(p::allPairs, (vi, si, sj, sj0))
+    # Try advancing j
+    r = iterate(p.collection, sj)
+    if r !== nothing
+        return ((vi, r[1]), (vi, si, r[2], sj0))
     end
 
-    return result, nextstate
+    # j exhausted — advance i, reset j to i+1
+    ri = iterate(p.collection, si)
+    ri === nothing && return nothing
+
+    rj = iterate(p.collection, ri[2])
+    rj === nothing && return nothing
+
+    new_sj0 = ri[2]
+    ((ri[1], rj[1]), (ri[1], ri[2], rj[2], new_sj0))
 end
 
 """
