@@ -6,18 +6,14 @@ using DataStructures
 using OhMyThreads #parallelization
 
 
-#Small helper functions
-powerset(x::AbstractSmallSet) = Iterators.flatten(subsets(x,i) for i in 0:length(x))
-
-
-
-
 include("GraphDataStructure.jl")
 include("GraphAlgorithms.jl")
 include("Operators.jl")
 include("Score.jl")
 include("MainAlgorithm.jl")
 
+#Small helper functions
+powerset(x::SmallSet) = Iterators.flatten(subsets(x,i) for i in 0:length(x))
 
 export
     #GreedyEquivalenceSearch.jl

@@ -30,12 +30,13 @@ function forwardPhase(g, stats)
     
     #The first edge is always the pair of variables with the highest covariance 
     x, y = argmax(((i,j),) -> stats.covariance[i,j], allCombinationPairs(vertices(g)))
-    ∅ = SmallSet{maxDegree(g),Int}()
+    ∅ = SmallSet{maxDegree(g)}()
 
     bestInsertOperator = InsertOperator(x, y, ∅)
     Insert!(g, bestInsertOperator)
 
 
+    #TODO Use PriorityQueue to cache scores or a separate LRU?
     #This might be easier to use because it acts more like a dictionary, but still sorts. 
     validInserts = PriorityQueue{InsertOperator{typeof(∅)}, Float64, DataStructures.FasterReverse}(
            DataStructures.FasterReverse()

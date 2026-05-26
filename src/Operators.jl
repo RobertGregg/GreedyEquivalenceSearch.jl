@@ -3,13 +3,13 @@
 ####################################################################
 
 
-struct InsertOperator{S<:AbstractSmallSet}
+struct InsertOperator{S<:SmallSet}
     x::Int
     y::Int
     T::S   # subset of Ne(y) \ Ad(x)
 end
 
-struct DeleteOperator{S<:AbstractSmallSet}
+struct DeleteOperator{S<:SmallSet}
     x::Int
     y::Int
     H::S   # subset of Ne(y) ∩ Ad(x)

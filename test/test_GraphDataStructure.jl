@@ -82,10 +82,10 @@ using SmallCollections
         addEdge!(g, 4, 1, directed=true)
         
         # 1) Checking standard streaming iterators
-        @test neighbors(g, 1) == SmallSet{maxDegree(g),Int}([3])
-        @test parents(g, 1)   == SmallSet{maxDegree(g),Int}([4])
-        @test children(g, 1)  == SmallSet{maxDegree(g),Int}([2])
-        @test adjacencies(g, 1) == SmallSet{maxDegree(g),Int}([2, 3, 4])
+        @test neighbors(g, 1) == SmallSet{maxDegree(g)}([3])
+        @test parents(g, 1)   == SmallSet{maxDegree(g)}([4])
+        @test children(g, 1)  == SmallSet{maxDegree(g)}([2])
+        @test adjacencies(g, 1) == SmallSet{maxDegree(g)}([2, 3, 4])
     end
 
     # --- TEST SET 5: Global Iterators & Clique Detection ---

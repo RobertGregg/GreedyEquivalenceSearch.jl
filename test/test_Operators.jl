@@ -31,8 +31,8 @@ using Test
 
     @test isValidInsert(g, 1, 5, SmallSet{16}(6)) == true # 6 blocks the path
     @test isValidInsert(g, 2, 6, SmallSet{16}(5)) == true
-    @test isValidInsert(g, 1, 7, SmallSet{16,Int}()) == true
-    @test isValidInsert(g, 2, 5, SmallSet{16,Int}()) == true
+    @test isValidInsert(g, 1, 7, SmallSet{16}()) == true
+    @test isValidInsert(g, 2, 5, SmallSet{16}()) == true
 
 end
 
