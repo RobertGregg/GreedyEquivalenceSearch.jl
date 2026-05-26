@@ -26,22 +26,24 @@ end
 
 Search equivance class space and continually add edges to `g` until the score stops increasing
 """
-function forwardPhase(g, stats)
+function forwardPhase(g, stats; verbose=false)
     
     #The first edge is always the pair of variables with the highest covariance 
     x, y = argmax(((i,j),) -> stats.covariance[i,j], allCombinationPairs(vertices(g)))
-    ∅ = SmallSet{maxDegree(g)}()
+    ∅ = SmallSet{maxDegree(g), Int}()
 
     bestInsertOperator = InsertOperator(x, y, ∅)
     Insert!(g, bestInsertOperator)
 
 
-    #TODO Use PriorityQueue to cache scores or a separate LRU?
-    #This might be easier to use because it acts more like a dictionary, but still sorts. 
+
+    #PriorityQueue 
     validInserts = PriorityQueue{InsertOperator{typeof(∅)}, Float64, DataStructures.FasterReverse}(
            DataStructures.FasterReverse()
        )
 
+    #Cached score function for InsertOperator
+    score = CachedScore(stats)
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Iterate candidates and test if they are valid
@@ -49,11 +51,13 @@ function forwardPhase(g, stats)
     #4. After iterating all nodes, insert the best candidate
     while true
         
+        #TODO parallelization
         for (x,y) in allPermutationPairs(vertices(g))
             
+            #TODO check if top PriorityQueue op is still valid, then compare to that
             for op in candidates(g,x,y)
                 if isValidInsert(g, op)
-                    deltaScore = score(stats, y, op.T ∪ parents(g,y) ∪ x) - score(stats, y, op.T ∪ parents(g,y))
+                    deltaScore = score(y, op.T ∪ parents(g,y) ∪ x) - score(y, op.T ∪ parents(g,y))
                     validInserts[op] = deltaScore
                 elseif haskey(validInserts,op)
                     delete!(validInserts, op)
@@ -69,7 +73,9 @@ function forwardPhase(g, stats)
             break
         end
 
-        printState("Forward Search", bestScore, bestInsertOperator, validInserts)
+        if verbose
+            printState("Forward Search", bestScore, bestInsertOperator, validInserts)
+        end
     end
 
     return g

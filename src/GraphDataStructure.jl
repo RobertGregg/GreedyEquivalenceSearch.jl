@@ -21,8 +21,8 @@ Adjacency sets can be accessed via `heads(g, x)` and `tails(g, x)` for vertex `x
 See also: [`maxDegree`](@ref), [`heads`](@ref), [`tails`](@ref)
 """
 Graph(n; maxDegree=16) = Graph(
-    [SmallSet{maxDegree}() for _ in 1:n],
-    [SmallSet{maxDegree}() for _ in 1:n]
+    [SmallSet{maxDegree, Int}() for _ in 1:n],
+    [SmallSet{maxDegree, Int}() for _ in 1:n]
 )
 
 """

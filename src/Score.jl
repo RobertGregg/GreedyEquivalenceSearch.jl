@@ -92,7 +92,7 @@ because we're only comparing log likelihoods we'll ignore the 1/2 factor. When P
     score = -k⋅log(n) - n⋅log(mse)
 k is the number of free parameters, n is the number of observations, and mse is mean squared error
 """
-function score(stats::SufficientStats, node, nodeSet)
+function _score(stats::SufficientStats, node, nodeSet)
     
     #Number of observations
     n = stats.observationsCount
@@ -105,4 +105,32 @@ function score(stats::SufficientStats, node, nodeSet)
     
     #Return the score
     return -k*log(n) - n*log(mse)
+end
+
+
+####################################################################
+# Scoring function Cache
+####################################################################
+
+struct CachedScore{S,C}
+    stats::S
+    cache::C
+end
+
+function CachedScore(stats::S; maxsize=100_000) where {S}
+    cache = LRU{Tuple{Int,SmallSet},Float64}(maxsize=maxsize)
+    CachedScore(stats, cache)
+end
+
+function (cs::CachedScore)(node::Int, nodeSet::SmallSet)
+
+    if length(nodeSet) ≤ 2
+        return _score(cs.stats, node, nodeSet)
+    end
+
+    key = (node, nodeSet)
+
+    get!(cs.cache, key) do
+        _score(cs.stats, node, nodeSet)
+    end
 end

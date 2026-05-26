@@ -32,3 +32,6 @@ g = Graph(stats.variablesCount)
 @profview forwardPhase(g, stats)
 
 @code_warntype forwardPhase(g, stats)
+
+
+g = forwardPhase(g, stats; verbose=true)
