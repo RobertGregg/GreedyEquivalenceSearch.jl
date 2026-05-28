@@ -78,4 +78,4 @@ function isValidDelete(g, x, y, H)
     return isClique(g, setdiff(NAyx, H))
 end
 
-isValidInsert(g, op::DeleteOperator) = isValidInsert(g, op.x, op.y, op.H)
+isValidDelete(g, op::DeleteOperator) = isValidDelete(g, op.x, op.y, op.H)

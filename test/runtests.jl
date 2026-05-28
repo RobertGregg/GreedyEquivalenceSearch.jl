@@ -19,21 +19,18 @@ end
 
 
 
-data = rand(100,100)
+data = randn(100,100)
 data .-= mean(data, dims=1)
 
-stats = SufficientStats(data)
-g = Graph(stats.variablesCount)
 
+@benchmark ges($data)
 
-@benchmark forwardPhase(g_copy, $stats) setup=(g_copy = deepcopy($g)) evals=1
-
-@profview forwardPhase(g, stats)
+@profview ges(data)
 
 @code_warntype forwardPhase(g, stats)
 
 
-g = forwardPhase(g, stats; verbose=true)
+g = ges(data; verbose=true)
 
 
 for (x,y) in allPermutationPairs(vertices(g))

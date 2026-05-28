@@ -150,7 +150,7 @@ function (score::CachedScore)(g::Graph, op::DeleteOperator)
    
     (; x, y, H) = op
 
-    scoreDelta = score(y, setdiff(H ∪ parents(g,y)), x) - score(y, H ∪ parents(g,y))
+    scoreDelta = score(y, setdiff(H ∪ parents(g,y), x)) - score(y, H ∪ parents(g,y))
 
     return DeleteOperator(x,y,H,scoreDelta)
 end

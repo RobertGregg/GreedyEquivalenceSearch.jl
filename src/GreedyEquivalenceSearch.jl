@@ -62,6 +62,8 @@ export
     SufficientStats,
     score,
     #MainAlgorithm.jl
-    forwardPhase
+    forwardPhase!,
+    backwardPhase!,
+    ges
 
 end
