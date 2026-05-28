@@ -3,10 +3,11 @@ module GreedyEquivalenceSearch
 using SmallCollections, SmallCombinatorics #for handling node neighbors, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
 using DataStructures
-using OhMyThreads #parallelization
+using OhMyThreads, ChunkSplitters #parallelization
 using LRUCache #caching the scoring function
 
 
+include("CustomPairIterators.jl")
 include("GraphDataStructure.jl")
 include("GraphAlgorithms.jl")
 include("Operators.jl")

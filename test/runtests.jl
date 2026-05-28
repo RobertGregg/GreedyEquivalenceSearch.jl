@@ -35,3 +35,17 @@ g = Graph(stats.variablesCount)
 
 
 g = forwardPhase(g, stats; verbose=true)
+
+
+for (x,y) in allPermutationPairs(vertices(g))
+    for op in candidates(g,x,y)
+        if isValidInsert(g, op)
+            deltaScore = score(y, op.T ∪ parents(g,y) ∪ x) - score(y, op.T ∪ parents(g,y))
+        end
+    end
+end
+
+v=1:10
+op = tmapreduce(max, ((x,y) for x in 1:10 for y in 1:10)) do (x,y)
+    x + y
+end

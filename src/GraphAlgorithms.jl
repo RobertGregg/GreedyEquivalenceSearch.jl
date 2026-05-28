@@ -101,7 +101,7 @@ function graphVStructure!(g)
     end
 
 
-    #Loop through edges and undirect edges in shielded colliders
+    #Loop through edges and undirect edges not in unshielded colliders
     for edge in edgesToUndirect
         unorientEdge!(g,edge)
     end
@@ -118,7 +118,7 @@ function meekRules!(g)
         
         rulesFound = false
 
-        for edge in undirectedEdges(g)
+        for edge in collect(undirectedEdges(g))
 
             #For clarity extract the edge vertices
             (x, y) = edge.parent, edge.child

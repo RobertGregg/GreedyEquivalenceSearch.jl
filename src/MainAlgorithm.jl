@@ -54,7 +54,7 @@ function forwardPhase(g, stats; verbose=false)
         #TODO parallelization
         for (x,y) in allPermutationPairs(vertices(g))
             
-            #TODO check if top PriorityQueue op is still valid, then compare to that
+            #TODO Save neighbors and parents of each node to skip some validity checks
             for op in candidates(g,x,y)
                 if isValidInsert(g, op)
                     deltaScore = score(y, op.T ∪ parents(g,y) ∪ x) - score(y, op.T ∪ parents(g,y))
@@ -102,8 +102,5 @@ function candidates(g,x,y)
     #neighbors of y that are not adjacent to x
     T = setdiff(neighbors(g,y), adjacencies(g,x))
 
-
     return (InsertOperator(x, y, NAyx ∪ Tᵢ) for Tᵢ in powerset(T))
 end
-
-

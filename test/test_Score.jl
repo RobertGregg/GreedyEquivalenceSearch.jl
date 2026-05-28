@@ -1,5 +1,5 @@
 using GreedyEquivalenceSearch
-using SmallCollections
+using SmallCollections, LRUCache
 
 data = rand(100,50)
 data .-= mean(data, dims=1)

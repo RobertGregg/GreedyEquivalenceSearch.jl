@@ -323,65 +323,12 @@ adjacencies(g, x) = heads(g,x) ∪ tails(g,x)
 ####################################################################
 
 """
-    allPermutationPairs(v)
-Iterate through all pairs of elements in `v` where order does matter. Here (x,y) is not the same as (y,x) so both are produced. Assumes that all elements in `v` are unique.
-"""
-allPermutationPairs(v) = ((x,y) for x in v for y in v if x≠y)
-
-
-"""
-    allCombinationPairs(v)
-Iterate through all pairs of elements in `v` where order does not matter. Here (x,y) is the same as (y,x) so only the former is given. Assumes that all elements in `v` are unique.
-"""
-struct allCombinationPairs{C}
-    collection::C
-end
-
-Base.IteratorSize(::Type{<:allCombinationPairs}) = Base.HasLength()
-
-Base.length(p::allCombinationPairs) = begin
-    n = length(p.collection)
-    n * (n - 1) ÷ 2
-end
-
-Base.eltype(p::allCombinationPairs)= (T = eltype(p.collection); Tuple{T,T})
-
-Base.iterate(p::allCombinationPairs) = begin
-    r1 = iterate(p.collection)
-    r1 === nothing && return nothing
-    r2 = iterate(p.collection, r1[2])
-    r2 === nothing && return nothing
-    # State: (elem_i, state_i, state_j, initial_j_state)
-    # We need initial_j_state to reset j's position when i advances
-    first_j_state = r1[2]
-    ((r1[1], r2[1]), (r1[1], r1[2], r2[2], first_j_state))
-end
-
-function Base.iterate(p::allCombinationPairs, (vi, si, sj, sj0))
-    # Try advancing j
-    r = iterate(p.collection, sj)
-    if r !== nothing
-        return ((vi, r[1]), (vi, si, r[2], sj0))
-    end
-
-    # j exhausted — advance i, reset j to i+1
-    ri = iterate(p.collection, si)
-    ri === nothing && return nothing
-
-    rj = iterate(p.collection, ri[2])
-    rj === nothing && return nothing
-
-    new_sj0 = ri[2]
-    ((ri[1], rj[1]), (ri[1], ri[2], rj[2], new_sj0))
-end
-
-"""
     edges(g)
 
 Return an iterator to generate all edges within the graph `g`. Similar to `Graphs.edges()` but does not double count undirected edges
 """
 edges(g) = (
-    GraphEdge(src, dst, !isNeighbor(g,src,dst))
+    GraphEdge(src, dst, isDirected(g,src,dst))
     for src in vertices(g)
     for dst in descendents(g,src)
     if src < dst || isDirected(g,src,dst)
