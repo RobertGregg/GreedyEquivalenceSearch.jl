@@ -50,9 +50,7 @@ function isBlocked(g, x, y, nodesRemoved)
         # parents + undirected neighbors
         for v in descendents(g, current)
 
-            if v == x
-                return false   # semi-directed path exists
-            end
+            v == x && return false   # semi-directed path exists
 
             if !visited[v]
                 visited[v] = true
@@ -70,6 +68,10 @@ end
 ####################################################################
 # Using Meek's Rules to Update PDAG
 ####################################################################
+
+
+#TODO Used better algorithm from Luttermann to restore CPDAG 
+#1. Luttermann, M., Wienobst, M. & Liskiewicz, M. Practical Algorithms for Orientations of Partially Directed Graphical Models.
 
 
 #Revert a graph to undirected edges and unshielded colliders

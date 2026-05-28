@@ -117,8 +117,8 @@ struct CachedScore{S,C}
     cache::C
 end
 
-function CachedScore(stats::S; maxsize=100_000) where {S}
-    cache = LRU{Tuple{Int,SmallSet},Float64}(maxsize=maxsize)
+function CachedScore(stats::S, ::Val{D} = Val(16); maxsize=100_000) where {S,D}
+    cache = LRU{Tuple{Int,SmallSet{D,Int}},Float64}(maxsize=maxsize)
     CachedScore(stats, cache)
 end
 
@@ -133,4 +133,24 @@ function (cs::CachedScore)(node::Int, nodeSet::SmallSet)
     get!(cs.cache, key) do
         _score(cs.stats, node, nodeSet)
     end
+end
+
+#Updates the operator's score
+function (score::CachedScore)(g::Graph, op::InsertOperator)
+   
+    (; x, y, T) = op #gettin' fancy with the struct unpacking
+
+    scoreDelta = score(y, T ∪ parents(g,y) ∪ x) - score(y, T ∪ parents(g,y))
+
+    return InsertOperator(x,y,T,scoreDelta)
+end
+
+
+function (score::CachedScore)(g::Graph, op::DeleteOperator)
+   
+    (; x, y, H) = op
+
+    scoreDelta = score(y, setdiff(H ∪ parents(g,y)), x) - score(y, H ∪ parents(g,y))
+
+    return DeleteOperator(x,y,H,scoreDelta)
 end

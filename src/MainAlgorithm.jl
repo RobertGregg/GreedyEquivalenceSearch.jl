@@ -13,7 +13,7 @@ function Insert!(g, op::InsertOperator)
         orientEdge!(g, t, op.y) #t→y
     end
 
-    #Restore CPDAG 
+    #Extend to CPDAG 
     graphVStructure!(g)
     meekRules!(g)
 
@@ -41,29 +41,49 @@ function forwardPhase(g, stats; verbose=false)
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Iterate candidates and test if they are valid
-    #3. If valid score and store in PriorityQueue
+    #3. If valid score and check against best found operator
     #4. After iterating all nodes, insert the best candidate
     while true
         #TODO Save neighbors and parents of each node to skip some validity checks
 
         bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
-
+        
             currentInsertOperator = InsertOperator(x, y, ∅)
-
+        
             for op in candidates(g,x,y)
                 if isValidInsert(g, op)
-
+        
                     scoredOperator = score(g, op)
-
+        
                     if scoredOperator > currentInsertOperator
                         currentInsertOperator = scoredOperator
                     end
-
+        
                 end
             end
-
+        
             currentInsertOperator
         end
+        
+        #For profiling it's easier to optimize other parts of the code using the nonparallel loop
+        # bestInsertOperator = InsertOperator(x, y, ∅)
+        # for (x,y) in allPermutationPairs(vertices(g))
+
+        #     for op in candidates(g,x,y)
+
+        #         #Check for adjacencies, cliques, and semi-directed paths
+        #         if isValidInsert(g, op)
+
+        #             scoredOperator = score(g, op)
+
+        #             if scoredOperator > bestInsertOperator
+        #                 bestInsertOperator = scoredOperator
+        #             end
+
+        #         end
+        #     end
+        # end
+
 
         
         if bestInsertOperator.scoreDelta > 0
@@ -95,11 +115,14 @@ end
 
 function candidates(g,x,y)
     
+    neighborsY = neighbors(g,y)
+    adjacenciesX = adjacencies(g,x)
+    
     #neighbors of y that are adjacent to x
-    NAyx = neighbors(g,y) ∩ adjacencies(g,x)
+    NAyx = neighborsY ∩ adjacenciesX
     
     #neighbors of y that are not adjacent to x
-    T = setdiff(neighbors(g,y), adjacencies(g,x))
+    T = setdiff(neighborsY, adjacenciesX)
 
     return (InsertOperator(x, y, NAyx ∪ Tᵢ) for Tᵢ in powerset(T))
 end

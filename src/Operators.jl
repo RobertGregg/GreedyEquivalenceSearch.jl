@@ -7,17 +7,23 @@ struct InsertOperator{S<:SmallSet}
     x::Int
     y::Int
     T::S   # subset of Ne(y) \ Ad(x)
+    scoreDelta::Float64
 end
+
+InsertOperator(x,y,T) = InsertOperator(x,y,T,-Inf)
 
 struct DeleteOperator{S<:SmallSet}
     x::Int
     y::Int
     H::S   # subset of Ne(y) ∩ Ad(x)
+    scoreDelta::Float64
 end
 
+DeleteOperator(x,y,H) = DeleteOperator(x,y,H,-Inf)
+
 #Used to compare operators for binary heap
-# Base.isless(a::InsertOperator, b::InsertOperator) = a.scoreDelta < b.scoreDelta
-# Base.isless(a::DeleteOperator, b::DeleteOperator) = a.scoreDelta < b.scoreDelta
+Base.isless(a::InsertOperator, b::InsertOperator) = a.scoreDelta < b.scoreDelta
+Base.isless(a::DeleteOperator, b::DeleteOperator) = a.scoreDelta < b.scoreDelta
 
 
 
