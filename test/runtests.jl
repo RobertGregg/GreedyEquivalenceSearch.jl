@@ -1,7 +1,6 @@
 using GreedyEquivalenceSearch
 using SmallCollections
 using Test
-using DataStructures
 
 @testset "Powerset Iterator" begin
     function test_powerset(x)
@@ -27,7 +26,7 @@ stats = SufficientStats(data)
 g = Graph(stats.variablesCount)
 
 
-@benchmark forwardPhase(g_copy, $stats) setup=(g_copy = deepcopy(g)) evals=1
+@benchmark forwardPhase(g_copy, $stats) setup=(g_copy = deepcopy($g)) evals=1
 
 @profview forwardPhase(g, stats)
 
