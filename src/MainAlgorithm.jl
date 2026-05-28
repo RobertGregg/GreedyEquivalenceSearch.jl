@@ -1,7 +1,7 @@
 
 """
     Insert!(g, op::InsertOperator)
-Modify the graph `g` by directing the edge `op.x`→`op.y`. Additionally, orient all neighbors of `y` not connected to `x` toward `y`.
+Modify the graph `g` by directing the edge `op.x`→`op.y` and orient all neighbors of `y` not connected to `x` toward `y`. Additionally use Meek rules to convert back to a CPDAG
 """
 function Insert!(g, op::InsertOperator) 
 
@@ -36,12 +36,6 @@ function forwardPhase(g, stats; verbose=false)
     Insert!(g, bestInsertOperator)
 
 
-
-    #PriorityQueue 
-    validInserts = PriorityQueue{InsertOperator{typeof(∅)}, Float64, DataStructures.FasterReverse}(
-           DataStructures.FasterReverse()
-       )
-
     #Cached score function for InsertOperator
     score = CachedScore(stats)
     
@@ -50,31 +44,36 @@ function forwardPhase(g, stats; verbose=false)
     #3. If valid score and store in PriorityQueue
     #4. After iterating all nodes, insert the best candidate
     while true
-        
-        #TODO parallelization
-        for (x,y) in allPermutationPairs(vertices(g))
-            
-            #TODO Save neighbors and parents of each node to skip some validity checks
+        #TODO Save neighbors and parents of each node to skip some validity checks
+
+        bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
+
+            currentInsertOperator = InsertOperator(x, y, ∅)
+
             for op in candidates(g,x,y)
                 if isValidInsert(g, op)
-                    deltaScore = score(y, op.T ∪ parents(g,y) ∪ x) - score(y, op.T ∪ parents(g,y))
-                    validInserts[op] = deltaScore
-                elseif haskey(validInserts,op)
-                    delete!(validInserts, op)
+
+                    scoredOperator = score(g, op)
+
+                    if scoredOperator > currentInsertOperator
+                        currentInsertOperator = scoredOperator
+                    end
+
                 end
             end
-        end
-            
-        (bestInsertOperator, bestScore) = popfirst!(validInserts)
 
-        if bestScore > 0
+            currentInsertOperator
+        end
+
+        
+        if bestInsertOperator.scoreDelta > 0
             Insert!(g, bestInsertOperator)
         else
             break
         end
-
+        
         if verbose
-            printState("Forward Search", bestScore, bestInsertOperator, validInserts)
+            printState("Forward Search", bestInsertOperator, score.cache)
         end
     end
 
@@ -82,15 +81,15 @@ function forwardPhase(g, stats; verbose=false)
 end
 
 
-function printState(stage, score, op, pq)
+function printState(stage, op, cache)
 
     printstyled("Current State\n", bold=true, color=:blue)
     print("Stage: ")
     printstyled("$stage\n", color= stage == "Forward Search" ? :green : :red)
-    println("Score: $score")
+    println("Score: $(op.scoreDelta)")
     println("Edge: $(op.x)→$(op.y)")
     println("Subset: $(op.T)")
-    println("Cache: $(length(pq))")
+    println("Cache: $(round(100length(cache) / cache.maxsize, digits=3))%")
     println("----------------------------------")
 end 
 
