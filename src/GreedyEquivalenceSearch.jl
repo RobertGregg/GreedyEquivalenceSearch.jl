@@ -15,10 +15,12 @@ include("MainAlgorithm.jl")
 
 #Small helper functions
 powerset(x::SmallSet) = Iterators.flatten(subsets(x,i) for i in 0:length(x))
+adjacency_matrix(g) = BitMatrix(isParent(g,x,y) || isNeighbor(g,x,y)  for x in vertices(g), y in vertices(g))
 
 export
     #GreedyEquivalenceSearch.jl
     powerset,
+    adjacency_matrix,
     #GraphStructure.jl
     Graph,
     GraphEdge,

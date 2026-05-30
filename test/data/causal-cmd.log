@@ -1,0 +1,18 @@
+2026-05-30 00:18:56 INFO  org.reflections.Reflections:219 - Reflections took 167 ms to scan 1 urls, producing 17 keys and 408 values
+2026-05-30 00:18:56 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 8 keys and 38 values
+2026-05-30 00:18:56 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-05-30 00:18:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file rCausalMGM_sim_data.csv.
+2026-05-30 00:18:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file rCausalMGM_sim_data.csv.
+2026-05-30 00:18:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-05-30 00:18:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file rCausalMGM_sim_data.csv.
+2026-05-30 00:18:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file rCausalMGM_sim_data.csv.
+2026-05-30 00:18:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File rCausalMGM_sim_data.csv contains 1000 cases, 50 variables.
+2026-05-30 00:31:18 INFO  org.reflections.Reflections:219 - Reflections took 170 ms to scan 1 urls, producing 17 keys and 408 values
+2026-05-30 00:31:18 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 8 keys and 38 values
+2026-05-30 00:31:18 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 7 keys and 37 values
+2026-05-30 00:31:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file rCausalMGM_sim_data.csv.
+2026-05-30 00:31:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file rCausalMGM_sim_data.csv.
+2026-05-30 00:31:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-05-30 00:31:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file rCausalMGM_sim_data.csv.
+2026-05-30 00:31:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file rCausalMGM_sim_data.csv.
+2026-05-30 00:31:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File rCausalMGM_sim_data.csv contains 1000 cases, 50 variables.
