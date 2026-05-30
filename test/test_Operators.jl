@@ -1,5 +1,3 @@
-using GreedyEquivalenceSearch, SmallCollections
-using Test
 
 #=
 ┌────────────────── 5
@@ -29,10 +27,13 @@ using Test
     addEdge!(g, 6, 7; directed=true) 
 
 
-    @test isValidInsert(g, 1, 5, SmallSet{16}(6)) == true # 6 blocks the path
-    @test isValidInsert(g, 2, 6, SmallSet{16}(5)) == true
-    @test isValidInsert(g, 1, 7, SmallSet{16,Int}()) == true
-    @test isValidInsert(g, 2, 5, SmallSet{16,Int}()) == true
+    op1 = InsertOperator(1,5,SmallSet{16}(6), neighbors(g,5), adjacencies(g,1))
+    op2 = InsertOperator(2,6,SmallSet{16}(5), neighbors(g,6), adjacencies(g,2))
+
+    @test isValidInsert(g, op1) == true # 6 blocks the path
+    @test isValidInsert(g, op2) == true
+    @test isValidInsert(g, InsertOperator(g,1,7)) == true
+    @test isValidInsert(g, InsertOperator(g,2,5)) == true
 
 end
 

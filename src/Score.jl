@@ -138,19 +138,19 @@ end
 #Updates the operator's score
 function (score::CachedScore)(g::Graph, op::InsertOperator)
    
-    (; x, y, T) = op #gettin' fancy with the struct unpacking
+    (; x, y, T, neighborsY, adjacenciesX) = op #gettin' fancy with the struct unpacking
 
     scoreDelta = score(y, T ∪ parents(g,y) ∪ x) - score(y, T ∪ parents(g,y))
 
-    return InsertOperator(x,y,T,scoreDelta)
+    return InsertOperator(x,y,T,neighborsY,adjacenciesX,scoreDelta)
 end
 
 
 function (score::CachedScore)(g::Graph, op::DeleteOperator)
    
-    (; x, y, H) = op
+    (; x, y, H, neighborsY, adjacenciesX) = op
 
     scoreDelta = score(y, setdiff(H ∪ parents(g,y), x)) - score(y, H ∪ parents(g,y))
 
-    return DeleteOperator(x,y,H,scoreDelta)
+    return DeleteOperator(x,y,H,neighborsY,adjacenciesX,scoreDelta)
 end

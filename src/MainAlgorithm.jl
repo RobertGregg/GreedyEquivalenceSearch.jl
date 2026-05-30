@@ -22,10 +22,12 @@ function printState(stage, op, cache)
     printstyled("$stage\n", color= stage == "Forward Search" ? :green : :red)
     println("Score: $(op.scoreDelta)")
     println("Edge: $(op.x)→$(op.y)")
-    println("Subset: $(op.T)")
+    println("Subset: $(stage == "Forward Search" ? op.T : op.H)")
     println("Cache: $(round(100length(cache) / cache.maxsize, digits=3))%")
     println("----------------------------------")
 end 
+
+
 
 ####################################################################
 # Forward Search Functions
@@ -38,12 +40,14 @@ Modify the graph `g` by directing the edge `op.x`→`op.y` and orient all neighb
 """
 function Insert!(g, op::InsertOperator) 
 
+    (; x, y, T) = op
+
     #Add a directed edge x→y (currently no edge present)
-    addEdge!(g, op.x, op.y)
+    addEdge!(g, x, y)
     
     #Orient all edges incident into child node
-    for t in op.T
-        orientEdge!(g, t, op.y) #t→y
+    for t in T
+        orientEdge!(g, t, y) #t→y
     end
 
     #Extend to CPDAG 
@@ -55,7 +59,7 @@ end
 
 
 """
-    forwardSearch!(g, state::CurrentState)
+    forwardSearch!(g, stats::SufficientStats)
 
 Search equivance class space and continually add edges to `g` until the score stops increasing
 """
@@ -63,9 +67,8 @@ function forwardPhase!(g, stats; verbose=false)
     
     #The first edge is always the pair of variables with the highest covariance 
     x, y = argmax(((i,j),) -> stats.covariance[i,j], allCombinationPairs(vertices(g)))
-    ∅ = SmallSet{maxDegree(g), Int}()
 
-    bestInsertOperator = InsertOperator(x, y, ∅)
+    bestInsertOperator = InsertOperator(g, x, y)
     Insert!(g, bestInsertOperator)
 
 
@@ -81,7 +84,7 @@ function forwardPhase!(g, stats; verbose=false)
 
         # bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
         
-        #     currentInsertOperator = InsertOperator(x, y, ∅)
+        #     currentInsertOperator = InsertOperator(g, x, y)
         
         #     for op in insertCandidates(g,x,y)
         #         if isValidInsert(g, op)
@@ -98,8 +101,8 @@ function forwardPhase!(g, stats; verbose=false)
         #     currentInsertOperator
         # end
         
-        #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        bestInsertOperator = InsertOperator(x, y, ∅)
+        # #For profiling it's easier to optimize other parts of the code using the nonparallel loop
+        bestInsertOperator = InsertOperator(g, x, y)
         for (x,y) in allPermutationPairs(vertices(g))
 
             for op in insertCandidates(g,x,y)
@@ -118,7 +121,6 @@ function forwardPhase!(g, stats; verbose=false)
         end
 
 
-        
         if bestInsertOperator.scoreDelta > 0
             Insert!(g, bestInsertOperator)
         else
@@ -135,19 +137,15 @@ end
 
 
 
-
 function insertCandidates(g,x,y)
     
     neighborsY = neighbors(g,y)
     adjacenciesX = adjacencies(g,x)
     
-    #neighbors of y that are adjacent to x
-    NAyx = neighborsY ∩ adjacenciesX
-    
     #neighbors of y that are not adjacent to x
     T = setdiff(neighborsY, adjacenciesX)
-
-    return (InsertOperator(x, y, NAyx ∪ Tᵢ) for Tᵢ in powerset(T))
+    
+    return (InsertOperator(x, y, Tᵢ, neighborsY, adjacenciesX) for Tᵢ in powerset(T))
 end
 
 
@@ -157,38 +155,41 @@ end
 
 
 """
-    Delete!(g, state::CurrentState)
-Modify the graph `g` by removing the edge `state.x`→`state.y`. Additionally, orient all neighbors of `x` and `y` away from `x` and `y`.
+Delete!(g, op::DeleteOperator)
+Modify the graph `g` by removing the edge `op.x`→`op.y`. Additionally, orient all neighbors of `x` and `y` away from `x` and `y`.
 """
 function Delete!(g, op::DeleteOperator)
-
+    
+    (; x, y, H) = op
     #remove directed and unidrected edges (x→y and x-y)
-    removeEdge!(g, op.x, op.y)
+    removeEdge!(g, x, y)
     
     #Orient all vertices in H toward x and y
-    for h in op.H
+    for h in H
         orientEdge!(g, y, h) #y→h
         orientEdge!(g, x, h) #x→h
     end
-
+    
     return nothing
 end
 
 
 function deleteCandidates(g,x,y)
     
+    neighborsY = neighbors(g,y)
+    adjacenciesX = adjacencies(g,x)
 
     #neighbors of y that are adjacent to x
-    H = neighbors(g,y) ∩ adjacencies(g,x)
-
-    return (DeleteOperator(x, y, Hᵢ) for Hᵢ in powerset(H))
+    H = neighborsY ∩ adjacenciesX
+    
+    return (DeleteOperator(x, y, Hᵢ, neighborsY, adjacenciesX) for Hᵢ in powerset(H))
 end
 
 
 
 
 """
-    forwardSearch!(g, state::CurrentState)
+backwardPhase!(g, stats::SufficientStats)
 
 Search equivance class space and continually add edges to `g` until the score stops increasing
 """
@@ -197,9 +198,6 @@ function backwardPhase!(g, stats; verbose=false)
     #TODO resuse same cached score
     #Cached score function for DeleteOperator
     score = CachedScore(stats)
-
-    #TODO Define (Insert/Delete)Operator(x,y) with empty set as default?
-    ∅ = SmallSet{maxDegree(g), Int}()
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Iterate candidates and test if they are valid
@@ -209,7 +207,7 @@ function backwardPhase!(g, stats; verbose=false)
 
         bestDeleteOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
         
-            currentDeleteOperator = DeleteOperator(x, y, ∅)
+            currentDeleteOperator = DeleteOperator(g, x, y)
         
             for op in deleteCandidates(g,x,y)
                 if isValidDelete(g, op)

@@ -1,6 +1,21 @@
 using GreedyEquivalenceSearch
-using SmallCollections
 using Test
+# using CSV, DataFrames
+using SmallCollections
+
+
+@testset "GraphDataStructure" begin
+    include("test_GraphDataStructure.jl")
+end
+
+@testset "Operators" begin
+    include("test_Operators.jl")
+end
+
+@testset "GraphAlgorithms" begin
+    include("test_GraphAlgorithms.jl")
+end
+
 
 @testset "Powerset Iterator" begin
     function test_powerset(x)
@@ -19,29 +34,7 @@ end
 
 
 
-data = randn(100,100)
-data .-= mean(data, dims=1)
+# data = CSV.read("test/testDatasets/rCausalMGM_sim_data_large.csv",DataFrame) |> Matrix
 
 
-@benchmark ges($data)
-
-@profview ges(data)
-
-@code_warntype forwardPhase(g, stats)
-
-
-g = ges(data; verbose=true)
-
-
-for (x,y) in allPermutationPairs(vertices(g))
-    for op in candidates(g,x,y)
-        if isValidInsert(g, op)
-            deltaScore = score(y, op.T ∪ parents(g,y) ∪ x) - score(y, op.T ∪ parents(g,y))
-        end
-    end
-end
-
-v=1:10
-op = tmapreduce(max, ((x,y) for x in 1:10 for y in 1:10)) do (x,y)
-    x + y
-end
+# @test data isa Matrix

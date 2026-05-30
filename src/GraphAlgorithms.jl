@@ -70,7 +70,7 @@ end
 ####################################################################
 
 
-#TODO Used better algorithm from Luttermann to restore CPDAG 
+#TODO Use better algorithm from Luttermann to restore CPDAG 
 #1. Luttermann, M., Wienobst, M. & Liskiewicz, M. Practical Algorithms for Orientations of Partially Directed Graphical Models.
 
 
@@ -125,7 +125,6 @@ function meekRules!(g)
             #For clarity extract the edge vertices
             (x, y) = edge.parent, edge.child
 
-            #TODO Can multiple rules pass for the same edge?
             if R1(g,x,y) || R2(g,x,y) || R3(g,x,y)
                 #Change x-y to x→y
                 orientEdge!(g, x, y)

@@ -1,5 +1,3 @@
-using GreedyEquivalenceSearch
-using Test
 
 @testset "PDAG to CPDAG" begin
     
