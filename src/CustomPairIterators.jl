@@ -7,10 +7,6 @@ of indices from `1` to `n`.
 Elements are returned as `Tuple{Int, Int}` in lexicographical order `(i, j)` such that 
 `1 ≤ i < j ≤ n`. The total length of the vector is `binomial(n, 2)`.
 
-Because it implements `IndexLinear`, specific pairs can be computed in \$O(1)\$ time 
-from a linear index without allocating the underlying array. It is also explicitly marked 
-as chunkable for seamless integration with `ChunkSplitters.jl`.
-
 # Fields
 - `n::Int`: The upper bound of the index pool.
 
@@ -99,10 +95,6 @@ of indices from `1` to `n`.
 Elements are returned as `Tuple{Int, Int}` in row-major order `(i, j)` such that 
 `1 ≤ i ≤ n`, `1 ≤ j ≤ n`, and `i ≠ j` (the diagonal is skipped). The total length 
 of the vector is `n * (n - 1)`.
-
-Because it implements `IndexLinear`, specific pairs can be computed in \$O(1)\$ time 
-from a linear index using basic arithmetic. It is explicitly marked as chunkable for 
-seamless integration with `ChunkSplitters.jl`.
 
 # Fields
 - `n::Int`: The upper bound of the index pool.

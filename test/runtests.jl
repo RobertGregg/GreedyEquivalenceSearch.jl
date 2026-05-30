@@ -98,7 +98,7 @@ modelPrecision(continTable) = continTable[1,1] / sum(continTable[:,1])
 modelRecall(continTable) = continTable[1,1] / sum(continTable[1,:])
 
 
-continTableJulia = contingencyTable(g,gTrue)
+continTableJulia = contingencyTable(gJulia,gTrue)
 modelPrecision(continTableJulia)
 modelRecall(continTableJulia)
 

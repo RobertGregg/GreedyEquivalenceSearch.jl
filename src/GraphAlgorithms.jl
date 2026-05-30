@@ -70,7 +70,7 @@ end
 ####################################################################
 
 
-#TODO Use better algorithm from Luttermann to restore CPDAG 
+#TODO Use faster algorithm from Luttermann to restore CPDAG 
 #1. Luttermann, M., Wienobst, M. & Liskiewicz, M. Practical Algorithms for Orientations of Partially Directed Graphical Models.
 
 

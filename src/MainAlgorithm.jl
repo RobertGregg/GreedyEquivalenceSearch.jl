@@ -5,6 +5,9 @@ Compute a causal graph for the given observed data.
 """
 function ges(data; verbose=false)
     
+    #TODO Either tell the user to mean center data or have a check for this
+    data .-= mean(data,dims=1)
+
     stats = SufficientStats(data)
     g = Graph(stats.variablesCount)
 
@@ -14,19 +17,38 @@ function ges(data; verbose=false)
     return g
 end
 
-#executes when verbose flag is true
+# #executes when verbose flag is true
 function printState(stage, op, cache)
+    forward = stage == "Forward Search"
 
-    printstyled("Current State\n", bold=true, color=:blue)
-    print("Stage: ")
-    printstyled("$stage\n", color= stage == "Forward Search" ? :green : :red)
-    println("Score: $(op.scoreDelta)")
-    println("Edge: $(op.x)→$(op.y)")
-    println("Subset: $(stage == "Forward Search" ? op.T : op.H)")
-    println("Cache: $(round(100length(cache) / cache.maxsize, digits=3))%")
-    println("----------------------------------")
-end 
+    subset = forward ?
+        SmallVector{capacity(op.T)}(op.T) :
+        SmallVector{capacity(op.H)}(op.H)
 
+    cache_pct = round(100 * length(cache) / cache.maxsize, digits=3)
+
+    printstyled("[$stage]", color=forward ? :green : :red, bold=true)
+
+    print(" ")
+
+    printstyled("Edge=", color=:cyan, bold=true)
+    print(op.x, "→", op.y)
+
+    print(" ")
+
+    printstyled("ΔScore=", color=:black, bold=true)
+    print(round(op.scoreDelta, digits=4))
+
+    print(" ")
+
+    printstyled("Subset=", color=:magenta, bold=true)
+    print(subset)
+
+    print(" ")
+
+    printstyled("Cache=", color=:blue, bold=true)
+    println(cache_pct, "%")
+end
 
 
 ####################################################################
@@ -36,7 +58,7 @@ end
 
 """
     Insert!(g, op::InsertOperator)
-Modify the graph `g` by directing the edge `op.x`→`op.y` and orient all neighbors of `y` not connected to `x` toward `y`. Additionally use Meek rules to convert back to a CPDAG
+Modify the graph `g` by directing the edge `op.x`→`op.y` and orient all neighbors of `y` not connected to `x` toward `y`. Additionally use Meek rules to convert back to a CPDAG.
 """
 function Insert!(g, op::InsertOperator) 
 
@@ -65,15 +87,19 @@ Search equivance class space and continually add edges to `g` until the score st
 """
 function forwardPhase!(g, stats; verbose=false)
     
-    #The first edge is always the pair of variables with the highest covariance 
-    x, y = argmax(((i,j),) -> stats.covariance[i,j], allCombinationPairs(vertices(g)))
+    #The first edge is always the pair of variables with the highest correlation = cov²(x,y)/(var(x)⋅var(y))
+    # Σ = stats.covariance
+    # x, y = argmax(((i,j),) -> Σ[i,j]^2 / (Σ[i,i] * Σ[j,j]), allCombinationPairs(vertices(g)))
 
-    bestInsertOperator = InsertOperator(g, x, y)
-    Insert!(g, bestInsertOperator)
+    # bestInsertOperator = InsertOperator(g, x, y)
+    # Insert!(g, bestInsertOperator)
 
 
-    #Cached score function for InsertOperator
+    # #Cached score function for InsertOperator
     score = CachedScore(stats)
+
+    # #Print first insert if verbose
+    # verbose && printState("Forward Search", bestInsertOperator, score.cache)
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Iterate candidates and test if they are valid
@@ -102,7 +128,7 @@ function forwardPhase!(g, stats; verbose=false)
         # end
         
         # #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        bestInsertOperator = InsertOperator(g, x, y)
+        bestInsertOperator = InsertOperator(g, 1, 2)
         for (x,y) in allPermutationPairs(vertices(g))
 
             for op in insertCandidates(g,x,y)
