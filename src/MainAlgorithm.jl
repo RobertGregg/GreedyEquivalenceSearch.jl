@@ -1,4 +1,8 @@
 
+####################################################################
+# Main Function
+####################################################################
+
 """
     ges(data; verbose=false)
 Compute a causal graph for the given observed data.
@@ -96,7 +100,7 @@ function forwardPhase!(g, stats; verbose=false)
     #4. After iterating all nodes, insert the best candidate
     while true
 
-        #TODO Save neighbors and parents of each node to skip some validity checks
+        #TODO Use saved neighbors and parents of y to skip some validity checks
         # bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
         
         #     currentInsertOperator = InsertOperator(g, x, y)
@@ -117,7 +121,7 @@ function forwardPhase!(g, stats; verbose=false)
         #     currentInsertOperator
         # end
         
-        # #For profiling it's easier to optimize other parts of the code using the nonparallel loop
+        #For profiling it's easier to optimize other parts of the code using the nonparallel loop
         bestInsertOperator = InsertOperator(g, 1, 2)
         for (x,y) in allPermutationPairs(vertices(g))
 
@@ -189,16 +193,6 @@ function Delete!(g, op::DeleteOperator)
 end
 
 
-function deleteCandidates(g, op)
-    
-
-    #neighbors of y that are adjacent to x
-    H = op.NAyx
-    
-    return (setH(op, Hᵢ) for Hᵢ in powerset(H))
-end
-
-
 
 
 """
@@ -218,7 +212,27 @@ function backwardPhase!(g, stats; verbose=false)
     #4. After iterating all nodes, insert the best candidate
     while true
 
-        bestDeleteOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
+        # bestDeleteOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
+        
+        #     currentDeleteOperator = DeleteOperator(g, x, y)
+        
+        #     for op in deleteCandidates(g, currentDeleteOperator)
+        #         if isValidDelete(g, op)
+        
+        #             op = score(op)
+        
+        #             if op > currentDeleteOperator
+        #                 currentDeleteOperator = op
+        #             end
+        
+        #         end
+        #     end
+        
+        #     currentDeleteOperator
+        # end
+
+        bestDeleteOperator = DeleteOperator(g,1,2)
+        for (x,y) in allPermutationPairs(vertices(g))
         
             currentDeleteOperator = DeleteOperator(g, x, y)
         
@@ -227,13 +241,12 @@ function backwardPhase!(g, stats; verbose=false)
         
                     op = score(op)
         
-                    if op > currentDeleteOperator
-                        currentDeleteOperator = op
+                    if op > bestDeleteOperator
+                        bestDeleteOperator = op
                     end
         
                 end
             end
-        
             currentDeleteOperator
         end
 
@@ -252,3 +265,13 @@ function backwardPhase!(g, stats; verbose=false)
     return nothing
 end
 
+
+
+function deleteCandidates(g, op)
+    
+
+    #neighbors of y that are adjacent to x
+    H = op.NAyx
+    
+    return (setH(op, Hᵢ) for Hᵢ in powerset(H))
+end

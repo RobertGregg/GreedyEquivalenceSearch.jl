@@ -1,5 +1,5 @@
 ================================================================================
-FGES (Sat, May 30, 2026 07:04:11 PM)
+FGES (Sat, May 30, 2026 11:28:04 PM)
 ================================================================================
 
 Runtime Parameters
@@ -43,13 +43,13 @@ timeLag: 0
 verbose: yes
 
 
-Sat, May 30, 2026 07:04:11 PM: Start data validation on file medium_sim_data.csv.
-Sat, May 30, 2026 07:04:11 PM: End data validation on file medium_sim_data.csv.
+Sat, May 30, 2026 11:28:04 PM: Start data validation on file medium_sim_data.csv.
+Sat, May 30, 2026 11:28:04 PM: End data validation on file medium_sim_data.csv.
 There are 1000 cases and 100 variables.
 
-Sat, May 30, 2026 07:04:11 PM: Start reading in file medium_sim_data.csv.
-Sat, May 30, 2026 07:04:11 PM: Finished reading in file medium_sim_data.csv.
-Sat, May 30, 2026 07:04:11 PM: File medium_sim_data.csv contains 1000 cases, 100 variables.
+Sat, May 30, 2026 11:28:04 PM: Start reading in file medium_sim_data.csv.
+Sat, May 30, 2026 11:28:04 PM: Finished reading in file medium_sim_data.csv.
+Sat, May 30, 2026 11:28:04 PM: File medium_sim_data.csv contains 1000 cases, 100 variables.
 
-Start search: Sat, May 30, 2026 07:04:11 PM
+Start search: Sat, May 30, 2026 11:28:04 PM
 --------------------------------------------------------------------------------

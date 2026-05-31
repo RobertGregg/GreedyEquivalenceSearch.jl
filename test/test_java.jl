@@ -2,47 +2,7 @@ using GreedyEquivalenceSearch
 using CSV, DataFrames
 
 
-
-smallData = CSV.read("test/javaCompare/simulatedDAGs/small_sim_data.csv", DataFrame) |> Matrix
-mediumData = CSV.read("test/javaCompare/simulatedDAGs/medium_sim_data.csv", DataFrame) |> Matrix
-
-
-
-gJuliaSmall = ges(smallData; verbose=true)
-
-@profview ges(mediumData)
-
-
-#Read and parse the java results
-gJava = Graph(size(data,2))
-javaFilepath = "test/data/features500_observations1000_out.txt"
-
-javaResult = filter(line -> occursin(r"\"X\d+\" \D{3} \"X\d+\"",line), readlines(open(javaFilepath)))
-javaResult = split.(javaResult," ")
-
-javaEdges = [parse.(Int, filter.(isdigit, line[[2,4]])) for line in javaResult]
-
-for (i,edge) in enumerate(javaEdges)
-
-    addEdge!(gJava,edge..., directed = javaResult[i][3] == "-->")
-
-end
-
-#Generate the true graph
-gTrue = Graph(size(smallData,2))
-
-simEdges = CSV.read("test/javaCompare/simulatedDAGs/small_sim_graph.csv",DataFrame) |> Matrix
-
-#Split "X1 --> X25" into  ["X1",   "-->",  "X25"]
-simEdges = reduce(vcat, split.(simEdges, " ") |> x -> permutedims.(x))
-
-for i in axes(simEdges,1)
-    nodes = parse.(Int, filter.(isdigit,simEdges[i,[1,3]]))
-    addEdge!(gTrue,nodes...)
-end
-
-
-#Calculate precision and recall
+#Calculate precision and recall for edge recovery
 function contingencyTable(g,gTrue)
 
     continTable = zeros(Int,2,2)
@@ -69,20 +29,77 @@ modelPrecision(continTable) = continTable[1,1] / sum(continTable[:,1])
 modelRecall(continTable) = continTable[1,1] / sum(continTable[1,:])
 
 
-continTableJulia = contingencyTable(gJuliaSmall,gTrue)
-modelPrecision(continTableJulia)
-modelRecall(continTableJulia)
+function runComparison(dataSize; verbose=false)
+    
+    ##################
+    # Julia
+    ##################
+
+    data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
+
+    gJulia = ges(data; verbose)
+
+    ##################
+    # Java
+    ##################
+
+    gJava = Graph(size(data,2))
+    javaFilepath = "test/javaCompare/$(dataSize)DAG_out.txt"
+
+    javaResult = filter(line -> occursin(r"\"X\d+\" \D{3} \"X\d+\"",line), readlines(open(javaFilepath)))
+    javaResult = split.(javaResult," ")
+
+    javaEdges = [parse.(Int, filter.(isdigit, line[[2,4]])) for line in javaResult]
+
+    for (i,edge) in enumerate(javaEdges)
+
+        addEdge!(gJava,edge..., directed = javaResult[i][3] == "-->")
+
+    end
+
+    ##################
+    # True Graph
+    ##################
+
+    gTrue = Graph(size(data,2))
+    simEdges = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_graph.csv",DataFrame) |> Matrix
+
+    if size(simEdges,2) == 1
+        simEdges = reduce(vcat, split.(simEdges, " ") |> x -> permutedims.(x))
+    end
 
 
-continTableJava = contingencyTable(gJava,gTrue)
-modelPrecision(continTableJava)
-modelRecall(continTableJava)
+    for i in axes(simEdges,1)
+        nodes = parse.(Int, filter.(isdigit,simEdges[i,[1,3]]))
+        addEdge!(gTrue,nodes...)
+    end
 
-sum(adjacency_matrix(gJuliaSmall) .≠ adjacency_matrix(gTrue))
-sum(adjacency_matrix(gJava) .≠ adjacency_matrix(gTrue))
+    continTableJulia = contingencyTable(gJulia,gTrue)
+    precision = modelPrecision(continTableJulia)
+    recall = modelRecall(continTableJulia)
+    f1 = 2*(precision * recall)/(precision + recall)
 
-using Plots
+    @show continTableJulia
+    @show (precision, recall, f1)
 
-heatmap(adjacency_matrix(gTrue), title="True")
-heatmap(adjacency_matrix(gJulia), title="Julia")
-heatmap(adjacency_matrix(gJava), title="Java")
+    println("----------------------------------------------------")
+
+    continTableJava = contingencyTable(gJava,gTrue)
+    precision = modelPrecision(continTableJava)
+    recall = modelRecall(continTableJava)
+    f1 = 2*(precision * recall)/(precision + recall)
+
+    @show continTableJava
+    @show (precision, recall, f1)
+
+    return nothing
+end
+
+
+dataSize = "small"
+data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
+
+gJulia = ges(data; verbose=true)
+
+@benchmark  ges($data)
+@profview ges(data)
