@@ -289,14 +289,14 @@ neighbors(g,x) = heads(g,x) ∩ tails(g,x)
     parents(g,x)
 The set of vertices with directed edges that point to `x`.
 """
-parents(g, x) = setdiff(tails(g,x) , heads(g,x))
+parents(g, x) = setdiff(tails(g,x), heads(g,x))
 
 
 """
     children(g,x)
 The set of vertices with directed edges that point away from `x`.
 """
-children(g, x) = setdiff(heads(g,x) , tails(g,x))
+children(g, x) = setdiff(heads(g,x), tails(g,x))
 
 
 """

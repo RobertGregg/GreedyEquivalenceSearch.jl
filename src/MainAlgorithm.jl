@@ -86,28 +86,17 @@ end
 Search equivance class space and continually add edges to `g` until the score stops increasing
 """
 function forwardPhase!(g, stats; verbose=false)
-    
-    #The first edge is always the pair of variables with the highest correlation = cov²(x,y)/(var(x)⋅var(y))
-    # Σ = stats.covariance
-    # x, y = argmax(((i,j),) -> Σ[i,j]^2 / (Σ[i,i] * Σ[j,j]), allCombinationPairs(vertices(g)))
-
-    # bestInsertOperator = InsertOperator(g, x, y)
-    # Insert!(g, bestInsertOperator)
-
 
     # #Cached score function for InsertOperator
     score = CachedScore(stats)
-
-    # #Print first insert if verbose
-    # verbose && printState("Forward Search", bestInsertOperator, score.cache)
     
     #1. For each pair of nodes, generate all possible candidates
-    #2. Iterate candidates and test if they are valid
+    #2. Test if candidate is valid
     #3. If valid score and check against best found operator
     #4. After iterating all nodes, insert the best candidate
     while true
-        #TODO Save neighbors and parents of each node to skip some validity checks
 
+        #TODO Save neighbors and parents of each node to skip some validity checks
         # bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
         
         #     currentInsertOperator = InsertOperator(g, x, y)

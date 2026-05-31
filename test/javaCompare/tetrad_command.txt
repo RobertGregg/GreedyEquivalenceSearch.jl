@@ -1,0 +1,14 @@
+
+# Small
+
+java -jar causal-cmd-7.6.8-jar-with-dependencies.jar --dataset simulatedDAGs/small_sim_data.csv --algorithm FGES --delimiter comma --data-type continuous --score sem-bic-score -prefix smallDAG --penaltyDiscount 1.0 --numThreads 14 --verbose Yes
+
+
+# Medium
+
+java -jar causal-cmd-7.6.8-jar-with-dependencies.jar --dataset simulatedDAGs/medium_sim_data.csv --algorithm FGES --delimiter comma --data-type continuous --score sem-bic-score -prefix mediumDAG --penaltyDiscount 1.0 --numThreads 14 --verbose Yes
+
+
+# Large
+
+java -jar causal-cmd-7.6.8-jar-with-dependencies.jar --dataset simulatedDAGs/large_sim_data.csv --algorithm FGES --delimiter comma --data-type continuous --score sem-bic-score -prefix largeDAG --penaltyDiscount 1.0 --numThreads 14 --verbose Yes
