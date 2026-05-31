@@ -136,21 +136,21 @@ function (cs::CachedScore)(node::Int, nodeSet::SmallSet)
 end
 
 #Updates the operator's score
-function (score::CachedScore)(g::Graph, op::InsertOperator)
+function (score::CachedScore)(op::InsertOperator)
    
-    (; x, y, T, neighborsY, adjacenciesX) = op #gettin' fancy with the struct unpacking
+    (; x, y, T, parentsY) = op #gettin' fancy with the struct unpacking
 
-    scoreDelta = score(y, T ∪ parents(g,y) ∪ x) - score(y, T ∪ parents(g,y))
+    scoreDelta = score(y, T ∪ parentsY ∪ x) - score(y, T ∪ parentsY)
 
-    return InsertOperator(x,y,T,neighborsY,adjacenciesX,scoreDelta)
+    return setScore(op, scoreDelta)
 end
 
 
-function (score::CachedScore)(g::Graph, op::DeleteOperator)
+function (score::CachedScore)(op::DeleteOperator)
    
-    (; x, y, H, neighborsY, adjacenciesX) = op
+    (; x, y, H, parentsY) = op
 
-    scoreDelta = score(y, setdiff(H ∪ parents(g,y), x)) - score(y, H ∪ parents(g,y))
+    scoreDelta = score(y, setdiff(H ∪ parentsY, x)) - score(y, H ∪ parentsY)
 
-    return DeleteOperator(x,y,H,neighborsY,adjacenciesX,scoreDelta)
+    return setScore(op, scoreDelta)
 end

@@ -8,24 +8,52 @@ struct InsertOperator{S<:SmallSet}
     y::Int
     T::S   # subset of neighborsY \ adjacenciesX
     neighborsY::S
-    adjacenciesX::S
+    parentsY::S
+    NAyx::S
     scoreDelta::Float64
 end
 
-InsertOperator(x,y,T,neighborsY,adjacenciesX) = InsertOperator(x,y,T,neighborsY,adjacenciesX,-Inf)
-InsertOperator(g,x,y) = InsertOperator(x,y,SmallSet{maxDegree(g),Int}(),neighbors(g,y),adjacencies(g,x),-Inf)
+
+function InsertOperator(g,x,y)
+
+    ∅ = SmallSet{maxDegree(g),Int}()
+
+    #These stay the same for all x,y
+    neighborsY = neighbors(g,y)
+    parentsY = parents(g,y)
+    NAyx = neighborsY ∩ adjacencies(g,x)
+    
+    return InsertOperator(x, y, ∅, neighborsY, parentsY, NAyx, -Inf)
+end
+
+setT(op::InsertOperator, T) = setproperties!!(op; T)
+setScore(op, scoreDelta) = setproperties!!(op; scoreDelta) #works for both operators
+
 
 struct DeleteOperator{S<:SmallSet}
     x::Int
     y::Int
     H::S   # subset of Ne(y) ∩ Ad(x)
     neighborsY::S
-    adjacenciesX::S
+    parentsY::S
+    NAyx::S
     scoreDelta::Float64
 end
 
-DeleteOperator(x,y,H,neighborsY,adjacenciesX) = DeleteOperator(x,y,H,neighborsY,adjacenciesX,-Inf)
-DeleteOperator(g,x,y) = DeleteOperator(x,y,SmallSet{maxDegree(g),Int}(),neighbors(g,y),adjacencies(g,x),-Inf)
+function DeleteOperator(g,x,y)
+
+    ∅ = SmallSet{maxDegree(g),Int}()
+
+    #These stay the same for all x,y
+    neighborsY = neighbors(g,y)
+    parentsY = parents(g,y)
+    NAyx = neighborsY ∩ adjacencies(g,x)
+    
+    return DeleteOperator(x, y, ∅, neighborsY, parentsY, NAyx, -Inf)
+end
+
+setH(op::DeleteOperator ,H) = setproperties!!(op; H)
+
 
 #Used to compare operators based on score
 Base.isless(a::InsertOperator, b::InsertOperator) = a.scoreDelta < b.scoreDelta
@@ -42,12 +70,12 @@ Insert(x, y, T) is valid in CPDAG G iff:
 """
 function isValidInsert(g, op::InsertOperator)
     
-    (; x, y, T, neighborsY, adjacenciesX) = op
+    (; x, y, T, NAyx) = op
     
     #If x and y are adjacent then invalid
     isAdjacent(g, x, y) && return false
 
-    NAyxT = neighborsY ∩ adjacenciesX ∪ T
+    NAyxT = NAyx ∪ T
 
     #If NAyxT not a clique, then invalid
     isClique(g, NAyxT) || return false
@@ -65,13 +93,10 @@ Delete(x, y, H) is valid iff:
 """
 function isValidDelete(g, op::DeleteOperator)
     
-    (; x, y, H, neighborsY, adjacenciesX) = op
+    (; x, y, H, NAyx) = op
 
     #If x and y are not adjacent, then invalid
     isAdjacent(g, x, y) || return false
-    
-    # H is a subset of Ne(y) ∩ Ad(x)
-    NAyx = neighborsY ∩ adjacenciesX
     
     #If NAyx \ H is a clique, then valid
     return isClique(g, setdiff(NAyx, H))

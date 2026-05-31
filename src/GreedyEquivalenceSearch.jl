@@ -4,6 +4,7 @@ using SmallCollections, SmallCombinatorics #for handling set operations, powerse
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads, ChunkSplitters #parallelization
 using LRUCache #caching the scoring function
+using BangBang #update immutable operator properties
 
 
 include("CustomPairIterators.jl")

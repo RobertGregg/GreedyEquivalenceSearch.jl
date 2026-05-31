@@ -29,9 +29,12 @@ for (i,edge) in enumerate(javaEdges)
 end
 
 #Generate the true graph
-gTrue = Graph(size(data,2))
+gTrue = Graph(size(smallData,2))
 
-simEdges = CSV.read("test/data/rCausalMGM_sim_graph_large.csv",DataFrame) |> Matrix
+simEdges = CSV.read("test/javaCompare/simulatedDAGs/small_sim_graph.csv",DataFrame) |> Matrix
+
+#Split "X1 --> X25" into  ["X1",   "-->",  "X25"]
+simEdges = reduce(vcat, split.(simEdges, " ") |> x -> permutedims.(x))
 
 for i in axes(simEdges,1)
     nodes = parse.(Int, filter.(isdigit,simEdges[i,[1,3]]))
@@ -66,7 +69,7 @@ modelPrecision(continTable) = continTable[1,1] / sum(continTable[:,1])
 modelRecall(continTable) = continTable[1,1] / sum(continTable[1,:])
 
 
-continTableJulia = contingencyTable(gJulia,gTrue)
+continTableJulia = contingencyTable(gJuliaSmall,gTrue)
 modelPrecision(continTableJulia)
 modelRecall(continTableJulia)
 
@@ -75,7 +78,7 @@ continTableJava = contingencyTable(gJava,gTrue)
 modelPrecision(continTableJava)
 modelRecall(continTableJava)
 
-sum(adjacency_matrix(gJulia) .≠ adjacency_matrix(gTrue))
+sum(adjacency_matrix(gJuliaSmall) .≠ adjacency_matrix(gTrue))
 sum(adjacency_matrix(gJava) .≠ adjacency_matrix(gTrue))
 
 using Plots

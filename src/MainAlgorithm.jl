@@ -101,13 +101,14 @@ function forwardPhase!(g, stats; verbose=false)
         
         #     currentInsertOperator = InsertOperator(g, x, y)
         
-        #     for op in insertCandidates(g,x,y)
+        #     for op in insertCandidates(g, currentInsertOperator)
         #         if isValidInsert(g, op)
+                    
+        #             #Calculate the change in score for applying this operator
+        #             op = score(op)
         
-        #             scoredOperator = score(g, op)
-        
-        #             if scoredOperator > currentInsertOperator
-        #                 currentInsertOperator = scoredOperator
+        #             if op > currentInsertOperator
+        #                 currentInsertOperator = op
         #             end
         
         #         end
@@ -120,15 +121,17 @@ function forwardPhase!(g, stats; verbose=false)
         bestInsertOperator = InsertOperator(g, 1, 2)
         for (x,y) in allPermutationPairs(vertices(g))
 
-            for op in insertCandidates(g,x,y)
+            currentInsertOperator = InsertOperator(g, x, y)
+            for op in insertCandidates(g, currentInsertOperator)
 
                 #Check for adjacencies, cliques, and semi-directed paths
                 if isValidInsert(g, op)
 
-                    scoredOperator = score(g, op)
+                    #Calculate the change in score for applying this operator
+                    op = score(op)
 
-                    if scoredOperator > bestInsertOperator
-                        bestInsertOperator = scoredOperator
+                    if op > bestInsertOperator
+                        bestInsertOperator = op
                     end
 
                 end
@@ -152,15 +155,12 @@ end
 
 
 
-function insertCandidates(g,x,y)
-    
-    neighborsY = neighbors(g,y)
-    adjacenciesX = adjacencies(g,x)
+function insertCandidates(g, op)
     
     #neighbors of y that are not adjacent to x
-    T = setdiff(neighborsY, adjacenciesX)
+    T = setdiff(op.neighborsY, adjacencies(g, op.x))
     
-    return (InsertOperator(x, y, Tᵢ, neighborsY, adjacenciesX) for Tᵢ in powerset(T))
+    return (setT(op,Tᵢ) for Tᵢ in powerset(T))
 end
 
 
@@ -189,15 +189,13 @@ function Delete!(g, op::DeleteOperator)
 end
 
 
-function deleteCandidates(g,x,y)
+function deleteCandidates(g, op)
     
-    neighborsY = neighbors(g,y)
-    adjacenciesX = adjacencies(g,x)
 
     #neighbors of y that are adjacent to x
-    H = neighborsY ∩ adjacenciesX
+    H = op.NAyx
     
-    return (DeleteOperator(x, y, Hᵢ, neighborsY, adjacenciesX) for Hᵢ in powerset(H))
+    return (setH(op, Hᵢ) for Hᵢ in powerset(H))
 end
 
 
@@ -224,13 +222,13 @@ function backwardPhase!(g, stats; verbose=false)
         
             currentDeleteOperator = DeleteOperator(g, x, y)
         
-            for op in deleteCandidates(g,x,y)
+            for op in deleteCandidates(g, currentDeleteOperator)
                 if isValidDelete(g, op)
         
-                    scoredOperator = score(g, op)
+                    op = score(op)
         
-                    if scoredOperator > currentDeleteOperator
-                        currentDeleteOperator = scoredOperator
+                    if op > currentDeleteOperator
+                        currentDeleteOperator = op
                     end
         
                 end
