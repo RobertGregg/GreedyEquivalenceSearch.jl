@@ -102,4 +102,4 @@ data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataF
 gJulia = ges(data; verbose=true, maxDegree=12)
 
 @benchmark  ges($data)
-@profview ges(data; maxDegree=24)
+@profview ges(data)

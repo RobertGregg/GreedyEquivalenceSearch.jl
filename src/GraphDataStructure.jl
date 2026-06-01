@@ -3,8 +3,9 @@
 ####################################################################
 
 struct Graph{S<:AbstractVector{<:AbstractSet{<:Integer}}}
-    heads::S
-    tails::S
+    parents::S
+    neighbors::S
+    children::S
 end
 
 """
@@ -12,15 +13,14 @@ end
 
 Create an empty graph with `n` vertices and zero edges.
 
-Edge information is stored as an adjacency list using two vectors of `SmallSet`s, making
+Edge information is stored as an adjacency list using three vectors of `SmallSet`s, making
 set operations fast at the cost of a hard limit on the number of edges per vertex, given
 by `maxDegree` (default 16).
 
-Adjacency sets can be accessed via `heads(g, x)` and `tails(g, x)` for vertex `x`.
-
-See also: [`maxDegree`](@ref), [`heads`](@ref), [`tails`](@ref)
+See also: [`maxDegree`](@ref)
 """
 Graph(n; maxDegree=16) = Graph(
+    [SmallSet{maxDegree, Int}() for _ in 1:n],
     [SmallSet{maxDegree, Int}() for _ in 1:n],
     [SmallSet{maxDegree, Int}() for _ in 1:n]
 )
@@ -30,34 +30,76 @@ Graph(n; maxDegree=16) = Graph(
 
 Return the maximum allowed number of edges per vertex in `g`.
 """
-maxDegree(g::Graph) = SmallCollections.capacity(eltype(g.heads))
+maxDegree(g::Graph) = SmallCollections.capacity(eltype(g.parents))
 
+
+####################################################################
+# Neighborhood functions 
+####################################################################
 
 """
-    heads(g,x)
-Return the vertices that vertex `x` points to, undirected edges are consider bidirectional
+    parents(g,x)
+Return the vertices that have a directed edge pointing to vertex `x`
 
 Given the graph
-    y → x - z
-heads(g,x) = [z]
+    y → x → z
+heads(g,x) = [y]
 """
-heads(g,x) = g.heads[x] 
+parents(g,x) = g.parents[x] 
+
 
 """
-    tails(g,x)
-Return the vertices that vertex `x` points from,  undirected edges are consider bidirectional
+    neighbors(g,x)
+Return the vertices that have an undirected edge to `x`
 
 Given the graph
-    y → x - z
-tails(g,x) = [y,z]
+    y - x - z
+neighbors(g,x) = [y,z]
 """
-tails(g,x) = g.tails[x] 
+neighbors(g,x) = g.neighbors[x] 
+
+
+"""
+    children(g,x)
+Return the vertices that have a directed edge pointing from vertex `x`
+
+Given the graph
+    y → x → z
+children(g,x) = [z]
+"""
+children(g,x) = g.children[x] 
+
+
+"""
+    descendents(g,x)
+The set of neighbors or children of `x`.
+"""
+descendents(g, x) = neighbors(g,x) ∪ children(g, x)
+
+
+"""
+    ancestors(g,x)
+The set of neighbors or parents of `x`.
+"""
+ancestors(g, x) = neighbors(g,x) ∪ parents(g, x)
+
+
+"""
+    adjacencies(g,x)
+The set of all vertices connected to `x`.
+"""
+adjacencies(g, x) = neighbors(g,x) ∪ parents(g, x) ∪ children(g, x)
+
+
+####################################################################
+# Counting Vertices and Edges
+####################################################################
 
 """
     vertices(g)
 An iterator through all the vertices of the graph `g` (i.e.,` 1:nv(g)`)
 """
-vertices(g) = eachindex(g.heads)
+vertices(g) = eachindex(g.parents)
 
 """
     nv(g)
@@ -65,6 +107,8 @@ Return the number of vertices in the graph `g`.
 """
 nv(g) = length(vertices(g))
 
+
+#TODO Get back to this
 """
     ne(g)
 Return the number of edges in the graph `g`.
@@ -73,19 +117,11 @@ function ne(g)
     
     edgecount = 0
 
-    #Add two for each directed edge
-    #Add one for each undirected edge (counted twice)
-    for i in vertices(g)
-        for h in heads(g,i)
-            if i in heads(g,h)
-                edgecount += 1
-            else
-                edgecount += 2
-            end
-        end
+    for edge in edges(g)
+        edgecount += 1
     end
 
-    return edgecount ÷ 2
+    return edgecount
 end
 
 
@@ -162,12 +198,13 @@ The directed keyword can be set to false to add an undirected edge: `x`-`y`.
 This function does not check for the presence of an edge beforehand.
 """
 function addEdge!(g,x,y; directed=true)
-    g.heads[x] = push(heads(g,x),y)
-    g.tails[y] = push(tails(g,y),x)
 
-    if !directed
-        g.heads[y] = push(heads(g,y),x)
-        g.tails[x] = push(tails(g,x),y)
+    if directed
+        g.children[x] = push(children(g,x),y)
+        g.parents[y] = push(parents(g,y),x)
+    else
+        g.neighbors[x] = push(neighbors(g,x),y)
+        g.neighbors[y] = push(neighbors(g,y),x)
     end
     return nothing
 end
@@ -180,11 +217,14 @@ Remove the edge `x`→`y` or `x`-`y` from the graph `g`.
 """
 function removeEdge!(g,x,y)
     
-    g.heads[x] = delete(heads(g,x),y)
-    g.tails[y] = delete(tails(g,y),x)
-    
-    g.heads[y] = delete(heads(g,y),x)
-    g.tails[x] = delete(tails(g,x),y)
+    #Removing potential undirected edge
+    g.neighbors[x] = delete(neighbors(g,x),y)
+    g.neighbors[y] = delete(neighbors(g,y),x)
+
+    #Removing potential directed edge
+    g.children[x] = delete(children(g,x),y)
+    g.parents[y] = delete(parents(g,y),x)
+
     return nothing
 end
 
@@ -194,12 +234,18 @@ removeEdge!(g, edge::GraphEdge) = removeEdge!(g, edge.parent, edge.child)
 orientEdge!(g, x, y)
 Update the edge `x`-`y` to `x`→`y` in the graph `g`. 
 
-This function does not check for the presence of an edge beforehand. Orienting a nonexistent edge will do nothing.
+This function does not check for the presence of an edge beforehand.
 """
 function orientEdge!(g, x, y)
     
-    g.heads[y] = delete(heads(g,y),x)
-    g.tails[x] = delete(tails(g,x),y)
+    #Remove undirected edge
+    g.neighbors[x] = delete(neighbors(g,x),y)
+    g.neighbors[y] = delete(neighbors(g,y),x)
+
+    #Add directed edge
+    g.children[x] = push(children(g,x),y)
+    g.parents[y] = push(parents(g,y),x)
+
     return nothing
 end
     
@@ -211,8 +257,13 @@ Update the edge `x`→`y` to `x`-`y` in the graph `g`.
 """
 function unorientEdge!(g, x, y)
     
-    g.heads[y] = push(heads(g,y),x)
-    g.tails[x] = push(tails(g,x),y)
+    #Remove directed edge
+    g.children[x] = delete(children(g,x),y)
+    g.parents[y] = delete(parents(g,y),x)
+
+    #Add undirected edge
+    g.neighbors[x] = push(neighbors(g,x),y)
+    g.neighbors[y] = push(neighbors(g,y),x)
     return nothing
 end
 
@@ -222,100 +273,53 @@ unorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
 # Relationship between two verticies
 ####################################################################
 
-"""
-    hasEdge(g, x, y)
-Test if `x`-`y` or `x`→`y` in the graph `g`.
-"""
-hasEdge(g,x,y) = y ∈ heads(g,x)
-
-
-"""
-    isAdjacent(g, x, y)
-Test if `x` and `y` are connected by any edge in the graph `g`.
-"""
-isAdjacent(g, x, y) = hasEdge(g,x,y) || hasEdge(g,y,x)
-
 
 """
     isNeighbor(g, x, y)
 Test if `x` and `y` are connected by a undirected edge in the graph `g`.
 """
-isNeighbor(g, x, y) = hasEdge(g,x,y) && hasEdge(g,y,x)
+isNeighbor(g, x, y) = x ∈ neighbors(g,y)
 
 
 """
     isParent(g, x, y)
 Test if `x`→`y` in the graph `g`.
 """
-isParent(g, x, y) = hasEdge(g,x,y) && !hasEdge(g,y,x)
+isParent(g, x, y) = x ∈ parents(g,y)
 
 
 """
     isChild(g, x, y)
 Test if `x`←`y` in the graph `g`.
 """
-isChild(g, x, y) = !hasEdge(g,x,y) && hasEdge(g,y,x)
+isChild(g, x, y) = x ∈ children(g,y)
 
-"""
-    isAncestor(g, x, y)
-Return `true` if `x`→`y` or `x`-`y` in the graph `g`.
-"""
-isAncestor(g, x, y) = hasEdge(g,x,y)
-
-"""
-    isDescendent(g, x, y)
-Return `true` if `x`←`y` OR `x`-`y` in the graph `g`.
-"""
-isDescendent(g, x, y) = hasEdge(g,y,x)
 
 """
     isDirected(g, x, y)
 Test if `x` and `y` are connected by a directed edge in the graph `g`, either x←y or x→y.
 """
-isDirected(g, x, y) = hasEdge(g,x,y) ⊻ hasEdge(g,y,x)
-
-####################################################################
-# Neighborhood functions 
-####################################################################
-
-"""
-    neighbors(g,x)
-The set of undirected vertices connected to `x`.
-"""
-neighbors(g,x) = heads(g,x) ∩ tails(g,x)
+isDirected(g, x, y) = isParent(g, x, y) ⊻ isParent(g, y, x)
 
 
 """
-    parents(g,x)
-The set of vertices with directed edges that point to `x`.
+    isAdjacent(g, x, y)
+Test if `x` and `y` are connected by any edge in the graph `g`.
 """
-parents(g, x) = setdiff(tails(g,x), heads(g,x))
+isAdjacent(g, x, y) = isNeighbor(g,x,y) || isDirected(g, x, y)
 
 
 """
-    children(g,x)
-The set of vertices with directed edges that point away from `x`.
+    isAncestor(g, x, y)
+Return `true` if `x`→`y` or `x`-`y` in the graph `g`.
 """
-children(g, x) = setdiff(heads(g,x), tails(g,x))
-
-
-"""
-    descendents(g,x)
-The set of neighbors and children of `x`.
-"""
-descendents(g, x) = heads(g,x)
+isAncestor(g, x, y) = isNeighbor(g,x,y) || isParent(g, x, y)
 
 """
-    ancestors(g,x)
-The set of neighbors and parents of `x`.
+    isDescendent(g, x, y)
+Return `true` if `x`←`y` OR `x`-`y` in the graph `g`.
 """
-ancestors(g, x) = tails(g,x)
-
-"""
-    adjacencies(g,x)
-The set of all vertices connected to `x`.
-"""
-adjacencies(g, x) = heads(g,x) ∪ tails(g,x)
+isDescendent(g, x, y) = isNeighbor(g,x,y) || isParent(g, y, x)
 
 
 ####################################################################

@@ -10,8 +10,9 @@
         @test collect(vertices(g)) == 1:5
         
         # Test out-of-bounds or empty edges safely
-        @test isempty(heads(g, 1))
-        @test isempty(tails(g, 1))
+        @test isempty(parents(g, 1))
+        @test isempty(children(g, 1))
+        @test isempty(neighbors(g, 1))
     end
 
     # --- TEST SET 2: Edge Modifications & Structural Logic ---
@@ -20,26 +21,25 @@
         
         # Add a directed edge: 1 → 2
         addEdge!(g, 1, 2, directed=true)
-        @test 2 ∈ heads(g, 1)
-        @test 1 ∈ tails(g, 2)
-        @test 1 ∉ heads(g, 2)  # Should not be bidirectional
+        @test 2 ∈ children(g, 1)
+        @test 1 ∈ parents(g, 2)
+        @test 1 ∉ neighbors(g, 2)  # Should not be bidirectional
         @test ne(g) == 1
         
         # Add an undirected edge: 2 - 3
         addEdge!(g, 2, 3, directed=false)
-        @test 3 ∈ heads(g, 2) && 2 ∈ tails(g, 3)
-        @test 2 ∈ heads(g, 3) && 3 ∈ tails(g, 2)
+        @test 3 ∈ neighbors(g, 2) && 2 ∈ neighbors(g, 3)
         @test ne(g) == 2
         
         # Orient an edge: Turn 2 - 3 into 2 → 3
         orientEdge!(g, 2, 3)
-        @test 3 ∈ heads(g, 2)
-        @test 2 ∉ heads(g, 3)  # Backwards connection should be severed
+        @test 3 ∈ children(g, 2)
+        @test 2 ∉ neighbors(g, 3)  # Backwards connection should be severed
         @test ne(g) == 2       # Edge count remains the same
         
         # Remove an edge
         removeEdge!(g, 1, 2)
-        @test !hasEdge(g, 1, 2)
+        @test !isAdjacent(g, 1, 2)
         @test ne(g) == 1
     end
 
