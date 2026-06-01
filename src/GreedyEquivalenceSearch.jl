@@ -4,7 +4,6 @@ using SmallCollections, SmallCombinatorics #for handling set operations, powerse
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads, ChunkSplitters #parallelization
 using OhMyThreads: TaskLocalValue
-# using LRUCache #caching the scoring function
 using BangBang #update immutable operator properties
 
 
@@ -24,6 +23,9 @@ export
     #GreedyEquivalenceSearch.jl
     powerset,
     adjacency_matrix,
+    #LRU.jl
+    LRUCache,
+    place!,
     #GraphStructure.jl
     Graph,
     GraphEdge,

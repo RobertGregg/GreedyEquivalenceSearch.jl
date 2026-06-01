@@ -69,10 +69,10 @@ from the cache. If your factory is long-running and you prefer optimistic
 ```julia
 c = LRUCache{String,Int}(3)
 place!(c, "a", 1); place!(c, "b", 2); place!(c, "c", 3)
-get(c, "a", -1)    # → 1  ("a" now MRU)
-place!(c, "d", 4)    # "b" evicted (was LRU)
+get(c, "a")        # → 1  ("a" now MRU)
+place!(c, "d", 4)  # "b" evicted (was LRU)
 haskey(c, "b")     # → false
-c["c"]             # → 99 (bracket syntax)
+c["c"] = 99        # → 99 (bracket syntax)
 ```
 """
 mutable struct LRUCache{K,V}
@@ -292,103 +292,4 @@ function Base.show(io::IO, c::LRUCache{K,V}) where {K,V}
         print(io, "\n  ⋮")
         print(io, "\n  ($(n - _SHOW_LIMIT) entries not shown, LRU = ", repr(lru_key), ")")
     end
-end
-
-
-# ================================================================
-#  Demo
-# ================================================================
-
-function demo()
-    println("=" ^ 55)
-    println("  LRU Cache Demo")
-    println("=" ^ 55)
-
-    # ── Basic insertion & eviction ──────────────────────────────
-    println("\n── Capacity-3 cache ──")
-    c = LRUCache{String,Int}(3)
-    place!(c, "a", 1); place!(c, "b", 2); place!(c, "c", 3)
-    println("After inserting a=1, b=2, c=3:")
-    println(c)
-
-    println("\nget(\"a\") = ", get(c, "a", -1), "  (\"a\" becomes MRU)")
-    println(c)
-
-    println("\nInsert d=4  →  \"b\" evicted (was LRU):")
-    place!(c, "d", 4)
-    println(c)
-    println("  haskey(\"b\") = ", haskey(c, "b"))
-
-    # ── Update existing key ─────────────────────────────────────
-    println("\n── Update existing key ──")
-    place!(c, "c", 99)
-    println("After place!(c, \"c\", 99):")
-    println(c)
-
-    # ── get! with do-block ──────────────────────────────────────
-    println("\n── get! with do-block ──")
-    calls = 0
-    for key in ["a", "x", "a", "y", "x"]
-        val = get!(c, key) do
-            calls += 1
-            length(key) * 10          # cheap stand-in for "expensive work"
-        end
-        println("  get!(c, \"$key\") = $val")
-    end
-    println("  factory called $calls time(s)  (cache hits avoided recomputation)")
-    println(c)
-
-    # ── delete! ─────────────────────────────────────────────────
-    println("\n── delete! ──")
-    delete!(c, "d")
-    println("After delete!(c, \"d\"):")
-    println(c)
-
-    # ── Bracket syntax ──────────────────────────────────────────
-    println("\n── Bracket syntax ──")
-    c["z"] = 7
-    println("c[\"z\"] = ", c["z"])
-    println(c)
-
-    # ── collect ─────────────────────────────────────────────────
-    println("\n── collect (MRU→LRU) ──")
-    println("  ", collect(c))
-
-    # ── Miss & default ──────────────────────────────────────────
-    println("\n── Cache miss ──")
-    println("  get(c, \"x\", -1) = ", get(c, "x", -1))
-
-    # ── Thread-safety demo ──────────────────────────────────────
-    println("\n── Thread-safety demo ──")
-    println("  (run with: julia -t 4 lru_cache.jl for real parallelism)")
-    println("  Threads available: $(Threads.nthreads())")
-
-    # 25 unique keys, capacity 32 → no evictions, so each key is
-    # computed exactly once no matter how many threads race on it.
-    t_cache        = LRUCache{Int,Int}(32)
-    compute_count  = Threads.Atomic{Int}(0)
-    results        = Vector{Int}(undef, 120)
-
-    @sync for i in 1:120
-        Threads.@spawn begin
-            key        = i % 25
-            results[i] = get!(t_cache, key) do
-                Threads.atomic_add!(compute_count, 1)
-                key * key           # stand-in for expensive work
-            end
-        end
-    end
-
-    expected = [(i % 25)^2 for i in 1:120]
-    @assert results == expected "Thread-safety violation: incorrect results!"
-    println("  All 120 results correct across threads ✓")
-    println("  Factory called $(compute_count[])/25 unique key(s) ",
-            "($(120 - compute_count[]) cache hits)")
-    println(t_cache)
-
-    # ── Metadata ────────────────────────────────────────────────
-    println("\n── Metadata ──")
-    println("length(c) = ", length(c), "  isempty(c) = ", isempty(c))
-
-    println("\n" * "=" ^ 55)
 end
