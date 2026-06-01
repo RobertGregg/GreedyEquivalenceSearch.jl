@@ -7,13 +7,13 @@
     ges(data; verbose=false)
 Compute a causal graph for the given observed data.
 """
-function ges(data; verbose=false)
+function ges(data; verbose=false, maxDegree=16)
     
     #TODO Either tell the user to mean center data or have a check for this
     data .-= mean(data,dims=1)
 
     stats = SufficientStats(data)
-    g = Graph(stats.variablesCount)
+    g = Graph(stats.variablesCount; maxDegree)
 
     forwardPhase!(g, stats; verbose)
     backwardPhase!(g, stats; verbose)
@@ -29,7 +29,7 @@ function printState(stage, op, cache)
         SmallVector{capacity(op.T)}(op.T) :
         SmallVector{capacity(op.H)}(op.H)
 
-    cache_pct = round(100 * length(cache) / cache.maxsize, digits=3)
+    cache_pct = round(100 * length(cache) / cache.capacity, digits=3)
 
     printstyled("[$stage]", color=forward ? :green : :red, bold=true)
 
@@ -89,10 +89,11 @@ end
 
 Search equivance class space and continually add edges to `g` until the score stops increasing
 """
-function forwardPhase!(g, stats; verbose=false)
+function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
 
     # #Cached score function for InsertOperator
-    score = CachedScore(stats)
+    score = CachedScore(stats, Val(maxDegree(g)))
+
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Test if candidate is valid
@@ -101,25 +102,25 @@ function forwardPhase!(g, stats; verbose=false)
     while true
 
         #TODO Use saved neighbors and parents of y to skip some validity checks
-        # bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
+        bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g)); scheduler=:static) do (x,y)
+
+            currentInsertOperator = InsertOperator(g, x, y)
         
-        #     currentInsertOperator = InsertOperator(g, x, y)
-        
-        #     for op in insertCandidates(g, currentInsertOperator)
-        #         if isValidInsert(g, op)
+            for op in insertCandidates(g, currentInsertOperator)
+                if isValidInsert(g, op)
                     
-        #             #Calculate the change in score for applying this operator
-        #             op = score(op)
+                    #Calculate the change in score for applying this operator
+                    op = score(op)
         
-        #             if op > currentInsertOperator
-        #                 currentInsertOperator = op
-        #             end
+                    if op > currentInsertOperator
+                        currentInsertOperator = op
+                    end
         
-        #         end
-        #     end
+                end
+            end
         
-        #     currentInsertOperator
-        # end
+            currentInsertOperator
+        end
         
         #For profiling it's easier to optimize other parts of the code using the nonparallel loop
         bestInsertOperator = InsertOperator(g, 1, 2)
@@ -204,7 +205,7 @@ function backwardPhase!(g, stats; verbose=false)
     
     #TODO resuse same cached score
     #Cached score function for DeleteOperator
-    score = CachedScore(stats)
+    score = CachedScore(stats,  Val(maxDegree(g)))
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Iterate candidates and test if they are valid
@@ -212,27 +213,7 @@ function backwardPhase!(g, stats; verbose=false)
     #4. After iterating all nodes, insert the best candidate
     while true
 
-        # bestDeleteOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
-        
-        #     currentDeleteOperator = DeleteOperator(g, x, y)
-        
-        #     for op in deleteCandidates(g, currentDeleteOperator)
-        #         if isValidDelete(g, op)
-        
-        #             op = score(op)
-        
-        #             if op > currentDeleteOperator
-        #                 currentDeleteOperator = op
-        #             end
-        
-        #         end
-        #     end
-        
-        #     currentDeleteOperator
-        # end
-
-        bestDeleteOperator = DeleteOperator(g,1,2)
-        for (x,y) in allPermutationPairs(vertices(g))
+        bestDeleteOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
         
             currentDeleteOperator = DeleteOperator(g, x, y)
         
@@ -241,14 +222,34 @@ function backwardPhase!(g, stats; verbose=false)
         
                     op = score(op)
         
-                    if op > bestDeleteOperator
-                        bestDeleteOperator = op
+                    if op > currentDeleteOperator
+                        currentDeleteOperator = op
                     end
         
                 end
             end
+        
             currentDeleteOperator
         end
+
+        # bestDeleteOperator = DeleteOperator(g,1,2)
+        # for (x,y) in allPermutationPairs(vertices(g))
+        
+        #     currentDeleteOperator = DeleteOperator(g, x, y)
+        
+        #     for op in deleteCandidates(g, currentDeleteOperator)
+        #         if isValidDelete(g, op)
+        
+        #             op = score(op)
+        
+        #             if op > bestDeleteOperator
+        #                 bestDeleteOperator = op
+        #             end
+        
+        #         end
+        #     end
+        #     currentDeleteOperator
+        # end
 
         
         if bestDeleteOperator.scoreDelta > 0

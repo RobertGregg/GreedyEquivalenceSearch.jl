@@ -117,8 +117,9 @@ struct CachedScore{S,C}
     cache::C
 end
 
+
 function CachedScore(stats::S, ::Val{D} = Val(16); maxsize=100_000) where {S,D}
-    cache = LRU{Tuple{Int,SmallSet{D,Int}},Float64}(maxsize=maxsize)
+    cache = LRUCache{Tuple{Int,SmallSet{D,Int}},Float64}(maxsize)
     CachedScore(stats, cache)
 end
 
