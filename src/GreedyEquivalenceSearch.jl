@@ -65,12 +65,15 @@ export
     isValidInsert,
     isValidDelete,
     InsertOperator,
+    DeleteOperator,
     #Score.jl
     SufficientStats,
+    CachedScore,
     score,
     #MainAlgorithm.jl
     forwardPhase!,
     backwardPhase!,
-    ges
+    ges,
+    insertCandidates
 
 end

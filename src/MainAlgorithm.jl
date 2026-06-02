@@ -94,6 +94,26 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
     # #Cached score function for InsertOperator
     score = CachedScore(stats, Val(maxDegree(g)))
 
+    #potential idea: save the "base" operator for each (x,y) and only update T,score,etc
+    # operators = [InsertOperator(g, x, y) for (x,y) in allPermutationPairs(vertices(g))]
+
+    # tmap!(operators, operators) do currentInsertOperator
+
+    #     for op in insertCandidates(g, currentInsertOperator)
+    #         if isValidInsert(g, op)
+
+    #             #Calculate the change in score for applying this operator
+    #             op = score(op)
+
+    #             if op > currentInsertOperator
+    #                 currentInsertOperator = op
+    #             end
+    #         end
+    #     end
+
+    #     currentInsertOperator
+    # end
+
     
     #1. For each pair of nodes, generate all possible candidates
     #2. Test if candidate is valid
@@ -102,7 +122,7 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
     while true
 
         #TODO Use saved neighbors and parents of y to skip some validity checks
-        bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g)); scheduler=:static) do (x,y)
+        bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
 
             currentInsertOperator = InsertOperator(g, x, y)
         
@@ -119,29 +139,29 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
                 end
             end
         
-            currentInsertOperator
+            return currentInsertOperator
         end
         
         #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        bestInsertOperator = InsertOperator(g, 1, 2)
-        for (x,y) in allPermutationPairs(vertices(g))
+        # bestInsertOperator = InsertOperator(g, 1, 2)
+        # for (x,y) in allPermutationPairs(vertices(g))
 
-            currentInsertOperator = InsertOperator(g, x, y)
-            for op in insertCandidates(g, currentInsertOperator)
+        #     currentInsertOperator = InsertOperator(g, x, y)
+        #     for op in insertCandidates(g, currentInsertOperator)
 
-                #Check for adjacencies, cliques, and semi-directed paths
-                if isValidInsert(g, op)
+        #         #Check for adjacencies, cliques, and semi-directed paths
+        #         if isValidInsert(g, op)
 
-                    #Calculate the change in score for applying this operator
-                    op = score(op)
+        #             #Calculate the change in score for applying this operator
+        #             op = score(op)
 
-                    if op > bestInsertOperator
-                        bestInsertOperator = op
-                    end
+        #             if op > bestInsertOperator
+        #                 bestInsertOperator = op
+        #             end
 
-                end
-            end
-        end
+        #         end
+        #     end
+        # end
 
 
         if bestInsertOperator.scoreDelta > 0

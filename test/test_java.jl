@@ -99,7 +99,7 @@ end
 dataSize = "small"
 data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
 
-gJulia = ges(data; verbose=true, maxDegree=12)
+gJulia = ges(data; verbose=true, maxDegree=16)
 
 @benchmark  ges($data)
 @profview ges(data)

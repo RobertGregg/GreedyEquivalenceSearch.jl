@@ -13,11 +13,16 @@ struct InsertOperator{S<:SmallSet}
     scoreDelta::Float64
 end
 
+function Base.show(io::IO, op::InsertOperator)
+    print(io,"InsertOperator($(op.x) → $(op.y))")
+end
+
+
 
 function InsertOperator(g,x,y)
-
+    
     ∅ = SmallSet{maxDegree(g),Int}()
-
+    
     #These stay the same for all x,y
     neighborsY = neighbors(g,y)
     parentsY = parents(g,y)
@@ -40,10 +45,14 @@ struct DeleteOperator{S<:SmallSet}
     scoreDelta::Float64
 end
 
+function Base.show(io::IO, op::DeleteOperator)
+    print(io,"DeleteOperator($(op.x) -/→ $(op.y))")
+end
+
 function DeleteOperator(g,x,y)
-
+    
     ∅ = SmallSet{maxDegree(g),Int}()
-
+    
     #These stay the same for all x,y
     neighborsY = neighbors(g,y)
     parentsY = parents(g,y)
