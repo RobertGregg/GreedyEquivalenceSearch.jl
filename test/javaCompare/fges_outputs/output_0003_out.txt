@@ -1,0 +1,136 @@
+================================================================================
+FGES (Tue, June 02, 2026 08:33:47 PM)
+================================================================================
+
+Runtime Parameters
+--------------------------------------------------------------------------------
+number of threads: 19
+
+Dataset
+--------------------------------------------------------------------------------
+file: dag_data_0003.csv
+header: yes
+delimiter: comma
+quote char: none
+missing marker: none
+comment marker: none
+
+Algorithm Run
+--------------------------------------------------------------------------------
+algorithm: FGES
+score: Sem BIC Score
+
+Algorithm Parameters
+--------------------------------------------------------------------------------
+addOriginalDataset: no
+bootstrappingNumThreads: 1
+faithfulnessAssumed: no
+fractionResampleSize: 100
+maxDegree: 1000
+numberResampling: 0
+numThreads: 14
+penaltyDiscount: 1
+precomputeCovariances: no
+resamplingEnsemble: 1
+resamplingWithReplacement: no
+saveBootstrapGraphs: no
+seed: -1
+semBicRule: 1
+semBicStructurePrior: 0.0
+singularityLambda: 0.0
+symmetricFirstStep: no
+timeLag: 0
+verbose: yes
+
+
+Tue, June 02, 2026 08:33:47 PM: Start data validation on file dag_data_0003.csv.
+Tue, June 02, 2026 08:33:47 PM: End data validation on file dag_data_0003.csv.
+There are 500 cases and 50 variables.
+
+Tue, June 02, 2026 08:33:47 PM: Start reading in file dag_data_0003.csv.
+Tue, June 02, 2026 08:33:47 PM: Finished reading in file dag_data_0003.csv.
+Tue, June 02, 2026 08:33:47 PM: File dag_data_0003.csv contains 500 cases, 50 variables.
+
+Start search: Tue, June 02, 2026 08:33:47 PM
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+End search: Tue, June 02, 2026 08:33:48 PM
+
+================================================================================
+Graph Nodes:
+"X1";"X2";"X3";"X4";"X5";"X6";"X7";"X8";"X9";"X10";"X11";"X12";"X13";"X14";"X15";"X16";"X17";"X18";"X19";"X20";"X21";"X22";"X23";"X24";"X25";"X26";"X27";"X28";"X29";"X30";"X31";"X32";"X33";"X34";"X35";"X36";"X37";"X38";"X39";"X40";"X41";"X42";"X43";"X44";"X45";"X46";"X47";"X48";"X49";"X50"
+
+Graph Edges:
+1. "X10" --> "X15"
+2. "X10" --> "X27"
+3. "X10" --> "X29"
+4. "X10" --> "X38"
+5. "X10" --> "X42"
+6. "X10" --> "X44"
+7. "X11" --> "X2"
+8. "X11" --> "X26"
+9. "X12" --> "X27"
+10. "X12" --> "X3"
+11. "X12" --> "X45"
+12. "X13" --> "X14"
+13. "X13" --- "X48"
+14. "X14" --> "X15"
+15. "X14" --> "X16"
+16. "X14" --> "X21"
+17. "X14" --> "X22"
+18. "X15" --> "X26"
+19. "X15" --> "X30"
+20. "X15" --> "X35"
+21. "X15" --> "X42"
+22. "X15" --> "X46"
+23. "X15" --> "X8"
+24. "X18" --> "X15"
+25. "X20" --- "X28"
+26. "X20" --> "X5"
+27. "X21" --> "X10"
+28. "X22" --> "X19"
+29. "X22" --> "X46"
+30. "X23" --- "X18"
+31. "X24" --> "X11"
+32. "X24" --> "X2"
+33. "X24" --> "X21"
+34. "X24" --> "X30"
+35. "X25" --> "X5"
+36. "X27" --> "X30"
+37. "X27" --> "X8"
+38. "X29" --> "X32"
+39. "X3" --> "X27"
+40. "X3" --> "X32"
+41. "X3" --> "X35"
+42. "X30" --> "X45"
+43. "X31" --> "X16"
+44. "X31" --> "X42"
+45. "X31" --> "X5"
+46. "X32" --> "X17"
+47. "X35" --> "X31"
+48. "X37" --- "X1"
+49. "X38" --> "X16"
+50. "X38" --> "X30"
+51. "X38" --> "X44"
+52. "X39" --> "X45"
+53. "X4" --> "X22"
+54. "X40" --> "X38"
+55. "X41" --> "X32"
+56. "X42" --> "X11"
+57. "X42" --> "X17"
+58. "X43" --> "X3"
+59. "X43" --> "X8"
+60. "X44" --> "X22"
+61. "X44" --> "X5"
+62. "X45" --> "X41"
+63. "X50" --> "X45"
+64. "X7" --> "X14"
+65. "X7" --> "X27"
+66. "X7" --- "X28"
+67. "X7" --- "X50"
+68. "X8" --> "X38"
+69. "X9" --> "X32"
+
+Graph Attributes:
+Score: -62738.854606
+BIC: -62738.854606

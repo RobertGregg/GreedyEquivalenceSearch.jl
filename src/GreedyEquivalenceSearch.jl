@@ -12,6 +12,7 @@ include("CustomPairIterators.jl")
 include("GraphDataStructure.jl")
 include("GraphAlgorithms.jl")
 include("Operators.jl")
+include("ValidityTests.jl")
 include("Score.jl")
 include("MainAlgorithm.jl")
 

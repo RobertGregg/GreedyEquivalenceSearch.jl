@@ -1,5 +1,6 @@
 using GreedyEquivalenceSearch
 using CSV, DataFrames
+using Printf
 
 
 #Calculate precision and recall for edge recovery
@@ -29,22 +30,26 @@ modelPrecision(continTable) = continTable[1,1] / sum(continTable[:,1])
 modelRecall(continTable) = continTable[1,1] / sum(continTable[1,:])
 
 
-function runComparison(dataSize; verbose=false)
+function runComparisons(idnum; verbose=true)
     
+    dataID = @sprintf("%04d", idnum)
+
+    println("running DAG $idnum")
+
     ##################
     # Julia
     ##################
 
-    data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
+    data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
 
-    gJulia = ges(data; verbose)
+    gJulia = ges(data; verbose=verbose, maxDegree=32)
 
     ##################
     # Java
     ##################
 
-    gJava = Graph(size(data,2))
-    javaFilepath = "test/javaCompare/$(dataSize)DAG_out.txt"
+    gJava = Graph(size(data,2); maxDegree=32)
+    javaFilepath = "test/javaCompare/fges_outputs/output_$(dataID)_out.txt"
 
     javaResult = filter(line -> occursin(r"\"X\d+\" \D{3} \"X\d+\"",line), readlines(open(javaFilepath)))
     javaResult = split.(javaResult," ")
@@ -61,8 +66,8 @@ function runComparison(dataSize; verbose=false)
     # True Graph
     ##################
 
-    gTrue = Graph(size(data,2))
-    simEdges = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_graph.csv",DataFrame) |> Matrix
+    gTrue = Graph(size(data,2); maxDegree=32)
+    simEdges = CSV.read("test/javaCompare/simulatedDAGs/dag_graph_$(dataID).csv",DataFrame) |> Matrix
 
     if size(simEdges,2) == 1
         simEdges = reduce(vcat, split.(simEdges, " ") |> x -> permutedims.(x))
@@ -75,31 +80,201 @@ function runComparison(dataSize; verbose=false)
     end
 
     continTableJulia = contingencyTable(gJulia,gTrue)
-    precision = modelPrecision(continTableJulia)
-    recall = modelRecall(continTableJulia)
-    f1 = 2*(precision * recall)/(precision + recall)
-
-    @show continTableJulia
-    @show (precision, recall, f1)
-
-    println("----------------------------------------------------")
-
+    jp = modelPrecision(continTableJulia)
+    jr = modelRecall(continTableJulia)
+    jf = 2*(jp * jr)/(jp + jr)
+    jh = sum(adjacency_matrix(gJulia) .≠ adjacency_matrix(gTrue))
+    
+    
     continTableJava = contingencyTable(gJava,gTrue)
-    precision = modelPrecision(continTableJava)
-    recall = modelRecall(continTableJava)
-    f1 = 2*(precision * recall)/(precision + recall)
-
-    @show continTableJava
-    @show (precision, recall, f1)
-
-    return nothing
+    qp = modelPrecision(continTableJava)
+    qr = modelRecall(continTableJava)
+    qf = 2*(qp * qr)/(qp + qr)
+    qh = sum(adjacency_matrix(gJava) .≠ adjacency_matrix(gTrue))
+    
+    return (precision=jp, recall=jr, f1=jf, ham=jh), (precision=qp, recall=qr, f1=qf, ham=qh)
 end
 
 
-dataSize = "small"
-data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
+# Preallocate the DataFrame with typed columns
+results = DataFrame(
+    id          = Int[],
+    java_prec   = Float64[],
+    java_rec    = Float64[],
+    java_ham   = Int[],
+    java_f1     = Float64[],
+    julia_prec  = Float64[],
+    julia_rec   = Float64[],
+    julia_f1    = Float64[],
+    julia_ham   = Int[]
+)
 
-gJulia = ges(data; verbose=true, maxDegree=16)
+for id in 1:36
+    julia_metrics, java_metrics  = runComparisons(id)  
 
-@benchmark  ges($data)
-@profview ges(data)
+    push!(results, (
+        id         = id,
+        java_prec  = java_metrics.precision,
+        java_rec   = java_metrics.recall,
+        java_f1    = java_metrics.f1,
+        java_ham   = java_metrics.ham,
+        julia_prec = julia_metrics.precision,
+        julia_rec  = julia_metrics.recall,
+        julia_f1   = julia_metrics.f1,
+        julia_ham  = julia_metrics.ham
+    ))
+end
+
+
+
+using Plots, StatsPlots, Statistics
+
+ids = results.id
+ 
+java_color  = RGB(0.20, 0.45, 0.75)   # steel blue
+julia_color = RGB(0.85, 0.33, 0.25)   # julia red
+ 
+metrics = [
+    ("Precision", results.java_prec,  results.julia_prec),
+    ("Recall",    results.java_rec,   results.julia_rec),
+    ("F1 Score",  results.java_f1,    results.julia_f1),
+]
+
+
+# =============================================================================
+# 2. Distribution comparison (box plots for overall summary)
+# =============================================================================
+
+metric_labels  = repeat(["Precision", "Recall", "F1"], inner = nrow(results))
+java_vals_all  = vcat(results.java_prec,  results.java_rec,  results.java_f1)
+julia_vals_all = vcat(results.julia_prec, results.julia_rec, results.julia_f1)
+ 
+
+all_vals    = vcat(java_vals_all, julia_vals_all)
+all_metrics = vcat(metric_labels, metric_labels)
+all_methods = vcat(fill("Java", length(java_vals_all)), fill("Julia", length(julia_vals_all)))
+
+p2 = groupedboxplot(all_metrics, all_vals,
+    group         = all_methods,
+    color         = [java_color julia_color],
+    alpha         = 0.75,
+    ylabel        = "Score",
+    ylims         = (0, 1),
+    grid          = true,
+    gridalpha     = 0.3,
+    legend        = :bottomright,
+    title         = "FGES: Java vs Julia — Score Distributions",
+    titlefont     = font(12, "Helvetica"),
+    size          = (700, 450),
+)
+
+savefig(p2, "comparison_distributions.png")
+
+# =============================================================================
+# 3. Difference plot  (Julia − Java, per metric)
+# =============================================================================
+
+diff_plots = map(metrics) do (label, java_vals, julia_vals)
+    diffs = julia_vals .- java_vals
+    colors = [d >= 0 ? julia_color : java_color for d in diffs]
+
+    bar(ids, diffs,
+        label       = "Julia − Java",
+        color       = colors,
+        alpha       = 0.8,
+        linewidth   = 0,
+        title       = label,
+        xlabel      = "Dataset ID",
+        ylabel      = "Δ $(label)",
+        legend      = false,
+        grid        = true,
+        gridalpha   = 0.3,
+        titlefont   = font(12, "Helvetica"),
+        tickfont    = font(9),
+    )
+    hline!([0], color=:black, lw=1.5, linestyle=:dash, label=nothing)
+end
+
+p3 = plot(diff_plots...,
+    layout        = (3, 1),
+    size          = (850, 750),
+    plot_title    = "FGES: Julia − Java (positive = Julia better)",
+    left_margin   = 8Plots.mm,
+    bottom_margin = 5Plots.mm,
+)
+savefig(p3, "comparison_difference.png")
+
+println("Saved: comparison_per_id.png, comparison_distributions.png, comparison_difference.png")
+
+
+
+
+# =============================================================================
+# 4. Hamming Distance  (lower = better, no fixed y-axis)
+# =============================================================================
+
+ham_diff = results.julia_ham .- results.java_ham
+diff_colors = [d <= 0 ? julia_color : java_color for d in ham_diff];
+
+p_ham1 = scatter(ids, results.java_ham,
+    label       = "Java",
+    color       = java_color,
+    lw          = 2,
+    markershape = :circle,
+    markersize  = 5,
+    markeralpha = 0.8,
+)
+scatter!(ids, results.julia_ham,
+    label       = "Julia",
+    color       = julia_color,
+    lw          = 2,
+    markershape = :diamond,
+    markersize  = 5,
+    markeralpha = 0.8,
+    xlims       = (0,40),
+    title       = "Hamming Distance per Dataset",
+    xlabel      = "Dataset ID",
+    ylabel      = "Hamming Distance",
+    grid        = true,
+    gridalpha   = 0.3,
+    legend      = :topleft,
+    titlefont   = font(12, "Helvetica"),
+    tickfont    = font(9),
+)
+
+p_ham2 = bar(ids, ham_diff,
+    color       = diff_colors,
+    alpha       = 0.8,
+    linewidth   = 0,
+    label       = false,
+    xlims       = (0,40),
+    title       = "Difference (Julia − Java)",
+    xlabel      = "Dataset ID",
+    ylabel      = "ΔHamming",
+    grid        = true,
+    gridalpha   = 0.3,
+    titlefont   = font(12, "Helvetica"),
+    tickfont    = font(9),
+)
+hline!([0], color=:black, lw=1.5, linestyle=:dash, label=nothing)
+annotate!(maximum(ids) * 0.8, maximum(ham_diff) * 0.9,
+    text("red = Julia better\nblue = Java better", 8, :right, :darkgray))
+
+p_ham = plot(p_ham1, p_ham2,
+    layout        = (2, 1),
+    size          = (850, 550),
+    plot_title    = "FGES: Hamming Distance — Java vs Julia",
+    left_margin   = 8Plots.mm,
+    bottom_margin = 5Plots.mm,
+)
+savefig(p_ham, "comparison_hamming.png")
+
+println("Saved: comparison_hamming.png")
+
+# dataSize = "small"
+# data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
+
+# gJulia = ges(data; verbose=true, maxDegree=16)
+
+# @benchmark  ges($data)
+# @profview ges(data)

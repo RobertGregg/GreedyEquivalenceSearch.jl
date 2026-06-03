@@ -1,0 +1,94 @@
+Elapsed initializeForwardEdgesFromEmptyGraph = 0 ms
+1. INSERT "X18" --> "X14" [] 533.4201607417888 degree = 1 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+2. INSERT "X15" --> "X7" [] 317.82878283720584 degree = 1 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+3. INSERT "X9" --> "X15" ["X7"] 324.7905439686624 degree = 2 indegree = 1 cond = 2
+--- Directing "X7" --> "X15"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+4. INSERT "X7" --> "X1" [] 273.61550774407124 degree = 2 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+5. INSERT "X2" --> "X8" [] 209.0272737593025 degree = 2 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+6. INSERT "X11" --> "X9" [] 189.54396641573953 degree = 2 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+7. INSERT "X9" --> "X16" [] 168.4065254663103 degree = 3 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+8. INSERT "X18" --> "X16" ["X9"] 177.65638174582864 degree = 3 indegree = 2 cond = 2
+--- Directing "X9" --> "X16"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+9. INSERT "X5" --> "X16" [] 222.839169977457 degree = 3 indegree = 3 cond = 3
+Starting Orientation Step D.
+Finishing Orientation Step D.
+10. INSERT "X11" --> "X10" [] 157.33780287267587 degree = 3 indegree = 3 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+11. INSERT "X13" --> "X20" [] 148.6147703202539 degree = 3 indegree = 3 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+12. INSERT "X13" --> "X14" [] 130.0637501358592 degree = 3 indegree = 3 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+13. INSERT "X11" --> "X20" ["X13"] 116.06664982293705 degree = 3 indegree = 3 cond = 2
+--- Directing "X13" --> "X20"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+14. INSERT "X11" --> "X16" [] 112.70112970599973 degree = 4 indegree = 4 cond = 4
+Starting Orientation Step D.
+Finishing Orientation Step D.
+15. INSERT "X7" --> "X12" [] 93.0800935331797 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+16. INSERT "X7" --> "X8" ["X2"] 85.13026707193012 degree = 4 indegree = 4 cond = 2
+--- Directing "X2" --> "X8"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+17. INSERT "X3" --> "X19" [] 79.50625802516015 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+18. INSERT "X1" --> "X17" [] 45.152945745284114 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+19. INSERT "X18" --> "X12" ["X7"] 23.329401767575064 degree = 4 indegree = 4 cond = 2
+--- Directing "X7" --> "X12"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+20. INSERT "X12" --> "X9" ["X11"] 21.935409903149548 degree = 4 indegree = 4 cond = 2
+--- Directing "X11" --> "X9"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+21. INSERT "X12" --> "X16" [] 10.085360108762416 degree = 5 indegree = 5 cond = 5
+Starting Orientation Step D.
+Finishing Orientation Step D.
+22. INSERT "X5" --> "X12" [] 5.8494647326083395 degree = 5 indegree = 5 cond = 3
+Starting Orientation Step D.
+Finishing Orientation Step D.
+23. INSERT "X18" --> "X19" [] 0.43202779461671525 degree = 5 indegree = 5 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+24. INSERT "X7" --> "X9" [] 1.2841346212837834 degree = 5 indegree = 5 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X12"-->"X9"---"X15")): "X9" --> "X15"
+Orienting edge (Meek R2 triangle ("X7"-->"X9"-->"X15", "X7"--"X15")): "X7" --> "X15"
+Finishing Orientation Step D.
+Elapsed time = 0.14 s
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X14"-->"X18"---"X19")): "X18" --> "X19"
+Orienting edge (Meek R1 triangle ("X18"-->"X19"---"X3")): "X19" --> "X3"
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.

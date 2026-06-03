@@ -1,40 +1,354 @@
-2026-05-30 23:27:01 INFO  org.reflections.Reflections:219 - Reflections took 66 ms to scan 1 urls, producing 17 keys and 408 values
-2026-05-30 23:27:01 INFO  org.reflections.Reflections:219 - Reflections took 6 ms to scan 1 urls, producing 8 keys and 38 values
-2026-05-30 23:27:01 INFO  org.reflections.Reflections:219 - Reflections took 7 ms to scan 1 urls, producing 7 keys and 37 values
-2026-05-30 23:27:01 ERROR edu.pitt.dbmi.causal.cmd.CausalCmdApplication:118 - 
-java.nio.file.FileSystemException: .\mediumDAG_out.txt: The process cannot access the file because it is being used by another process
-	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:92)
-	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:104)
-	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:109)
-	at java.base/sun.nio.fs.WindowsFileSystemProvider.implDelete(WindowsFileSystemProvider.java:270)
-	at java.base/sun.nio.fs.AbstractFileSystemProvider.deleteIfExists(AbstractFileSystemProvider.java:110)
-	at java.base/java.nio.file.Files.deleteIfExists(Files.java:1091)
-	at edu.pitt.dbmi.causal.cmd.CausalCmdApplication.runTetrad(CausalCmdApplication.java:140)
-	at edu.pitt.dbmi.causal.cmd.CausalCmdApplication.main(CausalCmdApplication.java:116)
-2026-05-30 23:28:04 INFO  org.reflections.Reflections:219 - Reflections took 70 ms to scan 1 urls, producing 17 keys and 408 values
-2026-05-30 23:28:04 INFO  org.reflections.Reflections:219 - Reflections took 6 ms to scan 1 urls, producing 8 keys and 38 values
-2026-05-30 23:28:04 INFO  org.reflections.Reflections:219 - Reflections took 6 ms to scan 1 urls, producing 7 keys and 37 values
-2026-05-30 23:28:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file medium_sim_data.csv.
-2026-05-30 23:28:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file medium_sim_data.csv.
-2026-05-30 23:28:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 100 variables.
-2026-05-30 23:28:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file medium_sim_data.csv.
-2026-05-30 23:28:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file medium_sim_data.csv.
-2026-05-30 23:28:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File medium_sim_data.csv contains 1000 cases, 100 variables.
-2026-05-30 23:28:06 ERROR edu.pitt.dbmi.causal.cmd.CausalCmdApplication:118 - 
-java.lang.IllegalArgumentException: Comparison method violates its general contract!
-	at java.base/java.util.TimSort.mergeLo(TimSort.java:781)
-	at java.base/java.util.TimSort.mergeAt(TimSort.java:518)
-	at java.base/java.util.TimSort.mergeCollapse(TimSort.java:448)
-	at java.base/java.util.TimSort.sort(TimSort.java:245)
-	at java.base/java.util.Arrays.sort(Arrays.java:1304)
-	at java.base/java.util.ArrayList.sortRange(ArrayList.java:1825)
-	at java.base/java.util.ArrayList.sort(ArrayList.java:1818)
-	at edu.cmu.tetrad.graph.GraphTransforms.transformCpdagIntoDag(GraphTransforms.java:112)
-	at edu.cmu.tetrad.graph.GraphTransforms.dagFromCpdag(GraphTransforms.java:88)
-	at edu.cmu.tetrad.search.Fges.search(Fges.java:275)
-	at edu.cmu.tetrad.algcomparison.algorithm.oracle.cpdag.Fges.runSearch(Fges.java:101)
-	at edu.cmu.tetrad.algcomparison.algorithm.AbstractBootstrapAlgorithm.search(AbstractBootstrapAlgorithm.java:88)
-	at edu.pitt.dbmi.causal.cmd.tetrad.TetradRunner.runSearch(TetradRunner.java:214)
-	at edu.pitt.dbmi.causal.cmd.tetrad.TetradRunner.runAlgorithm(TetradRunner.java:131)
-	at edu.pitt.dbmi.causal.cmd.CausalCmdApplication.runTetrad(CausalCmdApplication.java:152)
-	at edu.pitt.dbmi.causal.cmd.CausalCmdApplication.main(CausalCmdApplication.java:116)
+2026-06-02 20:28:46 INFO  org.reflections.Reflections:219 - Reflections took 210 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:46 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:46 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:28:47 INFO  org.reflections.Reflections:219 - Reflections took 158 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:48 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:48 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:28:50 INFO  org.reflections.Reflections:219 - Reflections took 141 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:50 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:50 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:28:52 INFO  org.reflections.Reflections:219 - Reflections took 144 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:52 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:52 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:28:54 INFO  org.reflections.Reflections:219 - Reflections took 128 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:54 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:54 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:28:56 INFO  org.reflections.Reflections:219 - Reflections took 148 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:56 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:56 INFO  org.reflections.Reflections:219 - Reflections took 10 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:28:58 INFO  org.reflections.Reflections:219 - Reflections took 115 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:28:58 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:28:58 INFO  org.reflections.Reflections:219 - Reflections took 10 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:29:00 INFO  org.reflections.Reflections:219 - Reflections took 153 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:29:00 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:29:00 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:29:02 INFO  org.reflections.Reflections:219 - Reflections took 137 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:29:02 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:29:02 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:29:04 INFO  org.reflections.Reflections:219 - Reflections took 146 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:29:04 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:29:04 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:39 INFO  org.reflections.Reflections:219 - Reflections took 149 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:33:39 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:33:39 INFO  org.reflections.Reflections:219 - Reflections took 25 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0001.csv.
+2026-06-02 20:33:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0001.csv.
+2026-06-02 20:33:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:33:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0001.csv.
+2026-06-02 20:33:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0001.csv.
+2026-06-02 20:33:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0001.csv contains 500 cases, 20 variables.
+2026-06-02 20:33:42 INFO  org.reflections.Reflections:219 - Reflections took 188 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:33:42 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:33:42 INFO  org.reflections.Reflections:219 - Reflections took 18 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:44 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0002.csv.
+2026-06-02 20:33:44 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0002.csv.
+2026-06-02 20:33:44 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:33:44 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0002.csv.
+2026-06-02 20:33:44 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0002.csv.
+2026-06-02 20:33:44 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0002.csv contains 1000 cases, 20 variables.
+2026-06-02 20:33:45 INFO  org.reflections.Reflections:219 - Reflections took 194 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:33:46 INFO  org.reflections.Reflections:219 - Reflections took 15 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:33:46 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0003.csv.
+2026-06-02 20:33:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0003.csv.
+2026-06-02 20:33:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:33:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0003.csv.
+2026-06-02 20:33:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0003.csv.
+2026-06-02 20:33:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0003.csv contains 500 cases, 50 variables.
+2026-06-02 20:33:50 INFO  org.reflections.Reflections:219 - Reflections took 173 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:33:50 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:33:50 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:51 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0004.csv.
+2026-06-02 20:33:51 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0004.csv.
+2026-06-02 20:33:51 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:33:51 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0004.csv.
+2026-06-02 20:33:51 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0004.csv.
+2026-06-02 20:33:51 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0004.csv contains 1000 cases, 50 variables.
+2026-06-02 20:33:54 INFO  org.reflections.Reflections:219 - Reflections took 191 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:33:54 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:33:54 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0005.csv.
+2026-06-02 20:33:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0005.csv.
+2026-06-02 20:33:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:33:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0005.csv.
+2026-06-02 20:33:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0005.csv.
+2026-06-02 20:33:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0005.csv contains 500 cases, 20 variables.
+2026-06-02 20:33:57 INFO  org.reflections.Reflections:219 - Reflections took 136 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:33:57 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:33:57 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:33:57 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0006.csv.
+2026-06-02 20:33:58 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0006.csv.
+2026-06-02 20:33:58 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:33:58 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0006.csv.
+2026-06-02 20:33:58 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0006.csv.
+2026-06-02 20:33:58 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0006.csv contains 1000 cases, 20 variables.
+2026-06-02 20:34:00 INFO  org.reflections.Reflections:219 - Reflections took 158 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:00 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:00 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:01 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0007.csv.
+2026-06-02 20:34:01 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0007.csv.
+2026-06-02 20:34:01 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:34:01 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0007.csv.
+2026-06-02 20:34:01 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0007.csv.
+2026-06-02 20:34:01 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0007.csv contains 500 cases, 50 variables.
+2026-06-02 20:34:03 INFO  org.reflections.Reflections:219 - Reflections took 155 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:03 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:03 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:03 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0008.csv.
+2026-06-02 20:34:03 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0008.csv.
+2026-06-02 20:34:03 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:34:03 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0008.csv.
+2026-06-02 20:34:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0008.csv.
+2026-06-02 20:34:04 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0008.csv contains 1000 cases, 50 variables.
+2026-06-02 20:34:06 INFO  org.reflections.Reflections:219 - Reflections took 155 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:06 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:06 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:07 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0009.csv.
+2026-06-02 20:34:07 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0009.csv.
+2026-06-02 20:34:07 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:34:07 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0009.csv.
+2026-06-02 20:34:07 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0009.csv.
+2026-06-02 20:34:07 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0009.csv contains 500 cases, 20 variables.
+2026-06-02 20:34:09 INFO  org.reflections.Reflections:219 - Reflections took 119 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:09 INFO  org.reflections.Reflections:219 - Reflections took 10 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:09 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:09 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0010.csv.
+2026-06-02 20:34:09 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0010.csv.
+2026-06-02 20:34:09 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:34:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0010.csv.
+2026-06-02 20:34:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0010.csv.
+2026-06-02 20:34:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0010.csv contains 1000 cases, 20 variables.
+2026-06-02 20:34:12 INFO  org.reflections.Reflections:219 - Reflections took 166 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:12 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:12 INFO  org.reflections.Reflections:219 - Reflections took 9 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0011.csv.
+2026-06-02 20:34:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0011.csv.
+2026-06-02 20:34:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:34:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0011.csv.
+2026-06-02 20:34:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0011.csv.
+2026-06-02 20:34:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0011.csv contains 500 cases, 50 variables.
+2026-06-02 20:34:19 INFO  org.reflections.Reflections:219 - Reflections took 136 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:19 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:19 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0012.csv.
+2026-06-02 20:34:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0012.csv.
+2026-06-02 20:34:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:34:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0012.csv.
+2026-06-02 20:34:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0012.csv.
+2026-06-02 20:34:20 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0012.csv contains 1000 cases, 50 variables.
+2026-06-02 20:34:25 INFO  org.reflections.Reflections:219 - Reflections took 155 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:25 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:25 INFO  org.reflections.Reflections:219 - Reflections took 20 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:26 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0013.csv.
+2026-06-02 20:34:26 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0013.csv.
+2026-06-02 20:34:26 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:34:26 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0013.csv.
+2026-06-02 20:34:26 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0013.csv.
+2026-06-02 20:34:26 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0013.csv contains 500 cases, 20 variables.
+2026-06-02 20:34:28 INFO  org.reflections.Reflections:219 - Reflections took 166 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:28 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:28 INFO  org.reflections.Reflections:219 - Reflections took 10 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:29 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0014.csv.
+2026-06-02 20:34:29 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0014.csv.
+2026-06-02 20:34:29 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:34:29 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0014.csv.
+2026-06-02 20:34:29 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0014.csv.
+2026-06-02 20:34:29 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0014.csv contains 1000 cases, 20 variables.
+2026-06-02 20:34:31 INFO  org.reflections.Reflections:219 - Reflections took 146 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:31 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:31 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:32 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0015.csv.
+2026-06-02 20:34:32 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0015.csv.
+2026-06-02 20:34:32 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:34:32 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0015.csv.
+2026-06-02 20:34:32 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0015.csv.
+2026-06-02 20:34:32 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0015.csv contains 500 cases, 50 variables.
+2026-06-02 20:34:34 INFO  org.reflections.Reflections:219 - Reflections took 144 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:34 INFO  org.reflections.Reflections:219 - Reflections took 15 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:34 INFO  org.reflections.Reflections:219 - Reflections took 9 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:35 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0016.csv.
+2026-06-02 20:34:35 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0016.csv.
+2026-06-02 20:34:35 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:34:35 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0016.csv.
+2026-06-02 20:34:35 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0016.csv.
+2026-06-02 20:34:35 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0016.csv contains 1000 cases, 50 variables.
+2026-06-02 20:34:37 INFO  org.reflections.Reflections:219 - Reflections took 121 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:37 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:37 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:38 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0017.csv.
+2026-06-02 20:34:38 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0017.csv.
+2026-06-02 20:34:38 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:34:38 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0017.csv.
+2026-06-02 20:34:38 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0017.csv.
+2026-06-02 20:34:38 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0017.csv contains 500 cases, 20 variables.
+2026-06-02 20:34:39 INFO  org.reflections.Reflections:219 - Reflections took 123 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:39 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:39 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0018.csv.
+2026-06-02 20:34:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0018.csv.
+2026-06-02 20:34:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:34:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0018.csv.
+2026-06-02 20:34:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0018.csv.
+2026-06-02 20:34:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0018.csv contains 1000 cases, 20 variables.
+2026-06-02 20:34:42 INFO  org.reflections.Reflections:219 - Reflections took 157 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:42 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:42 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:43 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0019.csv.
+2026-06-02 20:34:43 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0019.csv.
+2026-06-02 20:34:43 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:34:43 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0019.csv.
+2026-06-02 20:34:43 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0019.csv.
+2026-06-02 20:34:43 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0019.csv contains 500 cases, 50 variables.
+2026-06-02 20:34:45 INFO  org.reflections.Reflections:219 - Reflections took 96 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:45 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:45 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:46 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0020.csv.
+2026-06-02 20:34:46 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0020.csv.
+2026-06-02 20:34:46 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:34:46 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0020.csv.
+2026-06-02 20:34:46 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0020.csv.
+2026-06-02 20:34:46 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0020.csv contains 1000 cases, 50 variables.
+2026-06-02 20:34:48 INFO  org.reflections.Reflections:219 - Reflections took 130 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:48 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:48 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:49 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0021.csv.
+2026-06-02 20:34:49 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0021.csv.
+2026-06-02 20:34:49 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:34:49 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0021.csv.
+2026-06-02 20:34:49 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0021.csv.
+2026-06-02 20:34:49 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0021.csv contains 500 cases, 20 variables.
+2026-06-02 20:34:51 INFO  org.reflections.Reflections:219 - Reflections took 105 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:51 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:51 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:52 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0022.csv.
+2026-06-02 20:34:52 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0022.csv.
+2026-06-02 20:34:52 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:34:52 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0022.csv.
+2026-06-02 20:34:52 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0022.csv.
+2026-06-02 20:34:52 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0022.csv contains 1000 cases, 20 variables.
+2026-06-02 20:34:54 INFO  org.reflections.Reflections:219 - Reflections took 140 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:34:54 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:34:54 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:34:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0023.csv.
+2026-06-02 20:34:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0023.csv.
+2026-06-02 20:34:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:34:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0023.csv.
+2026-06-02 20:34:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0023.csv.
+2026-06-02 20:34:55 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0023.csv contains 500 cases, 50 variables.
+2026-06-02 20:35:01 INFO  org.reflections.Reflections:219 - Reflections took 160 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:01 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:01 INFO  org.reflections.Reflections:219 - Reflections took 15 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:02 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0024.csv.
+2026-06-02 20:35:02 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0024.csv.
+2026-06-02 20:35:02 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:35:02 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0024.csv.
+2026-06-02 20:35:02 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0024.csv.
+2026-06-02 20:35:02 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0024.csv contains 1000 cases, 50 variables.
+2026-06-02 20:35:09 INFO  org.reflections.Reflections:219 - Reflections took 193 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:09 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:09 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0025.csv.
+2026-06-02 20:35:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0025.csv.
+2026-06-02 20:35:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:35:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0025.csv.
+2026-06-02 20:35:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0025.csv.
+2026-06-02 20:35:10 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0025.csv contains 500 cases, 20 variables.
+2026-06-02 20:35:12 INFO  org.reflections.Reflections:219 - Reflections took 164 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:12 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:12 INFO  org.reflections.Reflections:219 - Reflections took 16 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0026.csv.
+2026-06-02 20:35:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0026.csv.
+2026-06-02 20:35:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:35:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0026.csv.
+2026-06-02 20:35:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0026.csv.
+2026-06-02 20:35:13 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0026.csv contains 1000 cases, 20 variables.
+2026-06-02 20:35:15 INFO  org.reflections.Reflections:219 - Reflections took 146 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:15 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:15 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:16 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0027.csv.
+2026-06-02 20:35:16 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0027.csv.
+2026-06-02 20:35:16 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:35:16 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0027.csv.
+2026-06-02 20:35:16 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0027.csv.
+2026-06-02 20:35:16 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0027.csv contains 500 cases, 50 variables.
+2026-06-02 20:35:18 INFO  org.reflections.Reflections:219 - Reflections took 129 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:18 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:18 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0028.csv.
+2026-06-02 20:35:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0028.csv.
+2026-06-02 20:35:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:35:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0028.csv.
+2026-06-02 20:35:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0028.csv.
+2026-06-02 20:35:19 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0028.csv contains 1000 cases, 50 variables.
+2026-06-02 20:35:21 INFO  org.reflections.Reflections:219 - Reflections took 194 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:21 INFO  org.reflections.Reflections:219 - Reflections took 15 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:21 INFO  org.reflections.Reflections:219 - Reflections took 15 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:22 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0029.csv.
+2026-06-02 20:35:22 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0029.csv.
+2026-06-02 20:35:22 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:35:22 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0029.csv.
+2026-06-02 20:35:22 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0029.csv.
+2026-06-02 20:35:22 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0029.csv contains 500 cases, 20 variables.
+2026-06-02 20:35:24 INFO  org.reflections.Reflections:219 - Reflections took 145 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:24 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:24 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:25 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0030.csv.
+2026-06-02 20:35:25 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0030.csv.
+2026-06-02 20:35:25 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:35:25 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0030.csv.
+2026-06-02 20:35:25 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0030.csv.
+2026-06-02 20:35:25 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0030.csv contains 1000 cases, 20 variables.
+2026-06-02 20:35:26 INFO  org.reflections.Reflections:219 - Reflections took 158 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:26 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:26 INFO  org.reflections.Reflections:219 - Reflections took 14 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:27 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0031.csv.
+2026-06-02 20:35:27 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0031.csv.
+2026-06-02 20:35:27 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:35:27 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0031.csv.
+2026-06-02 20:35:27 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0031.csv.
+2026-06-02 20:35:27 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0031.csv contains 500 cases, 50 variables.
+2026-06-02 20:35:29 INFO  org.reflections.Reflections:219 - Reflections took 100 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:29 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:29 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:30 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0032.csv.
+2026-06-02 20:35:30 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0032.csv.
+2026-06-02 20:35:30 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:35:30 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0032.csv.
+2026-06-02 20:35:30 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0032.csv.
+2026-06-02 20:35:30 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0032.csv contains 1000 cases, 50 variables.
+2026-06-02 20:35:33 INFO  org.reflections.Reflections:219 - Reflections took 98 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:33 INFO  org.reflections.Reflections:219 - Reflections took 10 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:33 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:34 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0033.csv.
+2026-06-02 20:35:34 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0033.csv.
+2026-06-02 20:35:34 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 20 variables.
+2026-06-02 20:35:34 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0033.csv.
+2026-06-02 20:35:34 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0033.csv.
+2026-06-02 20:35:34 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0033.csv contains 500 cases, 20 variables.
+2026-06-02 20:35:36 INFO  org.reflections.Reflections:219 - Reflections took 102 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:36 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:36 INFO  org.reflections.Reflections:219 - Reflections took 17 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:37 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0034.csv.
+2026-06-02 20:35:37 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0034.csv.
+2026-06-02 20:35:37 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 20 variables.
+2026-06-02 20:35:37 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0034.csv.
+2026-06-02 20:35:37 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0034.csv.
+2026-06-02 20:35:37 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0034.csv contains 1000 cases, 20 variables.
+2026-06-02 20:35:39 INFO  org.reflections.Reflections:219 - Reflections took 144 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:39 INFO  org.reflections.Reflections:219 - Reflections took 11 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:39 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0035.csv.
+2026-06-02 20:35:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0035.csv.
+2026-06-02 20:35:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 500 cases and 50 variables.
+2026-06-02 20:35:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0035.csv.
+2026-06-02 20:35:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0035.csv.
+2026-06-02 20:35:40 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0035.csv contains 500 cases, 50 variables.
+2026-06-02 20:35:46 INFO  org.reflections.Reflections:219 - Reflections took 153 ms to scan 1 urls, producing 17 keys and 408 values
+2026-06-02 20:35:46 INFO  org.reflections.Reflections:219 - Reflections took 13 ms to scan 1 urls, producing 8 keys and 38 values
+2026-06-02 20:35:46 INFO  org.reflections.Reflections:219 - Reflections took 12 ms to scan 1 urls, producing 7 keys and 37 values
+2026-06-02 20:35:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - Start data validation on file dag_data_0036.csv.
+2026-06-02 20:35:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:166 - End data validation on file dag_data_0036.csv.
+2026-06-02 20:35:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataValidations:109 - There are 1000 cases and 50 variables.
+2026-06-02 20:35:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Start reading in file dag_data_0036.csv.
+2026-06-02 20:35:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - Finished reading in file dag_data_0036.csv.
+2026-06-02 20:35:47 INFO  edu.pitt.dbmi.causal.cmd.data.DataFiles:166 - File dag_data_0036.csv contains 1000 cases, 50 variables.

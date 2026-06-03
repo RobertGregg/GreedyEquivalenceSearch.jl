@@ -1,0 +1,1279 @@
+Elapsed initializeForwardEdgesFromEmptyGraph = 0 ms
+1. INSERT "X24" --> "X27" [] 1281.8492220157952 degree = 1 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+2. INSERT "X8" --> "X27" [] 993.5467088689338 degree = 2 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+3. INSERT "X5" --> "X40" [] 922.4307030827656 degree = 2 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+4. INSERT "X32" --> "X3" [] 859.3334867194112 degree = 2 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+5. INSERT "X44" --> "X1" [] 853.2141401100407 degree = 2 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+6. INSERT "X10" --> "X40" [] 819.4038920118508 degree = 2 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+7. INSERT "X8" --> "X46" [] 694.277142174682 degree = 2 indegree = 1 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+8. INSERT "X50" --> "X39" [] 592.0653921114476 degree = 2 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+9. INSERT "X4" --> "X38" [] 509.58132735691424 degree = 2 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+10. INSERT "X45" --> "X34" [] 499.4550653016063 degree = 2 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+11. INSERT "X25" --> "X38" ["X4"] 499.2629320994581 degree = 2 indegree = 0 cond = 2
+--- Directing "X4" --> "X38"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+12. INSERT "X24" --> "X25" [] 494.76363876562937 degree = 2 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+13. INSERT "X12" --> "X25" ["X24"] 869.2459198858323 degree = 3 indegree = 2 cond = 2
+--- Directing "X24" --> "X25"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+14. INSERT "X47" --> "X28" [] 476.18647609627806 degree = 3 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+15. INSERT "X32" --> "X30" [] 475.63749719077896 degree = 3 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+16. INSERT "X18" --> "X30" ["X32"] 698.6941169166494 degree = 3 indegree = 2 cond = 2
+--- Directing "X32" --> "X30"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+17. INSERT "X47" --> "X32" [] 438.8085899043531 degree = 3 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+18. INSERT "X17" --> "X13" [] 418.7045254744221 degree = 3 indegree = 2 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+19. INSERT "X47" --> "X10" [] 389.53588900563227 degree = 3 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+20. INSERT "X45" --> "X42" [] 371.975335051176 degree = 3 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+21. INSERT "X43" --> "X42" ["X45"] 442.40312975856705 degree = 3 indegree = 0 cond = 2
+--- Directing "X45" --> "X42"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+22. INSERT "X9" --> "X2" [] 369.5800274735939 degree = 3 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+23. INSERT "X44" --> "X23" [] 366.7421970919445 degree = 3 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+24. INSERT "X46" --> "X23" ["X44"] 431.3492047820512 degree = 3 indegree = 0 cond = 2
+--- Directing "X44" --> "X23"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+25. INSERT "X40" --> "X35" [] 334.68737723689765 degree = 3 indegree = 0 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+26. INSERT "X46" --> "X35" ["X40"] 351.0067394690659 degree = 3 indegree = 0 cond = 2
+--- Directing "X40" --> "X35"
+Starting Orientation Step D.
+Finishing Orientation Step D.
+27. INSERT "X50" --> "X35" [] 576.0307631561943 degree = 3 indegree = 3 cond = 3
+Starting Orientation Step D.
+Finishing Orientation Step D.
+28. INSERT "X29" --> "X35" [] 410.0818579202703 degree = 4 indegree = 4 cond = 4
+Starting Orientation Step D.
+Finishing Orientation Step D.
+29. INSERT "X26" --> "X36" [] 334.3942006722059 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Finishing Orientation Step D.
+30. INSERT "X30" --> "X14" [] 323.6366011394971 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X14")): "X30" --> "X14"
+Finishing Orientation Step D.
+31. INSERT "X42" --> "X15" [] 304.1109294449907 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X14")): "X30" --> "X14"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+32. INSERT "X48" --> "X12" [] 291.348900169693 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X14")): "X30" --> "X14"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+33. INSERT "X17" --> "X22" [] 271.494198083185 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X14")): "X30" --> "X14"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+34. INSERT "X50" --> "X48" ["X12"] 258.64745180995806 degree = 4 indegree = 4 cond = 2
+--- Directing "X12" --> "X48"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X14")): "X30" --> "X14"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+35. INSERT "X6" --> "X14" [] 256.5305685196049 degree = 4 indegree = 4 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+36. INSERT "X29" --> "X17" ["X22"] 251.46847528665467 degree = 4 indegree = 4 cond = 2
+--- Directing "X22" --> "X17"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+37. INSERT "X18" --> "X19" [] 245.79386781818312 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+38. INSERT "X14" --> "X4" [] 244.1223153632127 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X6"-->"X14"---"X4")): "X14" --> "X4"
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+39. INSERT "X19" --> "X4" [] 306.48713517473516 degree = 4 indegree = 4 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+40. INSERT "X16" --> "X4" [] 397.82606433432807 degree = 4 indegree = 4 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+41. INSERT "X46" --> "X1" ["X44"] 228.44816709667748 degree = 4 indegree = 4 cond = 2
+--- Directing "X44" --> "X1"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+42. INSERT "X5" --> "X29" [] 223.66704777280665 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+43. INSERT "X49" --> "X19" ["X18"] 221.11144918777381 degree = 4 indegree = 4 cond = 2
+--- Directing "X18" --> "X19"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X17"---"X13")): "X17" --> "X13"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+44. INSERT "X11" --> "X13" [] 202.34059367891177 degree = 4 indegree = 4 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+45. INSERT "X15" --> "X37" [] 201.922831741128 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X42"-->"X15"---"X37")): "X15" --> "X37"
+Finishing Orientation Step D.
+46. INSERT "X32" --> "X37" [] 235.52188160593005 degree = 4 indegree = 4 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+47. INSERT "X37" --> "X41" [] 197.0481361764655 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Finishing Orientation Step D.
+48. INSERT "X37" --> "X44" [] 195.93859379272362 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+49. INSERT "X47" --> "X22" [] 189.19160096153973 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+50. INSERT "X5" --> "X2" [] 183.7068655281555 degree = 4 indegree = 4 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+51. INSERT "X31" --> "X38" [] 169.83473930632454 degree = 4 indegree = 4 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+52. INSERT "X30" --> "X26" ["X36"] 168.41592123629016 degree = 4 indegree = 4 cond = 2
+--- Directing "X36" --> "X26"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+53. INSERT "X8" --> "X14" [] 168.14115122300382 degree = 4 indegree = 4 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+54. INSERT "X45" --> "X37" [] 165.09355086226924 degree = 5 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Finishing Orientation Step D.
+55. INSERT "X19" --> "X6" [] 164.95547553996403 degree = 5 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+56. INSERT "X24" --> "X15" [] 164.90108082502366 degree = 5 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+57. INSERT "X32" --> "X14" [] 157.92652653833102 degree = 5 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+58. INSERT "X44" --> "X28" ["X47"] 143.58951322249095 degree = 5 indegree = 0 cond = 2
+--- Directing "X47" --> "X28"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+59. INSERT "X41" --> "X28" [] 214.07178247346405 degree = 5 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+60. INSERT "X42" --> "X28" [] 183.4647329181887 degree = 5 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+61. INSERT "X22" --> "X50" [] 143.1818053083548 degree = 5 indegree = 1 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+62. INSERT "X31" --> "X18" [] 140.46082410866165 degree = 5 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+63. INSERT "X33" --> "X21" [] 131.51240782112518 degree = 5 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+64. INSERT "X34" --> "X15" [] 129.11802194374286 degree = 5 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+65. INSERT "X29" --> "X15" [] 141.08210939157698 degree = 5 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+66. INSERT "X47" --> "X11" [] 114.74261870425198 degree = 5 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+67. INSERT "X5" --> "X10" [] 113.11456410096548 degree = 5 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+68. INSERT "X24" --> "X7" [] 113.09699344247338 degree = 5 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X32"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+69. INSERT "X5" --> "X37" [] 107.91407205225596 degree = 6 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+70. INSERT "X15" --> "X14" [] 105.40297711755943 degree = 6 indegree = 0 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+71. INSERT "X32" --> "X34" ["X45"] 94.62074774205803 degree = 6 indegree = 0 cond = 2
+--- Directing "X45" --> "X34"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+72. INSERT "X46" --> "X17" [] 72.61690716692601 degree = 6 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X5"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+73. INSERT "X29" --> "X37" [] 35.63636107501088 degree = 7 indegree = 5 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+74. INSERT "X29" --> "X42" [] 24.738312549748798 degree = 7 indegree = 5 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+75. INSERT "X47" --> "X40" [] 24.453789826918864 degree = 7 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+76. INSERT "X32" --> "X40" ["X10"] 154.10482447821255 degree = 7 indegree = 0 cond = 3
+--- Directing "X10" --> "X40"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+77. INSERT "X4" --> "X41" [] 24.22283376324549 degree = 7 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+78. INSERT "X37" --> "X14" [] 23.25613697337826 degree = 8 indegree = 0 cond = 6
+Starting Orientation Step D.
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+79. INSERT "X24" --> "X42" [] 22.460660322937883 degree = 8 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+80. INSERT "X40" --> "X37" [] 19.33938958260478 degree = 9 indegree = 6 cond = 6
+Starting Orientation Step D.
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+81. INSERT "X3" --> "X45" [] 12.5225595569309 degree = 9 indegree = 6 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+82. INSERT "X42" --> "X34" [] 10.542184555049062 degree = 9 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R3 "X47"--"X40", "X32", "X10"): "X47" --> "X40"
+Orienting edge (Meek R1 triangle ("X32"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R2 triangle ("X10"-->"X40"-->"X5", "X10"--"X5")): "X10" --> "X5"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+83. INSERT "X10" --> "X32" [] 8.408366437240602 degree = 9 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+84. INSERT "X42" --> "X38" [] 6.620199978364099 degree = 9 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+85. INSERT "X35" --> "X37" [] 6.51236986487811 degree = 10 indegree = 0 cond = 7
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+86. INSERT "X3" --> "X33" ["X21"] 3.6741328252942367 degree = 10 indegree = 0 cond = 2
+--- Directing "X21" --> "X33"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+87. INSERT "X15" --> "X7" [] 2.9421360106016436 degree = 10 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+88. INSERT "X5" --> "X32" [] 1.929456794111502 degree = 10 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+89. INSERT "X5" --> "X17" [] 1.425862217970007 degree = 10 indegree = 0 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+90. INSERT "X8" --> "X24" [] 1.2636501215265525 degree = 10 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X44")): "X37" --> "X44"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+91. INSERT "X8" --> "X44" [] 0.5882351400177868 degree = 10 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+92. INSERT "X30" --> "X31" [] 0.5485643397914828 degree = 10 indegree = 0 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+93. INSERT "X48" --> "X16" [] 0.537662996094241 degree = 10 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Finishing Orientation Step D.
+94. INSERT "X31" --> "X20" [] 0.36042527373683697 degree = 10 indegree = 0 cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Finishing Orientation Step D.
+95. INSERT "X32" --> "X41" [] 0.3218465458407991 degree = 10 indegree = 0 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Finishing Orientation Step D.
+94. DELETE "X10" --> "X32" H = ["X5", "X47"] NaYX = ["X5", "X40", "X47"] degree = 10 indegree = 0 diff = ["X40"] (6.89489263210362)  cond = 1
+--- Directing "X5" --- "X32" to "X32" --> "X5"
+--- Directing "X10" --- "X5" to "X10" --> "X5"
+--- Directing "X47" --- "X32" to "X32" --> "X47"
+--- Directing "X47" --- "X10" to "X10" --> "X47"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R3 "X40"--"X47", "X32", "X10"): "X40" --> "X47"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X40"-->"X47"---"X22")): "X47" --> "X22"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X47"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Finishing Orientation Step D.
+93. DELETE "X40" --> "X47" H = [] NaYX = [] degree = 10 indegree = 1 diff = [] (5.927116582779945)  cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X22")): "X47" --> "X22"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X47"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Finishing Orientation Step D.
+94. INSERT "X35" --> "X17" [] 146.90376675209427 degree = 10 indegree = 1 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X22")): "X47" --> "X22"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X47"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Finishing Orientation Step D.
+95. INSERT "X32" --> "X22" [] 137.8187021910967 degree = 10 indegree = 1 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X10"-->"X47"---"X22")): "X47" --> "X22"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R2 triangle ("X32"-->"X47"-->"X22", "X32"--"X22")): "X32" --> "X22"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Finishing Orientation Step D.
+96. INSERT "X10" --> "X22" [] 98.63942556286156 degree = 10 indegree = 1 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Finishing Orientation Step D.
+97. INSERT "X11" --> "X22" [] 128.16138418636137 degree = 10 indegree = 1 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R2 triangle ("X47"-->"X11"-->"X22", "X47"--"X22")): "X47" --> "X22"
+Finishing Orientation Step D.
+98. INSERT "X32" --> "X11" [] 86.24302803593855 degree = 11 indegree = 1 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X10"-->"X47"---"X11")): "X47" --> "X11"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R2 triangle ("X32"-->"X47"-->"X11", "X32"--"X11")): "X32" --> "X11"
+Orienting edge (Meek R2 triangle ("X47"-->"X11"-->"X22", "X47"--"X22")): "X47" --> "X22"
+Finishing Orientation Step D.
+99. INSERT "X10" --> "X11" [] 70.02557485409079 degree = 11 indegree = 1 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+100. INSERT "X24" --> "X37" [] 60.97380330414512 degree = 11 indegree = 8 cond = 8
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X43"-->"X42"---"X15")): "X42" --> "X15"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+101. INSERT "X32" --> "X15" [] 54.39398399269385 degree = 12 indegree = 8 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+102. INSERT "X40" --> "X34" [] 42.855022445185114 degree = 12 indegree = 8 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+103. INSERT "X43" --> "X15" [] 39.866233365423795 degree = 12 indegree = 8 cond = 6
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+104. INSERT "X14" --> "X41" [] 39.80489484898362 degree = 12 indegree = 8 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X8"-->"X14"---"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+105. INSERT "X6" --> "X41" [] 42.87853705034149 degree = 12 indegree = 8 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X8"-->"X14"---"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+106. INSERT "X8" --> "X41" [] 9.88840920876737 degree = 12 indegree = 8 cond = 6
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X14"---"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+107. INSERT "X15" --> "X41" [] 22.367317721199925 degree = 12 indegree = 8 cond = 7
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X14"---"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+108. INSERT "X30" --> "X41" [] 11.37281660482131 degree = 12 indegree = 8 cond = 8
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+109. INSERT "X29" --> "X34" [] 3.6143711761992563 degree = 12 indegree = 8 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+110. INSERT "X5" --> "X42" [] 1.7484037277229163 degree = 12 indegree = 5 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+111. INSERT "X45" --> "X15" [] 0.01240204649457155 degree = 12 indegree = 5 cond = 7
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+110. DELETE "X10" --> "X22" H = ["X47"] NaYX = ["X11", "X47"] degree = 12 indegree = 5 diff = ["X11"] (6.900087043813983)  cond = 2
+--- Directing "X47" --- "X22" to "X22" --> "X47"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X10"-->"X11"---"X22")): "X11" --> "X22"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X11"-->"X22"-->"X47", "X11"--"X47")): "X11" --> "X47"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R2 triangle ("X32"-->"X11"-->"X22", "X32"--"X22")): "X32" --> "X22"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Finishing Orientation Step D.
+109. DELETE "X32" --> "X11" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (6.842224480030836)  cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X32"-->"X22"---"X50")): "X22" --> "X50"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+108. DELETE "X32" --> "X22" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (6.7622222820582465)  cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+107. DELETE "X46" --> "X17" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (6.74117548376762)  cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+106. DELETE "X10" --> "X11" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (5.772233919226437)  cond = 0
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+105. DELETE "X35" --> "X37" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (3.8313885584759646)  cond = 7
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+104. DELETE "X22" --> "X11" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (3.801820154645611)  cond = 0
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R2 triangle ("X14"-->"X4"-->"X41", "X14"--"X41")): "X14" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+103. DELETE "X4" --> "X41" H = [] NaYX = [] degree = 11 indegree = 5 diff = [] (2.654993378365816)  cond = 7
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+102. DELETE "X30" --> "X41" H = ["X14"] NaYX = ["X14"] degree = 11 indegree = 5 diff = [] (6.8147072807132645)  cond = 5
+--- Directing "X14" --- "X41" to "X41" --> "X14"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+101. DELETE "X15" --> "X41" H = [] NaYX = [] degree = 10 indegree = 5 diff = [] (6.435342934808887)  cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+100. DELETE "X37" --> "X14" H = [] NaYX = [] degree = 10 indegree = 5 diff = [] (5.8598418332476285)  cond = 6
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+99. DELETE "X8" --> "X41" H = [] NaYX = [] degree = 10 indegree = 5 diff = [] (5.39217536666456)  cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+98. DELETE "X6" --> "X41" H = [] NaYX = [] degree = 10 indegree = 5 diff = [] (5.159800972515768)  cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R2 triangle ("X32"-->"X37"-->"X41", "X32"--"X41")): "X32" --> "X41"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+97. DELETE "X32" --> "X41" H = [] NaYX = [] degree = 10 indegree = 5 diff = [] (4.9856494203736474)  cond = 1
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+96. DELETE "X5" --> "X17" H = [] NaYX = [] degree = 10 indegree = 5 diff = [] (0.3158023017990672)  cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R3 "X40"--"X5", "X32", "X10"): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Finishing Orientation Step D.
+97. INSERT "X36" --> "X40" ["X10"] 3.17349266674546 degree = 10 indegree = 5 cond = 2
+--- Directing "X10" --> "X40"
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+98. INSERT "X25" --> "X30" [] 2.061598637095585 degree = 10 indegree = 5 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+99. INSERT "X14" --> "X28" [] 1.6552350997751546 degree = 10 indegree = 5 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Orienting edge (Meek R1 triangle ("X5"-->"X2"---"X9")): "X2" --> "X9"
+Finishing Orientation Step D.
+100. INSERT "X49" --> "X9" [] 1.0497753236463723 degree = 10 indegree = 5 cond = 2
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Finishing Orientation Step D.
+101. INSERT "X39" --> "X9" [] 0.5401226262415548 degree = 10 indegree = 5 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Finishing Orientation Step D.
+102. INSERT "X21" --> "X35" [] 0.50857395349135 degree = 10 indegree = 5 cond = 5
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Finishing Orientation Step D.
+103. INSERT "X23" --> "X4" [] 0.20271749562539298 degree = 10 indegree = 5 cond = 4
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X15"---"X7")): "X15" --> "X7"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R2 triangle ("X24"-->"X15"-->"X7", "X24"--"X7")): "X24" --> "X7"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Finishing Orientation Step D.
+104. INSERT "X35" --> "X7" [] 0.08833685992840401 degree = 10 indegree = 5 cond = 3
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X29")): "X5" --> "X29"
+Orienting edge (Meek R1 triangle ("X29"-->"X37"---"X41")): "X37" --> "X41"
+Orienting edge (Meek R1 triangle ("X50"-->"X48"---"X16")): "X48" --> "X16"
+Orienting edge (Meek R1 triangle ("X10"-->"X40"---"X32")): "X40" --> "X32"
+Orienting edge (Meek R1 triangle ("X36"-->"X40"---"X5")): "X40" --> "X5"
+Orienting edge (Meek R1 triangle ("X32"-->"X30"---"X31")): "X30" --> "X31"
+Orienting edge (Meek R1 triangle ("X49"-->"X19"---"X6")): "X19" --> "X6"
+Orienting edge (Meek R1 triangle ("X32"-->"X5"---"X2")): "X5" --> "X2"
+Orienting edge (Meek R1 triangle ("X40"-->"X32"---"X3")): "X32" --> "X3"
+Orienting edge (Meek R1 triangle ("X30"-->"X31"---"X20")): "X31" --> "X20"
+Orienting edge (Meek R1 triangle ("X32"-->"X3"---"X45")): "X3" --> "X45"
+Orienting edge (Meek R2 triangle ("X18"-->"X30"-->"X31", "X18"--"X31")): "X18" --> "X31"
+Finishing Orientation Step D.
+Elapsed time = 0.312 s
+Starting Orientation Step D.
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Orienting edge (Meek R1 triangle ("X22"-->"X50"---"X39")): "X50" --> "X39"
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.
+Starting Orientation Step D.
+Finishing Orientation Step D.
