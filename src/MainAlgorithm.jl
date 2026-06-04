@@ -80,6 +80,9 @@ function Insert!(g, op::InsertOperator)
     graphVStructure!(g)
     meekRules!(g)
 
+    # PDAGtoDAG(g)
+    # DAGtoCPDAG(g)
+
     return nothing
 end
 

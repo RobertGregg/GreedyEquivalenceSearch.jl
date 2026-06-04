@@ -62,6 +62,10 @@ export
     isClique,
     isBlocked,
     graphVStructure!,
+    isPotentialSink,
+    PDAGtoDAG,
+    topologicalSort,
+    DAGtoCPDAG,
     #Operators.jl
     isValidInsert,
     isValidDelete,
