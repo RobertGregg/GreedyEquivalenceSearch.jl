@@ -2,6 +2,10 @@ using GreedyEquivalenceSearch
 using CSV, DataFrames
 using Printf
 
+dataID = @sprintf("%04d", 11)
+data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
+gJulia = ges(data; verbose=true, maxDegree=28)
+@benchmark  ges($data; maxDegree=28)
 
 #Calculate precision and recall for edge recovery
 function contingencyTable(g,gTrue)

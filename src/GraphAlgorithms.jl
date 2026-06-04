@@ -47,8 +47,8 @@ function isBlocked(g, x, y, nodesRemoved)
 
         current = popfirst!(queue)
 
-        # parents + undirected neighbors
-        for v in descendents(g, current)
+        # parents + undirected neighbors descendents(g, current)
+        for v in Iterators.flatten((parents(g,current), neighbors(g,current)))
 
             v == x && return false   # semi-directed path exists
 
