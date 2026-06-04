@@ -39,7 +39,7 @@ function isBlocked(g, x, y, nodesRemoved)
         visited[v] = true
     end
 
-    # Start backward search from y
+    # Start search from y
     queue = [y]
     visited[y] = true
 
@@ -47,8 +47,8 @@ function isBlocked(g, x, y, nodesRemoved)
 
         current = popfirst!(queue)
 
-        # parents + undirected neighbors descendents(g, current)
-        for v in Iterators.flatten((parents(g,current), neighbors(g,current)))
+        # childrem + undirected neighbors descendents(g, current)
+        for v in Iterators.flatten((children(g,current), neighbors(g,current)))
 
             v == x && return false   # semi-directed path exists
 
