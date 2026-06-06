@@ -47,7 +47,7 @@ function isBlocked(g, x, y, nodesRemoved)
 
         current = popfirst!(queue)
 
-        # childrem + undirected neighbors descendents(g, current)
+        # children + undirected neighbors i.e., descendents(g, current)
         for v in Iterators.flatten((children(g,current), neighbors(g,current)))
 
             v == x && return false   # semi-directed path exists
@@ -68,10 +68,6 @@ end
 ####################################################################
 # Using Meek's Rules to Update PDAG
 ####################################################################
-
-
-#TODO Use faster algorithm from Luttermann to restore CPDAG 
-#1. Luttermann, M., Wienobst, M. & Liskiewicz, M. Practical Algorithms for Orientations of Partially Directed Graphical Models.
 
 
 #Revert a graph to undirected edges and unshielded colliders

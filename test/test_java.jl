@@ -5,7 +5,7 @@ using Printf
 dataID = @sprintf("%04d", 11)
 data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
 gJulia = ges(data; verbose=true, maxDegree=28)
-@benchmark  ges(data_copy; maxDegree=28) setup=(data_copy = copy($data)) evals=1
+@benchmark  ges($data; maxDegree=28)
 @profview ges(data; maxDegree=28)
 
 #Calculate precision and recall for edge recovery
@@ -276,10 +276,49 @@ savefig(p_ham, "comparison_hamming.png")
 
 println("Saved: comparison_hamming.png")
 
-# dataSize = "small"
-# data = CSV.read("test/javaCompare/simulatedDAGs/$(dataSize)_sim_data.csv", DataFrame) |> Matrix
 
-# gJulia = ges(data; verbose=true, maxDegree=16)
 
-# @benchmark  ges($data)
-# @profview ges(data)
+######################################################
+# Benchmark Eslapsed time
+######################################################
+
+
+function gettimes()
+    
+    timesJulia = Float64[]
+    timesJava = Float64[]
+
+    for i in 1:36
+        dataID = @sprintf("%04d", i)
+        data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
+        benchmark = @benchmark  ges(data_copy; maxDegree=28) setup=(data_copy = copy($data)) evals=1
+        medianTime =  median(benchmark.times) / 1e9
+        @show (i, medianTime)
+        push!(timesJulia, medianTime)
+        
+        
+        javaFilepath = "test/javaCompare/fges_outputs/output_$(dataID).stdout.txt"
+        javaResult = filter(line -> occursin("Elapsed time",line), readlines(open(javaFilepath)))
+        push!(timesJava, parse(Float64,match(r"[\d.]+", first(javaResult)).match))
+    end
+
+    return timesJulia, timesJava
+end
+
+
+timesJulia, timesJava = gettimes()
+
+
+
+groupedbar(1:36, [timesJulia timesJava], 
+    label = ["Julia" "Java"], 
+    xlabel = "Data ID", 
+    color         = [julia_color java_color],
+    ylabel        = "Time (s)",
+    grid          = true,
+    gridalpha     = 0.3,
+    legend        = :topleft,
+    title         = "Eslapsed Times for FGES",
+    titlefont     = font(12, "Helvetica"),
+    size          = (700, 450),
+)

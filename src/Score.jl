@@ -14,7 +14,11 @@ end
 
 
 function SufficientStats(data)
-    covariance = cov(data, corrected=false)
+
+    #Computes the covariance matrix of the mean centered features
+    #corrected=false divides by n instead of n-1
+    #both needed to get correct regression results
+    covariance = cov(data, dims=1, corrected=false)
     observationsCount, variablesCount = size(data)
 
     return SufficientStats(covariance, observationsCount, variablesCount)

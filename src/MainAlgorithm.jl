@@ -8,9 +8,6 @@
 Compute a causal graph for the given observed data.
 """
 function ges(data; verbose=false, maxDegree=16)
-    
-    #TODO Either tell the user to mean center data or have a check for this
-    data .-= mean(data,dims=1)
 
     stats = SufficientStats(data)
     g = Graph(stats.variablesCount; maxDegree)
@@ -130,41 +127,45 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
             currentInsertOperator = InsertOperator(g, x, y)
         
             for op in insertCandidates(g, currentInsertOperator)
-                if isValidInsert(g, op)
+
+                precheckScore(op, score, currentInsertOperator) && continue
+
+                isValidInsert(g, op) || continue
                     
-                    #Calculate the change in score for applying this operator
-                    op = score(op)
-        
-                    if op > currentInsertOperator
-                        currentInsertOperator = op
-                    end
-        
+                #Calculate the change in score for applying this operator
+                op = score(op)
+    
+                if op > currentInsertOperator
+                    currentInsertOperator = op
                 end
+        
             end
         
             return currentInsertOperator
         end
         
         #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        # bestInsertOperator = InsertOperator(g, 1, 2)
-        # for (x,y) in allPermutationPairs(vertices(g))
+        bestInsertOperator = InsertOperator(g, 1, 2)
+        for (x,y) in allPermutationPairs(vertices(g))
 
-        #     currentInsertOperator = InsertOperator(g, x, y)
-        #     for op in insertCandidates(g, currentInsertOperator)
+            currentInsertOperator = InsertOperator(g, x, y)
+            for op in insertCandidates(g, currentInsertOperator)
 
-        #         #Check for adjacencies, cliques, and semi-directed paths
-        #         if isValidInsert(g, op)
+                #Score "sparse" operators immediately and skip if low score
+                precheckScore(op, score, bestInsertOperator) && continue
 
-        #             #Calculate the change in score for applying this operator
-        #             op = score(op)
+                #Check for adjacencies, cliques, and semi-directed paths
+                isValidInsert(g, op) || continue
 
-        #             if op > bestInsertOperator
-        #                 bestInsertOperator = op
-        #             end
+                #Calculate the change in score for applying this operator
+                op = score(op)
 
-        #         end
-        #     end
-        # end
+                if op > bestInsertOperator
+                    bestInsertOperator = op
+                end
+
+            end
+        end
 
 
         if bestInsertOperator.scoreDelta > 0
@@ -191,6 +192,22 @@ function insertCandidates(g, op)
     return (setT(op,Tᵢ) for Tᵢ in powerset(T))
 end
 
+
+#It's faster to score operators with few neighbors than to check validity
+function precheckScore(op, score, bestInsertOperator)
+
+    (; T, NAyx) = op
+
+    if length(NAyx ∪ T) ≤ 2
+        op = score(op)
+
+        if bestInsertOperator > op
+            return true
+        end
+    end
+
+    return false
+end
 
 ####################################################################
 # Backward Search Functions

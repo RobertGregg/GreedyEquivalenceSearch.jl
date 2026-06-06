@@ -117,7 +117,7 @@ function ne(g)
     
     edgecount = 0
 
-    for edge in edges(g)
+    for _ in edges(g)
         edgecount += 1
     end
 
