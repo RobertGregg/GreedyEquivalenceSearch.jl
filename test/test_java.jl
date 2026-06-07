@@ -47,13 +47,13 @@ function runComparisons(idnum; verbose=true)
 
     data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
 
-    gJulia = ges(data; verbose=verbose, maxDegree=32)
+    gJulia = ges(data; verbose=verbose, maxDegree=28)
 
     ##################
     # Java
     ##################
 
-    gJava = Graph(size(data,2); maxDegree=32)
+    gJava = Graph(size(data,2); maxDegree=28)
     javaFilepath = "test/javaCompare/fges_outputs/output_$(dataID)_out.txt"
 
     javaResult = filter(line -> occursin(r"\"X\d+\" \D{3} \"X\d+\"",line), readlines(open(javaFilepath)))
@@ -173,7 +173,7 @@ p2 = groupedboxplot(all_metrics, all_vals,
     size          = (700, 450),
 )
 
-savefig(p2, "comparison_distributions.png")
+savefig(p2, "test/javaCompare/results/comparison_distributions.png")
 
 # =============================================================================
 # 3. Difference plot  (Julia − Java, per metric)
@@ -207,10 +207,7 @@ p3 = plot(diff_plots...,
     left_margin   = 8Plots.mm,
     bottom_margin = 5Plots.mm,
 )
-savefig(p3, "comparison_difference.png")
-
-println("Saved: comparison_per_id.png, comparison_distributions.png, comparison_difference.png")
-
+savefig(p3, "test/javaCompare/results/comparison_difference.png")
 
 
 
@@ -272,10 +269,7 @@ p_ham = plot(p_ham1, p_ham2,
     left_margin   = 8Plots.mm,
     bottom_margin = 5Plots.mm,
 )
-savefig(p_ham, "comparison_hamming.png")
-
-println("Saved: comparison_hamming.png")
-
+savefig(p_ham, "test/javaCompare/results/comparison_hamming.png")
 
 
 ######################################################
@@ -287,11 +281,11 @@ function gettimes()
     
     timesJulia = Float64[]
     timesJava = Float64[]
-
+    
     for i in 1:36
         dataID = @sprintf("%04d", i)
         data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
-        benchmark = @benchmark  ges(data_copy; maxDegree=28) setup=(data_copy = copy($data)) evals=1
+        benchmark = @benchmark  ges($data; maxDegree=28)
         medianTime =  median(benchmark.times) / 1e9
         @show (i, medianTime)
         push!(timesJulia, medianTime)
@@ -301,7 +295,7 @@ function gettimes()
         javaResult = filter(line -> occursin("Elapsed time",line), readlines(open(javaFilepath)))
         push!(timesJava, parse(Float64,match(r"[\d.]+", first(javaResult)).match))
     end
-
+    
     return timesJulia, timesJava
 end
 
@@ -310,15 +304,23 @@ timesJulia, timesJava = gettimes()
 
 
 
-groupedbar(1:36, [timesJulia timesJava], 
-    label = ["Julia" "Java"], 
-    xlabel = "Data ID", 
-    color         = [julia_color java_color],
-    ylabel        = "Time (s)",
-    grid          = true,
-    gridalpha     = 0.3,
-    legend        = :topleft,
-    title         = "Eslapsed Times for FGES",
-    titlefont     = font(12, "Helvetica"),
-    size          = (700, 450),
+plot(timesJulia, timesJava, 
+seriestype = :scatter, 
+xlabel = "Julia Times (s)", 
+ylabel = "Java Times (s)",
+title = "Elaspsed Times for FGES",
+# xlims = (0,1.7),
+# ylims = (0,1.7),
+legend = :none,
+framestyle = :box
 )
+
+# 3. Add the identity line (y = x) using the plot limits
+# Using standard identity function syntax: plot!(identity, min, max)
+plot!(identity, 0, 1.5, 
+line = :dash, 
+color = :red, 
+)
+annotate!(0,1.5, text("Above line Julia faster\nBelow line Java Faster", :left, 10)) 
+
+savefig("test/javaCompare/results/comparison_timing.png")

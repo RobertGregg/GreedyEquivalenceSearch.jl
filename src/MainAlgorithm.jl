@@ -3,11 +3,13 @@
 # Main Function
 ####################################################################
 
+#TODO add support for graph node labels
+
 """
     ges(data; verbose=false)
 Compute a causal graph for the given observed data.
 """
-function ges(data; verbose=false, maxDegree=16)
+function ges(data::AbstractMatrix; verbose=false, maxDegree=16)
 
     stats = SufficientStats(data)
     g = Graph(stats.variablesCount; maxDegree)
@@ -17,6 +19,10 @@ function ges(data; verbose=false, maxDegree=16)
 
     return g
 end
+
+#Try to convert data to matrix (e.g., a DataFrame)
+ges(data; verbose=false, maxDegree=16) = ges(Matrix(data); verbose, maxDegree)
+
 
 # #executes when verbose flag is true
 function printState(stage, op, cache)
@@ -145,27 +151,27 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
         end
         
         #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        bestInsertOperator = InsertOperator(g, 1, 2)
-        for (x,y) in allPermutationPairs(vertices(g))
+        # bestInsertOperator = InsertOperator(g, 1, 2)
+        # for (x,y) in allPermutationPairs(vertices(g))
 
-            currentInsertOperator = InsertOperator(g, x, y)
-            for op in insertCandidates(g, currentInsertOperator)
+        #     currentInsertOperator = InsertOperator(g, x, y)
+        #     for op in insertCandidates(g, currentInsertOperator)
 
-                #Score "sparse" operators immediately and skip if low score
-                precheckScore(op, score, bestInsertOperator) && continue
+        #         #Score "sparse" operators immediately and skip if low score
+        #         precheckScore(op, score, bestInsertOperator) && continue
 
-                #Check for adjacencies, cliques, and semi-directed paths
-                isValidInsert(g, op) || continue
+        #         #Check for adjacencies, cliques, and semi-directed paths
+        #         isValidInsert(g, op) || continue
 
-                #Calculate the change in score for applying this operator
-                op = score(op)
+        #         #Calculate the change in score for applying this operator
+        #         op = score(op)
 
-                if op > bestInsertOperator
-                    bestInsertOperator = op
-                end
+        #         if op > bestInsertOperator
+        #             bestInsertOperator = op
+        #         end
 
-            end
-        end
+        #     end
+        # end
 
 
         if bestInsertOperator.scoreDelta > 0
