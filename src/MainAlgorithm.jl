@@ -128,50 +128,52 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
     while true
 
         #TODO Use saved neighbors and parents of y to skip some validity checks
-        bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
-
-            currentInsertOperator = InsertOperator(g, x, y)
-        
-            for op in insertCandidates(g, currentInsertOperator)
-
-                #precheckScore(op, score, currentInsertOperator) && continue
-
-                isValidInsert(g, op) || continue
-                    
-                #Calculate the change in score for applying this operator
-                op = score(op)
-    
-                if op > currentInsertOperator
-                    currentInsertOperator = op
-                end
-        
-            end
-        
-            return currentInsertOperator
-        end
-        
-        #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        # bestInsertOperator = InsertOperator(g, 1, 2)
-        # for (x,y) in allPermutationPairs(vertices(g))
+        # bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x,y)
 
         #     currentInsertOperator = InsertOperator(g, x, y)
+
+        #     #If prechecks pass then continue to try and insert
+        #     precheckValidInsert(g, currentInsertOperator) || return currentInsertOperator
+
         #     for op in insertCandidates(g, currentInsertOperator)
 
-        #         #Score "sparse" operators immediately and skip if low score
-        #         precheckScore(op, score, bestInsertOperator) && continue
-
-        #         #Check for adjacencies, cliques, and semi-directed paths
+        #         #Clique and Semi-directed paths check
         #         isValidInsert(g, op) || continue
 
         #         #Calculate the change in score for applying this operator
         #         op = score(op)
-
-        #         if op > bestInsertOperator
-        #             bestInsertOperator = op
+    
+        #         if op > currentInsertOperator
+        #             currentInsertOperator = op
         #         end
-
+        
         #     end
+        
+        #     return currentInsertOperator
         # end
+        
+        #For profiling it's easier to optimize other parts of the code using the nonparallel loop
+        bestInsertOperator = InsertOperator(g, 1, 2)
+        for (x,y) in allPermutationPairs(vertices(g))
+
+            currentInsertOperator = InsertOperator(g, x, y)
+
+            precheckValidInsert(g, currentInsertOperator) || continue
+
+            for op in insertCandidates(g, currentInsertOperator)
+
+                #Check for adjacencies, cliques, and semi-directed paths
+                isValidInsert(g, op) || continue
+
+                #Calculate the change in score for applying this operator
+                op = score(op)
+
+                if op > bestInsertOperator
+                    bestInsertOperator = op
+                end
+
+            end
+        end
 
 
         if bestInsertOperator.scoreDelta > 0
@@ -192,28 +194,14 @@ end
 
 function insertCandidates(g, op)
     
+    (; x, y) = op
+
     #neighbors of y that are not adjacent to x
-    T = setdiff(op.neighborsY, adjacencies(g, op.x))
+    T = setdiff(neighbors(g, y), adjacencies(g, x))
     
     return (setT(op,Tᵢ) for Tᵢ in powerset(T))
 end
 
-
-#It's faster to score operators with few neighbors than to check validity
-function precheckScore(op, score, bestInsertOperator)
-
-    (; T, NAyx) = op
-
-    if length(NAyx ∪ T) ≤ 2
-        op = score(op)
-
-        if bestInsertOperator > op
-            return true
-        end
-    end
-
-    return false
-end
 
 ####################################################################
 # Backward Search Functions

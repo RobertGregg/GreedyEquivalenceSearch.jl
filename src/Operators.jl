@@ -6,26 +6,18 @@ struct InsertOperator{S<:SmallSet}
     x::Int
     y::Int
     T::S   # subset of neighborsY \ adjacenciesX
-    neighborsY::S
     parentsY::S
-    NAyx::S
-    cliqueFlag::Bool
-    pathFlag::Bool
     scoreDelta::Float64
 end
 
 
-function InsertOperator(g,x,y)
+function InsertOperator(g,x,y) 
     
     ∅ = SmallSet{maxDegree(g),Int}()
-    
-    #These stay the same for all x,y
-    neighborsY = neighbors(g,y)
-    parentsY = parents(g,y)
-    NAyx = neighborsY ∩ adjacencies(g,x)
-    
-    return InsertOperator(x, y, ∅, neighborsY, parentsY, NAyx, false, false, -Inf)
+    parentsY = parents(g, y)
+    return InsertOperator(x, y, ∅, parentsY, -Inf)
 end
+
 
 
 function Base.show(io::IO, op::InsertOperator)

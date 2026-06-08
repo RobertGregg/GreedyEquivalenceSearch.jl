@@ -1,20 +1,29 @@
 
+#These checks are independent of T and can happen outside of the powerset loop
+function precheckValidInsert(g, op::InsertOperator)
+    
+    (; x, y) = op
+
+    #Check 1: Stop if x and y are aleady adjacent
+    if isAdjacent(g,x,y)
+        return false
+    end
+
+    return true
+end
+
 
 """
 Insert validity (Chickering 2002, Theorem 15):
 Insert(x, y, T) is valid in CPDAG G iff:
-1. x and y are not adjacent.
-2. NAyxT is a clique in G
-4. Every undirected path between x and y is blocked by NAyxT.
+1. NAyxT is a clique 
+2. Every undirected path between x and y is blocked by NAyxT.
 """
 function isValidInsert(g, op::InsertOperator)
     
-    (; x, y, T, NAyx) = op
+    (; x, y, T) = op
     
-    #If x and y are adjacent then invalid
-    isAdjacent(g, x, y) && return false
-
-    NAyxT = NAyx ∪ T
+    NAyxT = neighbors(g, y) ∩ adjacencies(g, x) ∪ T
 
     #If NAyxT not a clique, then invalid
     isClique(g, NAyxT) || return false
