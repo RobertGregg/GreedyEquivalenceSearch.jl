@@ -2,7 +2,7 @@
 #  Insert Operator 
 ####################################################################
 
-struct InsertOperator{S<:SmallSet}
+struct InsertOperator{S<:AbstractSet}
     x::Int
     y::Int
     T::S   # subset of neighborsY \ adjacenciesX
@@ -13,7 +13,7 @@ end
 
 function InsertOperator(g,x,y) 
     
-    ∅ = SmallSet{maxDegree(g),Int}()
+    ∅ = empty(parents(g,x))
     parentsY = parents(g, y)
     return InsertOperator(x, y, ∅, parentsY, -Inf)
 end
@@ -28,7 +28,7 @@ end
 #  Delete Operator 
 ####################################################################
 
-struct DeleteOperator{S<:SmallSet}
+struct DeleteOperator{S<:AbstractSet}
     x::Int
     y::Int
     H::S   # subset of Ne(y) ∩ Ad(x)
@@ -41,7 +41,7 @@ end
 
 function DeleteOperator(g,x,y)
     
-    ∅ = SmallSet{maxDegree(g),Int}()
+    ∅ = empty(parents(g,x))
     
     #These stay the same for all x,y
     neighborsY = neighbors(g,y)

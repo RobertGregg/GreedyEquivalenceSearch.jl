@@ -19,11 +19,24 @@ by `maxDegree` (default 16).
 
 See also: [`maxDegree`](@ref)
 """
-Graph(n; maxDegree=16) = Graph(
+function Graph(n; maxDegree=16)
+    
+    if n ≤ 1024
+        N = getUIntType(n)
+        return Graph(
+            [SmallBitSet{N}() for _ in 1:n],
+            [SmallBitSet{N}() for _ in 1:n],
+            [SmallBitSet{N}() for _ in 1:n]
+            )
+    end
+
+
+    return Graph(
     [SmallSet{maxDegree, Int}() for _ in 1:n],
     [SmallSet{maxDegree, Int}() for _ in 1:n],
     [SmallSet{maxDegree, Int}() for _ in 1:n]
-)
+    )
+end
 
 """
     maxDegree(g::Graph)

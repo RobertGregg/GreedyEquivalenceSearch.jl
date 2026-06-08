@@ -1,4 +1,5 @@
 [deps]
+BitIntegers = "c3b6d118-76ef-56ca-8cc7-ebb389d030a1"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 GreedyEquivalenceSearch = "e07db86e-26ad-48e0-bab0-7618b1130b09"

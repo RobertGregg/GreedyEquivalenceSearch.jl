@@ -5,7 +5,7 @@ using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads, ChunkSplitters #parallelization
 using OhMyThreads: TaskLocalValue
 using BangBang #update immutable operator properties
-
+using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
 
 include("LRU.jl")
 include("CustomPairIterators.jl")
@@ -17,8 +17,22 @@ include("Score.jl")
 include("MainAlgorithm.jl")
 
 #Small helper functions
-powerset(x::SmallSet) = Iterators.flatten(subsets(x,i) for i in 0:length(x))
+powerset(x) = Iterators.flatten(subsets(x,i) for i in 0:length(x))
 adjacency_matrix(g) = BitMatrix(isAncestor(g,x,y)  for x in vertices(g), y in vertices(g))
+
+
+function getUIntType(n::Int)
+
+    UINT_TYPES = (UInt8, UInt16, UInt32, UInt64, UInt128, UInt256, UInt512, UInt1024)
+
+    n ≥ 1 || throw(ArgumentError("n must be ≥ 1, got $n"))
+    for T in UINT_TYPES
+        8 * sizeof(T) ≥ n && return T
+    end
+    throw(ArgumentError("n=$n exceeds the largest built-in type (1024 bits)"))
+end
+
+
 
 export
     #GreedyEquivalenceSearch.jl

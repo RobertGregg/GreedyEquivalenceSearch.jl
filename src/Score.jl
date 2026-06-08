@@ -72,7 +72,9 @@ function calculateMSE(Σ, y, X, k)
     #mse = Cov(y,y) - Cov(X,y)ᵀCov(X,X)⁻¹Cov(X,y)
 
     #Convert set to vector with no allocations
-    Xᵥ = SmallVector{SmallCollections.capacity(X)}(X)
+    # Xᵥ = SmallVector{SmallCollections.capacity(X)}(X)
+    Xᵥ = collect(X) #TODO NEED TO MAKE THIS DYNAMIC
+
     
     return @views Σ[y,y] - Σ[Xᵥ,y]' * (cholesky(Σ[Xᵥ,Xᵥ]) \ Σ[Xᵥ,y])
 end
@@ -122,12 +124,12 @@ struct CachedScore{S,C}
 end
 
 
-function CachedScore(stats::S, ::Val{D} = Val(16); maxsize=100_000) where {S,D}
-    cache = LRUCache{Tuple{Int,SmallSet{D,Int}},Float64}(maxsize)
+function CachedScore(stats::S, ::Type{M}; maxsize=100_000) where {S,M}
+    cache = LRUCache{Tuple{Int,M},Float64}(maxsize)
     CachedScore(stats, cache)
 end
 
-function (cs::CachedScore)(node::Int, nodeSet::SmallSet)
+function (cs::CachedScore)(node::Int, nodeSet::AbstractSet)
 
     if length(nodeSet) ≤ 2
         return _score(cs.stats, node, nodeSet)
@@ -145,7 +147,9 @@ function (score::CachedScore)(op::InsertOperator)
    
     (; x, y, T, parentsY) = op #gettin' fancy with the struct unpacking
 
-    scoreDelta = score(y, T ∪ parentsY ∪ x) - score(y, T ∪ parentsY)
+    TPaY = T ∪ parentsY
+
+    scoreDelta = score(y, push(TPaY, x)) - score(y, TPaY)
 
     return setScore(op, scoreDelta)
 end
