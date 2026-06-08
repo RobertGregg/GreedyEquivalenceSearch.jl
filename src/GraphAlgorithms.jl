@@ -48,7 +48,18 @@ function isBlocked(g, x, y, nodesRemoved)
         current = popfirst!(queue)
 
         # children + undirected neighbors i.e., descendents(g, current)
-        for v in Iterators.flatten((children(g,current), neighbors(g,current)))
+        for v in children(g,current)
+
+            v == x && return false   # semi-directed path exists
+
+            if !visited[v]
+                visited[v] = true
+                push!(queue, v)
+            end
+
+        end
+
+        for v in neighbors(g,current)
 
             v == x && return false   # semi-directed path exists
 

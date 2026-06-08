@@ -3,7 +3,7 @@ using CSV, DataFrames
 using Printf
 
 dataID = @sprintf("%04d", 11)
-data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
+data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) 
 gJulia = ges(data; verbose=true, maxDegree=28)
 @benchmark  ges($data; maxDegree=28)
 @profview ges(data; maxDegree=28)
@@ -136,8 +136,8 @@ using Plots, StatsPlots, Statistics
 
 ids = results.id
  
-java_color  = RGB(0.20, 0.45, 0.75)   # steel blue
-julia_color = RGB(0.85, 0.33, 0.25)   # julia red
+java_color  = RGB(0.20, 0.45, 0.75);   # steel blue
+julia_color = RGB(0.85, 0.33, 0.25);   # julia red
  
 metrics = [
     ("Precision", results.java_prec,  results.julia_prec),

@@ -134,7 +134,7 @@ function forwardPhase!(g, stats; verbose=false, nbuffers = Threads.nthreads())
         
             for op in insertCandidates(g, currentInsertOperator)
 
-                precheckScore(op, score, currentInsertOperator) && continue
+                #precheckScore(op, score, currentInsertOperator) && continue
 
                 isValidInsert(g, op) || continue
                     

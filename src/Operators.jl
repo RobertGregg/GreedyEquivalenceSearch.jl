@@ -77,4 +77,3 @@ setScore(op, scoreDelta) = setproperties!!(op; scoreDelta) #works for both opera
 #Used to compare operators based on score
 Base.isless(a::InsertOperator, b::InsertOperator) = a.scoreDelta < b.scoreDelta
 Base.isless(a::DeleteOperator, b::DeleteOperator) = a.scoreDelta < b.scoreDelta
-

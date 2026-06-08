@@ -73,8 +73,8 @@ function calculateMSE(Σ, y, X, k)
 
     #Convert set to vector with no allocations
     Xᵥ = SmallVector{SmallCollections.capacity(X)}(X)
-    #TODO Consider cholesky
-    return @views Σ[y,y] - Σ[Xᵥ,y]' * (Σ[Xᵥ,Xᵥ] \ Σ[Xᵥ,y])
+    
+    return @views Σ[y,y] - Σ[Xᵥ,y]' * (cholesky(Σ[Xᵥ,Xᵥ]) \ Σ[Xᵥ,y])
 end
 
 
