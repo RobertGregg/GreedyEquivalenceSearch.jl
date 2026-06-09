@@ -2,11 +2,14 @@ using GreedyEquivalenceSearch
 using CSV, DataFrames
 using Printf
 
-dataID = @sprintf("%04d", 11)
-data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) 
-gJulia = ges(data; verbose=true, maxDegree=28)
-@benchmark  ges($data; maxDegree=28)
-@profview ges(data; maxDegree=28)
+# dataID = @sprintf("%04d", 17)
+# data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) 
+# gJulia = ges(data; verbose=true)
+# @benchmark  ges($data)
+# @profview ges(data)
+
+data = CSV.read("test/javaCompare/simulatedDAGs/large_sim_data.csv", DataFrame) 
+gJulia = ges(data; verbose=true)
 
 #Calculate precision and recall for edge recovery
 function contingencyTable(g,gTrue)
@@ -45,15 +48,15 @@ function runComparisons(idnum; verbose=true)
     # Julia
     ##################
 
-    data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
+    data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) 
 
-    gJulia = ges(data; verbose=verbose, maxDegree=28)
+    gJulia = ges(data; verbose=verbose)
 
     ##################
     # Java
     ##################
 
-    gJava = Graph(size(data,2); maxDegree=28)
+    gJava = Graph(size(data,2))
     javaFilepath = "test/javaCompare/fges_outputs/output_$(dataID)_out.txt"
 
     javaResult = filter(line -> occursin(r"\"X\d+\" \D{3} \"X\d+\"",line), readlines(open(javaFilepath)))
@@ -285,7 +288,7 @@ function gettimes()
     for i in 1:36
         dataID = @sprintf("%04d", i)
         data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) |> Matrix
-        benchmark = @benchmark  ges($data; maxDegree=28)
+        benchmark = @benchmark  ges($data; )
         medianTime =  median(benchmark.times) / 1e9
         @show (i, medianTime)
         push!(timesJulia, medianTime)

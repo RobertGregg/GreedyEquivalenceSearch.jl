@@ -5,14 +5,14 @@ library(stringr)
 ###################
 #Small Dataset
 ###################
-sim <- simRandomDAG(n=1000, p=50, discFrac=0.0, deg=3, coefMin=0.5,
+sim <- simRandomDAG(n=10000, p=250, discFrac=0.0, deg=4, coefMin=0.5,
                     coefMax=1.5, noiseMin=1, noiseMax=2, seed=1)
 
-write.csv(sim$data,file = "simulatedDAGs/small_sim_data.csv", row.names=FALSE)
+write.csv(sim$data,file = "simulatedDAGs/large_sim_data.csv", row.names=FALSE)
 
 
 write.csv(sim$graph$edges,
-          file = "simulatedDAGs/small_sim_graph.csv",
+          file = "simulatedDAGs/large_sim_graph.csv",
           col.names = FALSE,
           row.names=FALSE)
 

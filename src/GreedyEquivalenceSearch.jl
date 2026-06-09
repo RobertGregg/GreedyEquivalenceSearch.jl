@@ -76,6 +76,7 @@ export
     isClique,
     isBlocked,
     graphVStructure!,
+    meekRules!,
     isPotentialSink,
     PDAGtoDAG,
     topologicalSort,
@@ -93,6 +94,7 @@ export
     forwardPhase!,
     backwardPhase!,
     ges,
-    insertCandidates
+    insertCandidates,
+    precheckValidInsert
 
 end

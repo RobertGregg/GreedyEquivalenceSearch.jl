@@ -9,7 +9,7 @@ Return `true` if all vertices in `nodes` are undirected neighbors in the graph `
 function isClique(g, nodes)
 
     for (x,y) in allCombinationPairs(nodes)
-        if !isNeighbor(g, x, y)
+        if !isAdjacent(g, x, y)
             return false
         end
     end
@@ -18,7 +18,7 @@ function isClique(g, nodes)
 end
 
 
-#TODO eliminate allocations with visited and queue
+#TODO eliminate allocations with visited and queue. Changing visited from a BitVector to a SmallBitSet does remove the allocation, but checking if a node has been visited visited[v] vs v ∈ visited are essentially the same timing (so minor improvement)
 """
     isBlocked(g, x, y, nodesRemoved)
 
@@ -32,16 +32,18 @@ where directed edges point away from y.
 """
 function isBlocked(g, x, y, nodesRemoved)
 
-    visited = falses(nv(g))
+    # visited = falses(nv(g))
+    visited = nodesRemoved
 
     # Remove blocked nodes
-    for v in nodesRemoved
-        visited[v] = true
-    end
+    # for v in nodesRemoved
+    #     visited[v] = true
+    # end
 
     # Start search from y
     queue = [y]
-    visited[y] = true
+    # visited[y] = true
+    visited = push(visited, y)
 
     while !isempty(queue)
 
@@ -52,8 +54,12 @@ function isBlocked(g, x, y, nodesRemoved)
 
             v == x && return false   # semi-directed path exists
 
-            if !visited[v]
-                visited[v] = true
+            # if !visited[v]
+            #     visited[v] = true
+            #     push!(queue, v)
+            # end
+            if v ∉ visited
+                visited = push(visited, v)
                 push!(queue, v)
             end
 
@@ -63,8 +69,12 @@ function isBlocked(g, x, y, nodesRemoved)
 
             v == x && return false   # semi-directed path exists
 
-            if !visited[v]
-                visited[v] = true
+            # if !visited[v]
+            #     visited[v] = true
+            #     push!(queue, v)
+            # end
+            if v ∉ visited
+                visited = push(visited, v)
                 push!(queue, v)
             end
 
