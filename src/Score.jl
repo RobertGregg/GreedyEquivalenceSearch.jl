@@ -6,14 +6,15 @@
 Pre-computed sufficient statistics for Gaussian BIC.
 Stores the covariance matrix, sample size, and feature count.
 """
-struct SufficientStats{T<:AbstractMatrix{<:AbstractFloat}}
+struct SufficientStats{F<:AbstractFloat, T<:AbstractMatrix{F}}
     covariance::T
     observationsCount::Int
     variablesCount::Int
+    penalty::F
 end
 
 
-function SufficientStats(data)
+function SufficientStats(data; penalty)
 
     #Computes the covariance matrix of the mean centered features
     #corrected=false divides by n instead of n-1
@@ -21,7 +22,7 @@ function SufficientStats(data)
     covariance = cov(data, dims=1, corrected=false)
     observationsCount, variablesCount = size(data)
 
-    return SufficientStats(covariance, observationsCount, variablesCount)
+    return SufficientStats(covariance, observationsCount, variablesCount, penalty)
 end
 
 ####################################################################
@@ -84,7 +85,6 @@ end
 # Scoring function
 ####################################################################
 
-#TODO Add penalty value for GES: -p⋅k⋅log(n) - n⋅log(mse)
 """
     score(state::CurrentState, node, nodeSet)
 
@@ -108,9 +108,12 @@ function _score(stats::SufficientStats, node, nodeSet)
     
     #Calculate the mean squared error (using covariance matrix approach)
     mse = calculateMSE(stats.covariance, node, nodeSet, k)
+
+    #Penalty value for BIC
+    p = stats.penalty
     
     #Return the score
-    return -k*log(n) - n*log(mse)
+    return -p*k*log(n) - n*log(mse)
 end
 
 

@@ -9,9 +9,9 @@
     ges(data; verbose=false)
 Compute a causal graph for the given observed data.
 """
-function ges(data::AbstractMatrix; verbose=false, maxDegree=16)
+function ges(data::AbstractMatrix; verbose=false, maxDegree=16, penalty=1.0)
 
-    stats = SufficientStats(data)
+    stats = SufficientStats(data; penalty)
     g = Graph(stats.variablesCount; maxDegree)
 
     forwardPhase!(g, stats; verbose)
@@ -21,7 +21,7 @@ function ges(data::AbstractMatrix; verbose=false, maxDegree=16)
 end
 
 #Try to convert data to matrix (e.g., a DataFrame)
-ges(data; verbose=false, maxDegree=16) = ges(Matrix(data); verbose, maxDegree)
+ges(data; verbose=false, maxDegree=16, penalty=1.0) = ges(Matrix(data); verbose, maxDegree, penalty)
 
 
 # #executes when verbose flag is true
