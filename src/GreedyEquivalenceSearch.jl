@@ -25,11 +25,9 @@ function getUIntType(n::Int)
 
     UINT_TYPES = (UInt8, UInt16, UInt32, UInt64, UInt128, UInt256, UInt512, UInt1024)
 
-    n ≥ 1 || throw(ArgumentError("n must be ≥ 1, got $n"))
     for T in UINT_TYPES
         8 * sizeof(T) ≥ n && return T
     end
-    throw(ArgumentError("n=$n exceeds the largest built-in type (1024 bits)"))
 end
 
 

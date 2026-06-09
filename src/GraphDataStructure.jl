@@ -8,6 +8,7 @@ struct Graph{S<:AbstractVector{<:AbstractSet{<:Integer}}}
     children::S
 end
 
+#TODO Incorporate maxDegree into smaller graphs
 """
     Graph(n; maxDegree=16)
 
@@ -121,7 +122,6 @@ Return the number of vertices in the graph `g`.
 nv(g) = length(vertices(g))
 
 
-#TODO Get back to this
 """
     ne(g)
 Return the number of edges in the graph `g`.
