@@ -2,11 +2,11 @@ using GreedyEquivalenceSearch
 using CSV, DataFrames
 using Printf
 
-# dataID = @sprintf("%04d", 17)
-# data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) 
-# gJulia = ges(data; verbose=true)
-# @benchmark  ges($data)
-# @profview ges(data)
+dataID = @sprintf("%04d", 11)
+data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame) 
+gJulia = ges(data; verbose=true)
+@benchmark  ges($data)
+@profview ges(data)
 
 data = CSV.read("test/javaCompare/simulatedDAGs/large_sim_data.csv", DataFrame) 
 gJulia = ges(data; verbose=true)

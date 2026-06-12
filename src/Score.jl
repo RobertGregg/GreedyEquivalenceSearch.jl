@@ -29,6 +29,7 @@ end
 # Calculate Mean Square Error (MSE) for regression
 ####################################################################
 
+#TODO Maybe Symbolics.jl can help here
 """
     calculateMSE(Σ, y, X, k)
 Fits a linear model y=Xβ and returns the mean squared error (mse) from the model fit.
@@ -51,17 +52,93 @@ function calculateMSE(Σ, y, X, k)
         return Σ[y,y] - Σ[x₁,y]^2 / Σ[x₁,x₁]
     end
 
-    #Okay this is getting involved
-    if k == 2
-        x₁, x₂ = X
+    #Compute xᵀΣ⁻¹x
+    # x = [x₁, x₂]
+    # Σ = [a b; b c]
+    if k==2
+        xᵢ, xⱼ = X
 
-        v₁ = Σ[x₁, x₁]
-        v₂ = Σ[x₂, x₂]
-        c₁ = Σ[x₁, y]
-        c₂ = Σ[x₂, y]
-        c  = Σ[x₁, x₂]
+        x₁ = Σ[xᵢ, y]
+        x₂ = Σ[xⱼ, y]
+        a  = Σ[xᵢ, xᵢ]
+        b  = Σ[xᵢ, xⱼ]
+        c  = Σ[xⱼ, xⱼ]
 
-        return Σ[y,y] - (v₁*c₂^2 + v₂*c₁^2 - 2*c₁*c₂*c)/(v₁*v₂ - c^2)
+        return Σ[y,y] - (c*x₁^2 + a*x₂^2 - 2*b*x₁*x₂)/(a*c - b^2)
+    end
+
+    #Compute xᵀΣ⁻¹x
+    # x = [x₁, x₂, x₃]
+    # Σ = [a b c; b d e; c e f]
+    if k==3
+        xᵢ, xⱼ, xₖ = X
+
+        x₁ = Σ[xᵢ, y]
+        x₂ = Σ[xⱼ, y]
+        x₃ = Σ[xₖ, y]
+        a  = Σ[xᵢ, xᵢ]
+        b  = Σ[xᵢ, xⱼ]
+        c  = Σ[xᵢ, xₖ]
+        d  = Σ[xⱼ, xⱼ]
+        e  = Σ[xⱼ, xₖ]
+        f  = Σ[xₖ, xₖ]
+
+        Δ = a*d*f + 2b*c*e - a*e^2 - d*c^2 - f*b^2
+
+        return Σ[y,y] - ((d*f-e^2)*x₁^2 + (a*f-c^2)*x₂^2 + (a*d-b^2)*x₃^2 +2(c*e-b*f)*x₁*x₂ + 2(b*e-c*d)*x₁*x₃ + 2(b*c-a*e)*x₂*x₃)/Δ
+    end
+
+    #This hand written method is 10x faster than matrix solve which is crazy
+    # Compute xᵀΣ⁻¹x
+    # x = [x₁, x₂, x₃, x₄]
+    # Σ = [a b c d;
+    #      b e f g;
+    #      c f h i;
+    #      d g i j]
+    if k == 4
+        xᵢ, xⱼ, xₖ, xₗ = X
+
+        x₁ = Σ[xᵢ, y]
+        x₂ = Σ[xⱼ, y]
+        x₃ = Σ[xₖ, y]
+        x₄ = Σ[xₗ, y]
+
+        a = Σ[xᵢ, xᵢ]
+        b = Σ[xᵢ, xⱼ]
+        c = Σ[xᵢ, xₖ]
+        d = Σ[xᵢ, xₗ]
+        e = Σ[xⱼ, xⱼ]
+        f = Σ[xⱼ, xₖ]
+        g = Σ[xⱼ, xₗ]
+        h = Σ[xₖ, xₖ]
+        i = Σ[xₖ, xₗ]
+        j = Σ[xₗ, xₗ]
+
+        Δ =
+            a*e*h*j - a*e*i^2 - a*f^2*j + 2a*f*g*i - a*g^2*h -
+            b^2*h*j + b^2*i^2 + 2b*c*f*j - 2b*c*g*i -
+            2b*d*f*i + 2b*d*g*h -
+            c^2*e*j + 2c*d*e*i + c^2*g^2 -
+            2c*d*f*g - d^2*e*h + d^2*f^2
+
+        C11 =  e*h*j - e*i^2 - f^2*j + 2f*g*i - g^2*h
+        C22 =  a*h*j - a*i^2 - c^2*j + 2c*d*i - d^2*h
+        C33 =  a*e*j - a*g^2 - b^2*j + 2b*d*g - d^2*e
+        C44 =  a*e*h - a*f^2 - b^2*h + 2b*c*f - c^2*e
+
+        C12 = -b*h*j + b*i^2 + c*f*j - c*g*i - d*f*i + d*g*h
+        C13 =  b*f*j - b*g*i - c*e*j + c*g^2 + d*e*i - d*f*g
+        C14 = -b*f*i + b*g*h + c*e*i - c*f*g - d*e*h + d*f^2
+
+        C23 = -a*f*j + a*g*i + b*c*j - b*d*i - c*d*g + d^2*f
+        C24 =  a*f*i - a*g*h - b*c*i + b*d*h + c^2*g - c*d*f
+        C34 = -a*e*i + a*f*g + b^2*i - b*c*g - b*d*f + c*d*e
+
+        return Σ[y, y] - (
+            C11*x₁^2 + C22*x₂^2 + C33*x₃^2 + C44*x₄^2 +
+            2C12*x₁*x₂ + 2C13*x₁*x₃ + 2C14*x₁*x₄ +
+            2C23*x₂*x₃ + 2C24*x₂*x₄ + 2C34*x₃*x₄
+        ) / Δ
     end
 
     #Just give up and do a matrix solve 
@@ -134,7 +211,7 @@ end
 
 function (cs::CachedScore)(node::Int, nodeSet::AbstractSet)
 
-    if length(nodeSet) ≤ 2
+    if length(nodeSet) ≤ 4
         return _score(cs.stats, node, nodeSet)
     end
 
