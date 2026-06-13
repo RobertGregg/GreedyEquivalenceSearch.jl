@@ -29,7 +29,6 @@ end
 # Calculate Mean Square Error (MSE) for regression
 ####################################################################
 
-#TODO Maybe Symbolics.jl can help here
 """
     calculateMSE(Σ, y, X, k)
 Fits a linear model y=Xβ and returns the mean squared error (mse) from the model fit.
@@ -151,7 +150,8 @@ function calculateMSE(Σ, y, X, k)
 
     #Convert set to vector with no allocations
     # Xᵥ = SmallVector{SmallCollections.capacity(X)}(X)
-    Xᵥ = collect(X) #TODO NEED TO MAKE THIS DYNAMIC
+    #TODO NEED TO MAKE THIS DYNAMIC
+    Xᵥ = collect(X) 
 
     
     return @views Σ[y,y] - Σ[Xᵥ,y]' * (cholesky(Σ[Xᵥ,Xᵥ]) \ Σ[Xᵥ,y])

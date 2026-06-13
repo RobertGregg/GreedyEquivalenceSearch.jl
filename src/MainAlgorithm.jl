@@ -20,17 +20,13 @@ function ges(data::AbstractMatrix; verbose=false, maxDegree=16, penalty=1.0)
     return g
 end
 
-#Try to convert data to matrix (e.g., a DataFrame)
-ges(data; verbose=false, maxDegree=16, penalty=1.0) = ges(Matrix(data); verbose, maxDegree, penalty)
 
 
 # #executes when verbose flag is true
 function printState(stage, op, cache)
     forward = stage == "Forward Search"
 
-    subset = forward ?
-        collect(op.T) :
-        collect(op.H)
+    subset = forward ? collect(op.T) : collect(op.H)
 
     cache_pct = round(100 * length(cache) / cache.capacity, digits=3)
 
