@@ -1,5 +1,5 @@
 module GreedyEquivalenceSearchDataFramesExt
-    
+
 import GreedyEquivalenceSearch: ges #To extend methods
 using GreedyEquivalenceSearch, DataFrames
 

@@ -17,8 +17,8 @@ include("Score.jl")
 include("MainAlgorithm.jl")
 
 #Small helper functions
-powerset(x) = Iterators.flatten(subsets(x,i) for i in 0:length(x))
-adjacency_matrix(g) = BitMatrix(isAncestor(g,x,y)  for x in vertices(g), y in vertices(g))
+powerset(x) = Iterators.flatten(subsets(x, i) for i in 0:length(x))
+adjacency_matrix(g) = BitMatrix(isAncestor(g, x, y) for x in vertices(g), y in vertices(g))
 
 
 function getUIntType(n::Int)

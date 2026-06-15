@@ -1,11 +1,11 @@
 
 #These checks are independent of T and can happen outside of the powerset loop
 function precheckValidInsert(g, op::InsertOperator)
-    
+
     (; x, y) = op
 
     #Check 1: Stop if x and y are aleady adjacent
-    if isAdjacent(g,x,y)
+    if isAdjacent(g, x, y)
         return false
     end
 
@@ -20,14 +20,14 @@ Insert(x, y, T) is valid in CPDAG G iff:
 2. Every undirected path between x and y is blocked by NAyxT.
 """
 function isValidInsert(g, op::InsertOperator)
-    
+
     (; x, y, T) = op
-    
+
     NAyxT = neighbors(g, y) ∩ adjacencies(g, x) ∪ T
 
     #If NAyxT not a clique, then invalid
     isClique(g, NAyxT) || return false
-    
+
     #If blocking, then valid
     return isBlocked(g, x, y, NAyxT)
 end
@@ -40,12 +40,12 @@ Delete(x, y, H) is valid iff:
 2. NAyx ∖ H is a clique.
 """
 function isValidDelete(g, op::DeleteOperator)
-    
+
     (; x, y, H, NAyx) = op
 
     #If x and y are not adjacent, then invalid
     isAdjacent(g, x, y) || return false
-    
+
     #If NAyx \ H is a clique, then valid
     return isClique(g, setdiff(NAyx, H))
 end
@@ -70,7 +70,7 @@ end
 end
 
 function get_insert_candidates(g, a, b, update::EdgeUpdate)
-    candidates = Set{Tuple{Int, Int}}()
+    candidates = Set{Tuple{Int,Int}}()
 
     if update == U1_NONE_TO_UNDIRECTED
         # Table 5: y ∈ {a, b} OR y ∈ Ne(a) ∩ Ne(b) OR (x=a AND y ∈ Ne(b)) OR (x=b AND y ∈ Ne(a))
@@ -134,7 +134,7 @@ function get_insert_candidates(g, a, b, update::EdgeUpdate)
         for x in adjacencies(g, a)
             push!(candidates, (x, b))
         end
-        
+
     elseif update == U4_UNDIRECTED_TO_DIRECTED
         # Table 5: (y=a AND x ∈ Ad(b)) OR y=b OR SD(x,y;b,a)
         # 1. y=a AND x ∈ Ad(b)
@@ -176,7 +176,7 @@ function get_insert_candidates(g, a, b, update::EdgeUpdate)
             x ≠ b && push!(candidates, (x, b))
         end
     end
-    
+
     return candidates
 end
 
@@ -185,7 +185,7 @@ end
 
 
 function get_delete_candidates(g, a, b, update::EdgeUpdate)
-    candidates = Set{Tuple{Int, Int}}()
+    candidates = Set{Tuple{Int,Int}}()
 
     if update == U3_UNDIRECTED_TO_NONE
         # Table 5: ∅ 
@@ -209,7 +209,7 @@ function get_delete_candidates(g, a, b, update::EdgeUpdate)
 
     elseif update == U1_NONE_TO_UNDIRECTED
         # Table 5: y ∈ {a, b} OR x ∈ {a, b} OR (x ∈ Ad(a) ∩ Ad(b) AND y ∈ Ne(a) ∩ Ne(b))
-        
+
         # 1. y ∈ {a, b}
         for x in vertices(g)
             x ≠ a && push!(candidates, (x, a))
@@ -229,7 +229,7 @@ function get_delete_candidates(g, a, b, update::EdgeUpdate)
 
     elseif update == U2_NONE_TO_DIRECTED
         # Table 5: y = b OR x ∈ {a, b} OR (x ∈ Ad(a)∩Ad(b) AND y ∈ Ne(a)∩Ne(b))
-        
+
         # 1. y = b
         for x in vertices(g)
             x ≠ b && push!(candidates, (x, b))

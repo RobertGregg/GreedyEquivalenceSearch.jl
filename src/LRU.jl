@@ -31,27 +31,27 @@
 #   (safe for pure functions); the first to re-acquire the lock wins.
 #   show() snapshots the list under the lock then prints outside it.
 # ================================================================
- 
- 
+
+
 # ── Node ─────────────────────────────────────────────────────────
- 
+
 mutable struct Node{K,V}
-    key  :: K
-    val  :: V
-    prev :: Union{Node{K,V}, Nothing}
-    next :: Union{Node{K,V}, Nothing}
- 
+    key::K
+    val::V
+    prev::Union{Node{K,V},Nothing}
+    next::Union{Node{K,V},Nothing}
+
     Node{K,V}(k::K, v::V) where {K,V} = new{K,V}(k, v, nothing, nothing)
 end
- 
+
 # Sentinel returned by the first lock-check in get! to signal a cache miss.
 # A private struct (never a valid cache value) avoids ambiguity when V=Nothing.
 struct _CacheMiss end
 const _MISS = _CacheMiss()
- 
- 
- 
- 
+
+
+
+
 """
     LRUCache{K,V}(capacity::Int)
  
@@ -85,39 +85,48 @@ c["c"]             # → 99 (bracket syntax)
 ```
 """
 mutable struct LRUCache{K,V}
-    capacity :: Int
-    size     :: Int
-    map      :: Dict{K, Node{K,V}}
-    head     :: Union{Node{K,V}, Nothing}   # MRU end
-    tail     :: Union{Node{K,V}, Nothing}   # LRU end
-    lock     :: ReentrantLock               # guards all mutable state
- 
+    capacity::Int
+    size::Int
+    map::Dict{K,Node{K,V}}
+    head::Union{Node{K,V},Nothing}   # MRU end
+    tail::Union{Node{K,V},Nothing}   # LRU end
+    lock::ReentrantLock              # guards all mutable state
+
     function LRUCache{K,V}(cap::Int) where {K,V}
         cap ≥ 1 || throw(ArgumentError("capacity must be ≥ 1 (got $cap)"))
-        new{K,V}(cap, 0, Dict{K, Node{K,V}}(), nothing, nothing, ReentrantLock())
+        new{K,V}(cap, 0, Dict{K,Node{K,V}}(), nothing, nothing, ReentrantLock())
     end
 end
- 
+
 # Convenience untyped constructor
 LRUCache(cap::Int) = LRUCache{Any,Any}(cap)
- 
- 
+
+
 # ── Trait extensions ──────────────────────────────────────────────
- 
-Base.length(c::LRUCache)      = lock(c.lock) do; c.size; end
-Base.isempty(c::LRUCache)     = lock(c.lock) do; c.size == 0; end
-Base.haskey(c::LRUCache, key) = lock(c.lock) do; haskey(c.map, key); end
- 
- 
+
+Base.length(c::LRUCache) =
+    lock(c.lock) do
+        c.size
+    end
+Base.isempty(c::LRUCache) =
+    lock(c.lock) do
+        c.size == 0
+    end
+Base.haskey(c::LRUCache, key) =
+    lock(c.lock) do
+        haskey(c.map, key)
+    end
+
+
 # ── Private helpers ───────────────────────────────────────────────
- 
+
 # Splice node out of its current list position (does NOT free it).
 @inline function _unlink!(c::LRUCache{K,V}, n::Node{K,V}) where {K,V}
-    isnothing(n.prev) ? (c.head = n.next)  : (n.prev.next = n.next)
-    isnothing(n.next) ? (c.tail = n.prev)  : (n.next.prev = n.prev)
+    isnothing(n.prev) ? (c.head = n.next) : (n.prev.next = n.next)
+    isnothing(n.next) ? (c.tail = n.prev) : (n.next.prev = n.prev)
     n.prev = n.next = nothing
 end
- 
+
 # Prepend node to the MRU end (head).
 @inline function _prepend!(c::LRUCache{K,V}, n::Node{K,V}) where {K,V}
     n.prev = nothing
@@ -125,14 +134,14 @@ end
     isnothing(c.head) ? (c.tail = n) : (c.head.prev = n)
     c.head = n
 end
- 
+
 # Mark node as the most-recently-used entry.
 @inline function _touch!(c::LRUCache{K,V}, n::Node{K,V}) where {K,V}
     c.head === n && return      # already MRU — nothing to do
     _unlink!(c, n)
     _prepend!(c, n)
 end
- 
+
 # Evict the least-recently-used entry (the tail).
 @inline function _evict_lru!(c::LRUCache{K,V}) where {K,V}
     lru = c.tail
@@ -141,10 +150,10 @@ end
     delete!(c.map, lru.key)
     c.size -= 1
 end
- 
- 
+
+
 # ── Public API ────────────────────────────────────────────────────
- 
+
 """
     get(cache, key[, default]) → value | default
  
@@ -159,7 +168,7 @@ function Base.get(c::LRUCache{K,V}, key, default=nothing) where {K,V}
         n.val
     end
 end
- 
+
 """
     put!(cache, key, val) → cache
  
@@ -183,7 +192,7 @@ function put!(c::LRUCache{K,V}, key::K, val::V) where {K,V}
     end
     c
 end
- 
+
 """
     delete!(cache, key) → cache
  
@@ -199,7 +208,7 @@ function Base.delete!(c::LRUCache{K,V}, key) where {K,V}
     end
     c
 end
- 
+
 """
     get!(f, cache, key) → value
  
@@ -233,10 +242,10 @@ function Base.get!(f::Function, c::LRUCache{K,V}, key::K) where {K,V}
         isnothing(n) ? _MISS : (_touch!(c, n); n.val)
     end
     result isa _CacheMiss || return result
- 
+
     # ── 2. cache miss: compute with no lock held ─────────────────
     val = convert(V, f())
- 
+
     # ── 3. re-acquire, double-check, insert ─────────────────────
     lock(c.lock) do
         n = get(c.map, key, nothing)
@@ -252,7 +261,7 @@ function Base.get!(f::Function, c::LRUCache{K,V}, key::K) where {K,V}
         val
     end
 end
- 
+
 # Bracket read: cache[key]
 function Base.getindex(c::LRUCache{K,V}, key::K) where {K,V}
     lock(c.lock) do
@@ -262,10 +271,10 @@ function Base.getindex(c::LRUCache{K,V}, key::K) where {K,V}
         n.val
     end
 end
- 
+
 # Bracket write: cache[key] = val
 Base.setindex!(c::LRUCache{K,V}, val::V, key::K) where {K,V} = put!(c, key, val)
- 
+
 """
     collect(cache) → Vector{Pair{K,V}}
  
@@ -276,43 +285,43 @@ function Base.collect(c::LRUCache{K,V}) where {K,V}
     lock(c.lock) do
         out = Vector{Pair{K,V}}(undef, c.size)
         cur = c.head
-        i   = 1
+        i = 1
         while !isnothing(cur)
             out[i] = cur.key => cur.val
-            cur    = cur.next
-            i     += 1
+            cur = cur.next
+            i += 1
         end
         out
     end
 end
- 
+
 const _SHOW_LIMIT = 20    # match Base Dict truncation threshold
- 
+
 function Base.show(io::IO, c::LRUCache{K,V}) where {K,V}
     # Snapshot state under lock — print outside so IO doesn't block other threads.
     n, cap, entries, lru_key = lock(c.lock) do
         snap = Vector{Pair{K,V}}(undef, c.size)
-        cur  = c.head
-        i    = 1
+        cur = c.head
+        i = 1
         while !isnothing(cur)
             snap[i] = cur.key => cur.val
             cur = cur.next
-            i  += 1
+            i += 1
         end
         lru = isnothing(c.tail) ? nothing : c.tail.key
         c.size, c.capacity, snap, lru
     end
- 
+
     print(io, "LRUCache{$K, $V}(capacity = $cap) with $n ",
-              n == 1 ? "entry" : "entries")
+        n == 1 ? "entry" : "entries")
     n == 0 && return
     print(io, ":")
     truncated = n > _SHOW_LIMIT
-    limit     = truncated ? _SHOW_LIMIT : n
+    limit = truncated ? _SHOW_LIMIT : n
     for i in 1:limit
         k, v = entries[i]
         print(io, "\n  ", repr(k), " => ", repr(v))
-        i == 1           && print(io, "  # MRU")
+        i == 1 && print(io, "  # MRU")
         i == n && !truncated && print(io, "  # LRU")
     end
     if truncated

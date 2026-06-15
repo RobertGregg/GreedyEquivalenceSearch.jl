@@ -8,16 +8,16 @@
 Save the output of fges to a text file. 
 """
 function saveGraph(fileName, g, featureNames)
-    open(fileName,"w") do io
+    open(fileName, "w") do io
 
-        for (i,name) in enumerate(featureNames)
-            println(io,i,":",name)
+        for (i, name) in enumerate(featureNames)
+            println(io, i, ":", name)
         end
 
-        println(io,"")
+        println(io, "")
 
         for edge in edges(g)
-            println(io,edge)
+            println(io, edge)
         end
 
     end
@@ -34,7 +34,7 @@ Load a saved output of fges from a text file. Outputs both the graph and a list 
 function loadGraph(fileName)
 
     #Let's check if the node names are numbers or strings
-    parseOutput = tryparse(Int,last(split(first(eachline(fileName)),":")))
+    parseOutput = tryparse(Int, last(split(first(eachline(fileName)), ":")))
 
     if isnothing(parseOutput)
         nodeNames = String[]
@@ -48,9 +48,9 @@ function loadGraph(fileName)
         end
 
         if isnothing(parseOutput)
-            push!(nodeNames, String(last(split(line,":"))))
+            push!(nodeNames, String(last(split(line, ":"))))
         else
-            push!(nodeNames, parse(Int,last(split(line,":"))))
+            push!(nodeNames, parse(Int, last(split(line, ":"))))
         end
     end
 
@@ -62,17 +62,17 @@ function loadGraph(fileName)
 
     for line in eachline(fileName)
 
-        sublines = split(line," ")
+        sublines = split(line, " ")
         #Check if line was split
         if length(sublines) == 1
             continue
         end
 
 
-        v₁ = parse(Int,sublines[1])
-        v₂ = parse(Int,sublines[3])
+        v₁ = parse(Int, sublines[1])
+        v₂ = parse(Int, sublines[3])
 
-        
+
         #Check if edge is directed
         directed = sublines[2] == "→"
         addEdge!(g, v₁, v₂; directed)
@@ -89,12 +89,12 @@ end
 
 
 # function edgetable(g::T, featureNames) where T<:Graphs.AbstractGraph
-    
+
 #     df = DataFrame(alledges(g))
-    
+
 #     df.parent = featureNames[df.parent]
 #     df.child = featureNames[df.child]
-    
+
 #     return df
 # end
 

@@ -45,21 +45,21 @@ ChunkSplitters.is_chunkable(::CombinationPairs) = true
 function Base.getindex(P::CombinationPairs, k::Int)
     n = P.n
     N = length(P)
-    
+
     # m is the number of rows remaining below row i
     # This is the integer solution to: m(m+1)/2 <= k_rev
     m = (isqrt(1 + 8 * (N - k)) - 1) ÷ 2
-    
+
     # Calculate i (1-based row index)
     i = n - 1 - m
-    
+
     # Calculate how many pairs exist before row i
     # Sum of (n-1) + (n-2) + ... + (n-(i-1))
     pairs_before_i = (i - 1) * n - (i * (i - 1)) ÷ 2
-    
+
     # j is the offset within the current row
     j = i + (k - pairs_before_i)
-    
+
     return (i, j)
 end
 
@@ -73,8 +73,8 @@ end
 
 function Base.iterate(P::CombinationPairs, state)
 
-   (stateᵢ, stateⱼ, index) = state
-    
+    (stateᵢ, stateⱼ, index) = state
+
     index == length(P) && return nothing
 
     if stateⱼ < P.n
@@ -134,21 +134,21 @@ ChunkSplitters.is_chunkable(::PermutationPairs) = true
 # Helper to get a specific pair from a linear index k
 function Base.getindex(p::PermutationPairs, k::Int)
     n = p.n
-    
+
     # Convert to 0-based index for easier division/modulo arithmetic
     k0 = k - 1
-    
+
     # Because every row has exactly (n - 1) elements:
     # i is determined by which chunk of (n - 1) the index falls into.
     i = (k0 ÷ (n - 1)) + 1
-    
+
     # j_offset is the 1-based position within that specific row chunk
     j_offset = (k0 % (n - 1)) + 1
-    
+
     # To find the actual j value, we must skip the diagonal where i == j.
     # If our offset pushes us to or past the row index i, we simply add 1.
     j = j_offset ≥ i ? j_offset + 1 : j_offset
-    
+
     return (i, j)
 end
 
@@ -161,8 +161,8 @@ end
 
 function Base.iterate(P::PermutationPairs, state)
 
-   (stateᵢ, stateⱼ, index) = state
-    
+    (stateᵢ, stateⱼ, index) = state
+
     index == length(P) && return nothing
 
     if stateⱼ < P.n
@@ -178,11 +178,11 @@ function Base.iterate(P::PermutationPairs, state)
 end
 
 #Iterators that use the struct defined above
-allCombinationPairs(v::AbstractVector) = ((v[i],v[j]) for (i,j) in CombinationPairs(length(v)))
+allCombinationPairs(v::AbstractVector) = ((v[i], v[j]) for (i, j) in CombinationPairs(length(v)))
 
-allPermutationPairs(v::AbstractVector) = ((v[i],v[j]) for (i,j) in PermutationPairs(length(v)))
+allPermutationPairs(v::AbstractVector) = ((v[i], v[j]) for (i, j) in PermutationPairs(length(v)))
 
 
 #Generic one-liners that will work for pretty much anything else that can be iterated 
-allCombinationPairs(v) = ((x,y) for (i,x) in enumerate(v) for y in Iterators.drop(v,i)) 
-allPermutationPairs(v) = ((x,y) for x in v for y in v if x≠y)
+allCombinationPairs(v) = ((x, y) for (i, x) in enumerate(v) for y in Iterators.drop(v, i))
+allPermutationPairs(v) = ((x, y) for x in v for y in v if x ≠ y)

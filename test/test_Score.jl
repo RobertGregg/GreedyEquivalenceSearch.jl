@@ -1,7 +1,7 @@
 using GreedyEquivalenceSearch
 using SmallCollections, LRUCache
 
-data = rand(100,50)
+data = rand(100, 50)
 data .-= mean(data, dims=1)
 
 stats = SufficientStats(data)

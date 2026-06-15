@@ -8,7 +8,7 @@ Return `true` if all vertices in `nodes` are undirected neighbors in the graph `
 """
 function isClique(g, nodes)
 
-    for (x,y) in allCombinationPairs(nodes)
+    for (x, y) in allCombinationPairs(nodes)
         if !isAdjacent(g, x, y)
             return false
         end
@@ -50,7 +50,7 @@ function isBlocked(g, x, y, nodesRemoved)
         current = popfirst!(queue)
 
         # children + undirected neighbors i.e., descendents(g, current)
-        for v in children(g,current)
+        for v in children(g, current)
 
             v == x && return false   # semi-directed path exists
 
@@ -65,7 +65,7 @@ function isBlocked(g, x, y, nodesRemoved)
 
         end
 
-        for v in neighbors(g,current)
+        for v in neighbors(g, current)
 
             v == x && return false   # semi-directed path exists
 
@@ -94,7 +94,7 @@ end
 #Revert a graph to undirected edges and unshielded colliders
 #An unshielded collider at node y look like: x → y ← z and requires that x and z are not adjacent.
 function graphVStructure!(g)
-    
+
     edgesToUndirect = Set{GraphEdge}()
 
 
@@ -102,12 +102,12 @@ function graphVStructure!(g)
     for edge in directedEdges(g)
 
         undirectCurrentEdge = true
-        (x,y) = edge.parent, edge.child
+        (x, y) = edge.parent, edge.child
 
         #Find directed edges that share same child node
         #Check for unshielded collider
         for p in parents(g, y)
-            if p≠x && !isAdjacent(g,x,p)
+            if p ≠ x && !isAdjacent(g, x, p)
                 undirectCurrentEdge = false
                 break
             end
@@ -122,7 +122,7 @@ function graphVStructure!(g)
 
     #Loop through edges and undirect edges not in unshielded colliders
     for edge in edgesToUndirect
-        unorientEdge!(g,edge)
+        unorientEdge!(g, edge)
     end
 
 end
@@ -130,11 +130,11 @@ end
 
 
 function meekRules!(g)
-    
+
     rulesFound = true
 
     while rulesFound
-        
+
         rulesFound = false
 
         for edge in undirectedEdges(g)
@@ -142,12 +142,12 @@ function meekRules!(g)
             #For clarity extract the edge vertices
             (x, y) = edge.parent, edge.child
 
-            if R1(g,x,y) || R2(g,x,y) || R3(g,x,y)
+            if R1(g, x, y) || R2(g, x, y) || R3(g, x, y)
                 #Change x-y to x→y
                 orientEdge!(g, x, y)
                 rulesFound = true
                 break
-            elseif R1(g,y,x) || R2(g,y,x) || R3(g,y,x)
+            elseif R1(g, y, x) || R2(g, y, x) || R3(g, y, x)
                 #Change y-x to y→x
                 orientEdge!(g, y, x)
                 rulesFound = true
@@ -163,8 +163,8 @@ end
 
 function R1(g, x, y)
     #given x-y, look for patterns that match v₁→x and not(v₁→y)
-    for v₁ in parents(g,x)
-        if !isAdjacent(g,v₁,y)
+    for v₁ in parents(g, x)
+        if !isAdjacent(g, v₁, y)
             return true
         end
     end
@@ -172,25 +172,25 @@ function R1(g, x, y)
 end
 
 
-function R2(g,x,y)
+function R2(g, x, y)
     #given x-y, look for patterns that match x→v₁→y
-    for v₁ in children(g,x)
-        if isParent(g,v₁,y)
+    for v₁ in children(g, x)
+        if isParent(g, v₁, y)
             return true
         end
     end
     return false
 end
 
-function R3(g,x,y)
-        
+function R3(g, x, y)
+
     #given x-y, find x-v₁→y and x-v₂→y and v₁-v₂
-    for (v₁,v₂) in allCombinationPairs(neighbors(g,x))
-        if isParent(g,v₁,y) && isParent(g,v₂,y) && !isAdjacent(g,v₁,v₂)
+    for (v₁, v₂) in allCombinationPairs(neighbors(g, x))
+        if isParent(g, v₁, y) && isParent(g, v₂, y) && !isAdjacent(g, v₁, v₂)
             return true
         end
     end
-    
+
     return false
 end
 
@@ -207,13 +207,13 @@ end
 #2. Every neighbor of v is connected to all other adjacent nodes of v (neighbors form a clique and are connected to all parents of v)
 
 function isPotentialSink(g, v, verticesRemoved=BitSet())
-    
-    filteredParents = filter(!in(verticesRemoved), parents(g,v))
-    filteredChildern = filter(!in(verticesRemoved), children(g,v))
-    filteredNeighbors = filter(!in(verticesRemoved), neighbors(g,v))
+
+    filteredParents = filter(!in(verticesRemoved), parents(g, v))
+    filteredChildern = filter(!in(verticesRemoved), children(g, v))
+    filteredNeighbors = filter(!in(verticesRemoved), neighbors(g, v))
 
     #No children
-    !isempty( filteredChildern ) && return false
+    !isempty(filteredChildern) && return false
 
     #All neighbors are connected
     !isClique(g, filteredNeighbors) && return false
@@ -221,7 +221,7 @@ function isPotentialSink(g, v, verticesRemoved=BitSet())
     #Every parent is connected to every neighbor 
     for p in filteredParents
         for y in filteredNeighbors
-            !isAdjacent(g,y,p) && return false
+            !isAdjacent(g, y, p) && return false
         end
     end
 
@@ -237,15 +237,15 @@ function PDAGtoDAG(g)
 
     verticesRemoved = BitSet()
 
-    for _ in vertices(g) 
+    for _ in vertices(g)
         for v in vertices(g)
 
             #Skip over removed vertices
             v ∈ verticesRemoved && continue
 
             if isPotentialSink(g, v, verticesRemoved)
-                for x in filter(!in(verticesRemoved), adjacencies(g,v))
-                    orientEdge!(g,x,v)
+                for x in filter(!in(verticesRemoved), adjacencies(g, v))
+                    orientEdge!(g, x, v)
                 end
                 push!(verticesRemoved, v)
             end
@@ -258,7 +258,7 @@ end
 ####################################################################
 # Topological Sort (Kahn's algorithm)
 ####################################################################
- 
+
 """
     topologicalSort(g::Graph) -> Vector{Int}
  
@@ -293,7 +293,7 @@ end
 ####################################################################
 # DAG → CPDAG
 ####################################################################
- 
+
 """
     DAGtoCPDAG(dag::Graph) -> Graph
  
@@ -352,7 +352,7 @@ cpdag = DAGtoCPDAG(dag)       # 1-2-3  (undirected)
 ```
 """
 function DAGtoCPDAG(dag::Graph)
- 
+
     # ── Step 1: consistent node ordering ─────────────────────────────
     topologicalOrder = topologicalSort(dag)
 
@@ -363,19 +363,19 @@ function DAGtoCPDAG(dag::Graph)
     for y in topologicalOrder, x in parents(dag, y)
         push!(rankedEdges, GraphEdge(x, y, true))
     end
- 
+
     # ── Step 3: label each edge ───────────────────────────────────────
     # Initialize every edge as :unknown.
     labeledEdges = Dict(rankedEdges .=> :unknown)
- 
+
     for edge in rankedEdges
         x, y = edge.parent, edge.child
- 
+
         # Rule 2 (applied to a previous edge) may have pre-labeled this edge.
         labeledEdges[edge] ≠ :unknown && continue
- 
+
         done = false
- 
+
         # ── Rule 1: compelled chain ───────────────────────────────────
         # Premise: some other parent z of y has a *compelled* edge z→x.
         # Consequence: the "compelledness" propagates to x→y.
@@ -392,7 +392,7 @@ function DAGtoCPDAG(dag::Graph)
                 break
             end
         end
- 
+
         # ── Rule 2: non-adjacent parent (v-structure witness) ─────────
         # Premise: some other parent z of y is non-adjacent to x.
         # Consequence: x→y←z is a v-structure (actual or implied), so
@@ -405,8 +405,8 @@ function DAGtoCPDAG(dag::Graph)
                     # Propagate to all other unknown edges into y
                     for w in parents(dag, y)
                         w == x && continue
-                        if get(labeledEdges, GraphEdge(w, y,true), :unknown) === :unknown   
-                            labeledEdges[GraphEdge(w, y,true)] = :compelled
+                        if get(labeledEdges, GraphEdge(w, y, true), :unknown) === :unknown
+                            labeledEdges[GraphEdge(w, y, true)] = :compelled
                         end
                     end
                     done = true
@@ -414,19 +414,19 @@ function DAGtoCPDAG(dag::Graph)
                 end
             end
         end
- 
+
         # ── Neither rule fired → reversible ───────────────────────────
         done || (labeledEdges[GraphEdge(x, y, true)] = :reversible)
     end
- 
+
     # ── Step 4: assemble the CPDAG ────────────────────────────────────
- 
+
     for (edge, label) in labeledEdges
         if label === :reversible
             unorientEdge!(dag, edge)
         end
     end
- 
+
     return dag
 end
 

@@ -11,9 +11,9 @@ struct InsertOperator{S<:AbstractSet}
 end
 
 
-function InsertOperator(g,x,y) 
-    
-    ∅ = empty(parents(g,x))
+function InsertOperator(g, x, y)
+
+    ∅ = empty(parents(g, x))
     parentsY = parents(g, y)
     return InsertOperator(x, y, ∅, parentsY, -Inf)
 end
@@ -21,7 +21,7 @@ end
 
 
 function Base.show(io::IO, op::InsertOperator)
-    print(io,"InsertOperator($(op.x) → $(op.y))")
+    print(io, "InsertOperator($(op.x) → $(op.y))")
 end
 
 ####################################################################
@@ -39,21 +39,21 @@ struct DeleteOperator{S<:AbstractSet}
 end
 
 
-function DeleteOperator(g,x,y)
-    
-    ∅ = empty(parents(g,x))
-    
+function DeleteOperator(g, x, y)
+
+    ∅ = empty(parents(g, x))
+
     #These stay the same for all x,y
-    neighborsY = neighbors(g,y)
-    parentsY = parents(g,y)
-    NAyx = neighborsY ∩ adjacencies(g,x)
-    
+    neighborsY = neighbors(g, y)
+    parentsY = parents(g, y)
+    NAyx = neighborsY ∩ adjacencies(g, x)
+
     return DeleteOperator(x, y, ∅, neighborsY, parentsY, NAyx, -Inf)
 end
 
 
 function Base.show(io::IO, op::DeleteOperator)
-    print(io,"DeleteOperator($(op.x) -/→ $(op.y))")
+    print(io, "DeleteOperator($(op.x) -/→ $(op.y))")
 end
 
 ####################################################################
