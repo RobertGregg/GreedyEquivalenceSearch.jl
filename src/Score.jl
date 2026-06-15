@@ -33,7 +33,7 @@ end
     calculateMSE(Σ, y, X, k)
 Fits a linear model y=Xβ and returns the mean squared error (mse) from the model fit.
 
-Here we take advantage of a precomputed covariance matrix to solve for mse directly. `k` determines the number of free parameters (i.e. number of columns in X) in the model.
+Here we take advantage of a precomputed covariance matrix Σ to solve for mse directly. `k` determines the number of free parameters (i.e. number of columns in X) in the model.
 """
 function calculateMSE(Σ, y, X, k)
     
@@ -54,7 +54,7 @@ function calculateMSE(Σ, y, X, k)
     #Compute xᵀΣ⁻¹x
     # x = [x₁, x₂]
     # Σ = [a b; b c]
-    if k==2
+    if k == 2
         xᵢ, xⱼ = X
 
         x₁ = Σ[xᵢ, y]
@@ -69,7 +69,7 @@ function calculateMSE(Σ, y, X, k)
     #Compute xᵀΣ⁻¹x
     # x = [x₁, x₂, x₃]
     # Σ = [a b c; b d e; c e f]
-    if k==3
+    if k == 3
         xᵢ, xⱼ, xₖ = X
 
         x₁ = Σ[xᵢ, y]
@@ -87,7 +87,7 @@ function calculateMSE(Σ, y, X, k)
         return Σ[y,y] - ((d*f-e^2)*x₁^2 + (a*f-c^2)*x₂^2 + (a*d-b^2)*x₃^2 +2(c*e-b*f)*x₁*x₂ + 2(b*e-c*d)*x₁*x₃ + 2(b*c-a*e)*x₂*x₃)/Δ
     end
 
-    #This hand written method is 10x faster than matrix solve which is crazy
+    #This hand written method is 10x faster than the matrix solve which is crazy
     # Compute xᵀΣ⁻¹x
     # x = [x₁, x₂, x₃, x₄]
     # Σ = [a b c d;
@@ -125,6 +125,7 @@ function calculateMSE(Σ, y, X, k)
         C33 =  a*e*j - a*g^2 - b^2*j + 2b*d*g - d^2*e
         C44 =  a*e*h - a*f^2 - b^2*h + 2b*c*f - c^2*e
 
+        #so many cofactors...
         C12 = -b*h*j + b*i^2 + c*f*j - c*g*i - d*f*i + d*g*h
         C13 =  b*f*j - b*g*i - c*e*j + c*g^2 + d*e*i - d*f*g
         C14 = -b*f*i + b*g*h + c*e*i - c*f*g - d*e*h + d*f^2
@@ -211,6 +212,7 @@ end
 
 function (cs::CachedScore)(node::Int, nodeSet::AbstractSet)
 
+    #The hard-coded small matrix solves are faster than LRU lookup
     if length(nodeSet) ≤ 4
         return _score(cs.stats, node, nodeSet)
     end

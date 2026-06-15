@@ -28,10 +28,10 @@
 
     
     op1 = InsertOperator(g,1,5)
-    op1 = GreedyEquivalenceSearch.setT(op1, SmallSet{16}(6))
+    op1 = GreedyEquivalenceSearch.setT(op1, SmallBitSet{UInt8}(6))
 
     op2 = InsertOperator(g,2,6)
-    op2 = GreedyEquivalenceSearch.setT(op2, SmallSet{16}(5))
+    op2 = GreedyEquivalenceSearch.setT(op2, SmallBitSet{UInt8}(5))
 
 
     @test isValidInsert(g, op1) == true # 6 blocks the path
