@@ -93,6 +93,43 @@ end
 
 #Revert a graph to undirected edges and unshielded colliders
 #An unshielded collider at node y look like: x → y ← z and requires that x and z are not adjacent.
+function graphVStructure!(g, operatorSet, score)
+
+    edgesToUndirect = Set{GraphEdge}()
+
+
+    #Check through all directed edges
+    for edge in directedEdges(g)
+
+        undirectCurrentEdge = true
+        (x, y) = edge.parent, edge.child
+
+        #Find directed edges that share same child node
+        #Check for unshielded collider
+        for p in parents(g, y)
+            if p ≠ x && !isAdjacent(g, x, p)
+                undirectCurrentEdge = false
+                break
+            end
+        end
+
+        if undirectCurrentEdge
+            push!(edgesToUndirect, edge)
+        end
+
+    end
+
+
+    #Loop through edges and undirect edges not in unshielded colliders
+    for edge in edgesToUndirect
+        unorientEdge!(g, edge)
+        addAllCandidates(g, edge, operatorSet, score, U6_DIRECTED_TO_UNDIRECTED)
+    end
+
+end
+
+
+
 function graphVStructure!(g)
 
     edgesToUndirect = Set{GraphEdge}()
@@ -127,6 +164,39 @@ function graphVStructure!(g)
 
 end
 
+
+function meekRules!(g, operatorSet, score)
+
+    rulesFound = true
+
+    while rulesFound
+
+        rulesFound = false
+
+        for edge in undirectedEdges(g)
+
+            #For clarity extract the edge vertices
+            (x, y) = edge.parent, edge.child
+
+            if R1(g, x, y) || R2(g, x, y) || R3(g, x, y)
+                #Change x-y to x→y
+                orientEdge!(g, x, y)
+                addAllCandidates(g, x, y, operatorSet, score, U4_UNDIRECTED_TO_DIRECTED)
+                rulesFound = true
+                break
+            elseif R1(g, y, x) || R2(g, y, x) || R3(g, y, x)
+                #Change y-x to y→x
+                orientEdge!(g, y, x)
+                addAllCandidates(g, y, x, operatorSet, score, U4_UNDIRECTED_TO_DIRECTED)
+                rulesFound = true
+                break
+            end
+        end
+
+    end
+
+    return nothing
+end
 
 
 function meekRules!(g)

@@ -68,7 +68,7 @@ function Insert!(g, op::InsertOperator)
     (; x, y, T) = op
 
     #Add a directed edge x→y (currently no edge present)
-    addEdge!(g, x, y)
+    addDirectedEdge!(g, x, y)
 
     #Orient all edges incident into child node
     for t in T
@@ -210,14 +210,21 @@ Modify the graph `g` by removing the edge `op.x`→`op.y`. Additionally, orient 
 """
 function Delete!(g, op::DeleteOperator)
 
-    (; x, y, H) = op
+    (; x, y, C) = op
     #remove directed and unidrected edges (x→y and x-y)
-    removeEdge!(g, x, y)
+    if isDirected(g, x, y)
+        removeDirectedEdge!(g, x, y)
+    else
+        removeUndirectedEdge!(g,x,y)
+    end
 
     #Orient all vertices in H toward x and y
-    for h in H
+    for h in C
         orientEdge!(g, y, h) #y→h
-        orientEdge!(g, x, h) #x→h
+
+        if isNeighbor(g,x,h)
+            orientEdge!(g, x, h) #x→h
+        end
     end
 
     return nothing
@@ -296,12 +303,25 @@ function backwardPhase!(g, stats; verbose=false)
 end
 
 
-
 function deleteCandidates(g, op)
 
-
+    (; x, y) = op
     #neighbors of y that are adjacent to x
-    H = op.NAyx
+    C = neighbors(g,y) ∩ adjacencies(g,x)
 
-    return (setH(op, Hᵢ) for Hᵢ in powerset(H))
+    return (setC(op, Cᵢ) for Cᵢ in powerset(C))
+end
+
+
+#These checks are independent of T and can happen outside of the powerset loop
+function precheckValidInsert(g, op::InsertOperator)
+
+    (; x, y) = op
+
+    #Check 1: Stop if x and y are aleady adjacent
+    if isAdjacent(g, x, y)
+        return false
+    end
+
+    return true
 end

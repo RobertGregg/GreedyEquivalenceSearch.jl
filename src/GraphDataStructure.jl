@@ -202,85 +202,90 @@ end
 # Methods to modify Graph edges
 ####################################################################
 
+
 """
-    addEdge!(g,x,y; directed=true)
+    addUndirectedEdge!(g, x, y)
+Add the edge `x`-`y` to the graph `g`. 
+"""
+function addUndirectedEdge!(g, x, y)
+
+    g.neighbors[x] = push(neighbors(g, x), y)
+    g.neighbors[y] = push(neighbors(g, y), x)
+
+    return nothing
+end
+
+
+"""
+    addDirectedEdge!(g, x, y)
 Add the edge `x`→`y` to the graph `g`. 
-
-The directed keyword can be set to false to add an undirected edge: `x`-`y`.
-
-This function does not check for the presence of an edge beforehand.
 """
-function addEdge!(g, x, y; directed=true)
+function addDirectedEdge!(g, x, y)
 
-    if directed
-        g.children[x] = push(children(g, x), y)
-        g.parents[y] = push(parents(g, y), x)
-    else
-        g.neighbors[x] = push(neighbors(g, x), y)
-        g.neighbors[y] = push(neighbors(g, y), x)
-    end
-    return nothing
-end
-
-addEdge!(g, edge::GraphEdge) = addEdge!(g, edge.parent, edge.child; directed=edge.directed)
-
-"""
-removeEdge!(g,x,y)
-Remove the edge `x`→`y` or `x`-`y` from the graph `g`. 
-"""
-function removeEdge!(g, x, y)
-
-    #Removing potential undirected edge
-    g.neighbors[x] = delete(neighbors(g, x), y)
-    g.neighbors[y] = delete(neighbors(g, y), x)
-
-    #Removing potential directed edge
-    g.children[x] = delete(children(g, x), y)
-    g.parents[y] = delete(parents(g, y), x)
-
-    return nothing
-end
-
-removeEdge!(g, edge::GraphEdge) = removeEdge!(g, edge.parent, edge.child)
-
-"""
-orientEdge!(g, x, y)
-Update the edge `x`-`y` to `x`→`y` in the graph `g`. 
-
-This function does not check for the presence of an edge beforehand.
-"""
-function orientEdge!(g, x, y)
-
-    #Remove undirected edge
-    g.neighbors[x] = delete(neighbors(g, x), y)
-    g.neighbors[y] = delete(neighbors(g, y), x)
-
-    #Add directed edge
     g.children[x] = push(children(g, x), y)
     g.parents[y] = push(parents(g, y), x)
 
     return nothing
 end
 
-orientEdge!(g, edge::GraphEdge) = orientEdge!(g, edge.parent, edge.child)
 
 """
-unorientEdge!(g, x, y)
-Update the edge `x`→`y` to `x`-`y` in the graph `g`. 
+    removeUndirectedEdge!(g, x, y)
+Remove the edge `x`-`y` to the graph `g`. 
 """
-function unorientEdge!(g, x, y)
+function removeUndirectedEdge!(g, x, y)
 
-    #Remove directed edge
-    g.children[x] = delete(children(g, x), y)
-    g.parents[y] = delete(parents(g, y), x)
+    g.neighbors[x] = delete(neighbors(g, x), y)
+    g.neighbors[y] = delete(neighbors(g, y), x)
 
-    #Add undirected edge
-    g.neighbors[x] = push(neighbors(g, x), y)
-    g.neighbors[y] = push(neighbors(g, y), x)
     return nothing
 end
 
+
+"""
+    removeDirectedEdge!(g, x, y)
+Remove the edge `x`→`y` to the graph `g`.  
+"""
+function removeDirectedEdge!(g, x, y)
+    g.children[x] = delete(children(g, x), y)
+    g.parents[y] = delete(parents(g, y), x)
+
+    return nothing
+end
+
+
+"""
+    orientEdge!(g, x, y)
+Update the edge `x`-`y` to `x`→`y` in the graph `g`.  
+"""
+function orientEdge!(g, x, y)
+
+    removeUndirectedEdge!(g, x, y)
+    addUndirectedEdge!(g, x, y)
+
+    return nothing
+end
+
+
+"""
+    unorientEdge!(g, x, y)
+Update the edge `x`→`y` to `x`-`y` in the graph `g`.  
+"""
+function unorientEdge!(g, x, y)
+
+    removeDirectedEdge!(g, x, y)
+    addUndirectedEdge!(g, x, y)
+end
+
+
+#Updates with a GraphEdge 
+addUndirectedEdge!(g, edge::GraphEdge) = addUndirectedEdge!(g, edge.parent, edge.child)
+addDirectedEdge!(g, edge::GraphEdge) = addDirectedEdge!(g, edge.parent, edge.child)
+removeUndirectedEdge!(g, edge::GraphEdge) = removeUndirectedEdge!(g, edge.parent, edge.child)
+removeDirectedEdge!(g, edge::GraphEdge) = removeDirectedEdge!(g, edge.parent, edge.child)
+orientEdge!(g, edge::GraphEdge) = orientEdge!(g, edge.parent, edge.child)
 unorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
+
 
 ####################################################################
 # Relationship between two verticies

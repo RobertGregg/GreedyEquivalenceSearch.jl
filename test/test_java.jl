@@ -84,7 +84,7 @@ function runComparisons(idnum; verbose=true)
 
     for i in axes(simEdges, 1)
         nodes = parse.(Int, filter.(isdigit, simEdges[i, [1, 3]]))
-        addEdge!(gTrue, nodes...)
+        addDirectedEdge!(gTrue, nodes...)
     end
 
     continTableJulia = contingencyTable(gJulia, gTrue)

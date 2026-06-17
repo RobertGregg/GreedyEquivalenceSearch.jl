@@ -227,11 +227,11 @@ end
 #Updates the operator's score
 function (score::CachedScore)(op::InsertOperator)
 
-    (; x, y, T, parentsY) = op #gettin' fancy with the struct unpacking
+    (; x, y, T, E) = op #gettin' fancy with the struct unpacking
 
-    TPaY = T ∪ parentsY
+    E = T ∪ E
 
-    scoreDelta = score(y, push(TPaY, x)) - score(y, TPaY)
+    scoreDelta = score(y, push(E, x)) - score(y, E)
 
     return setScore(op, scoreDelta)
 end
@@ -239,9 +239,9 @@ end
 
 function (score::CachedScore)(op::DeleteOperator)
 
-    (; x, y, H, parentsY) = op
+    (; x, y, C, E) = op
 
-    scoreDelta = score(y, setdiff(H ∪ parentsY, x)) - score(y, H ∪ parentsY)
+    scoreDelta = score(y, setdiff(C ∪ E, x)) - score(y, C ∪ E)
 
     return setScore(op, scoreDelta)
 end

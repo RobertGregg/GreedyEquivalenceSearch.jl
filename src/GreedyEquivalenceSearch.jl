@@ -1,7 +1,8 @@
 module GreedyEquivalenceSearch
 
-using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
+using DataStructures: SortedSet
+using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using OhMyThreads, ChunkSplitters #parallelization
 using OhMyThreads: TaskLocalValue
 using BangBang #update immutable operator properties
@@ -15,6 +16,7 @@ include("Operators.jl")
 include("ValidityTests.jl")
 include("Score.jl")
 include("MainAlgorithm.jl")
+include("xgesAlgorithm.jl")
 
 #Small helper functions
 powerset(x) = Iterators.flatten(subsets(x, i) for i in 0:length(x))
@@ -80,10 +82,11 @@ export
     topologicalSort,
     DAGtoCPDAG,
     #Operators.jl
-    isValidInsert,
-    isValidDelete,
+    isValid,
     InsertOperator,
     DeleteOperator,
+    Operator,
+    addAllCandidates,
     #Score.jl
     SufficientStats,
     CachedScore,
@@ -93,6 +96,8 @@ export
     backwardPhase!,
     ges,
     insertCandidates,
-    precheckValidInsert
+    precheckValidInsert,
+    applyOperator,
+    XGES0
 
 end
