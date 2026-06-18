@@ -2,6 +2,7 @@ using GreedyEquivalenceSearch
 using Test
 using CSV, DataFrames
 using SmallCollections
+using Random
 
 
 @testset "GraphDataStructure" begin

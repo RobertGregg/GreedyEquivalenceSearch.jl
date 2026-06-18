@@ -22,32 +22,24 @@ end
 
 
 
-# #executes when verbose flag is true
+# executes when verbose flag is true
 function printState(stage, op, cache)
-    forward = stage == "Forward Search"
+    # Helper function for consistent styled printing
+    function printfield(label, value, color)
+        printstyled(label, color=color, bold=true)
+        print(value, " ")
+    end
 
-    subset = forward ? collect(op.T) : collect(op.H)
-
+    # Extract and compute underlying data
+    forward = (stage == "Forward Search")
+    subset  = forward ? collect(op.T) : collect(op.H)
     cache_pct = round(100 * length(cache) / cache.capacity, digits=3)
 
-    printstyled("[$stage]", color=forward ? :green : :red, bold=true)
-
-    print(" ")
-
-    printstyled("Edge=", color=:cyan, bold=true)
-    print(op.x, "→", op.y)
-
-    print(" ")
-
-    printstyled("ΔScore=", color=:black, bold=true)
-    print(round(op.scoreDelta, digits=4))
-
-    print(" ")
-
-    printstyled("Subset=", color=:magenta, bold=true)
-    print(subset)
-
-    print(" ")
+    printfield("[$stage]", "", forward ? :green : :red)
+    printfield("Edge=", "$(op.x)→$(op.y)", :cyan)
+    printfield("ΔScore=", round(op.scoreDelta, digits=4), :black)
+    printfield("Subset=", subset, :magenta)
+    
 
     printstyled("Cache=", color=:blue, bold=true)
     println(cache_pct, "%")
@@ -63,7 +55,7 @@ end
     Insert!(g, op::InsertOperator)
 Modify the graph `g` by directing the edge `op.x`→`op.y` and orient all neighbors of `y` not connected to `x` toward `y`. Additionally use Meek rules to convert back to a CPDAG.
 """
-function Insert!(g, op::InsertOperator)
+function Insert!(g, op::InsertOperator; verbose)
 
     (; x, y, T) = op
 
@@ -76,8 +68,8 @@ function Insert!(g, op::InsertOperator)
     end
 
     #Extend to CPDAG 
-    graphVStructure!(g)
-    meekRules!(g)
+    graphVStructure!(g; verbose)
+    meekRules!(g; verbose)
 
     # PDAGtoDAG(g)
     # DAGtoCPDAG(g)
@@ -173,14 +165,14 @@ function forwardPhase!(g, stats; verbose=false, nbuffers=Threads.nthreads())
 
 
         if bestInsertOperator.scoreDelta > 0
-            Insert!(g, bestInsertOperator)
+            if verbose
+                printState("Forward Search", bestInsertOperator, score.cache)
+            end
+            Insert!(g, bestInsertOperator; verbose)
         else
             break
         end
 
-        if verbose
-            printState("Forward Search", bestInsertOperator, score.cache)
-        end
     end
 
     return nothing
@@ -208,7 +200,7 @@ end
 Delete!(g, op::DeleteOperator)
 Modify the graph `g` by removing the edge `op.x`→`op.y`. Additionally, orient all neighbors of `x` and `y` away from `x` and `y`.
 """
-function Delete!(g, op::DeleteOperator)
+function Delete!(g, op::DeleteOperator; verbose)
 
     (; x, y, H) = op
     #remove directed and unidrected edges (x→y and x-y)
@@ -219,6 +211,10 @@ function Delete!(g, op::DeleteOperator)
         orientEdge!(g, y, h) #y→h
         orientEdge!(g, x, h) #x→h
     end
+
+    #Extend to CPDAG 
+    graphVStructure!(g; verbose)
+    meekRules!(g; verbose)
 
     return nothing
 end
@@ -282,14 +278,14 @@ function backwardPhase!(g, stats; verbose=false)
 
 
         if bestDeleteOperator.scoreDelta > 0
-            Delete!(g, bestDeleteOperator)
+            if verbose
+                printState("Backward Search", bestDeleteOperator, score.cache)
+            end
+            Delete!(g, bestDeleteOperator; verbose)
         else
             break
         end
 
-        if verbose
-            printState("Backward Search", bestDeleteOperator, score.cache)
-        end
     end
 
     return nothing

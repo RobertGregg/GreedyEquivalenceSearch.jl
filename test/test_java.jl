@@ -2,11 +2,15 @@ using GreedyEquivalenceSearch
 using CSV, DataFrames
 using Printf
 
-dataID = @sprintf("%04d", 11)
+dataID = @sprintf("%04d", 12)
 data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame)
 gJulia = ges(data; verbose=true)
 @benchmark ges($data)
 @profview ges(data)
+
+redirect_stdio(stdout="output.log") do
+    ges(data; verbose=true)
+end
 
 data = CSV.read("test/javaCompare/simulatedDAGs/large_sim_data.csv", DataFrame)
 gJulia = ges(data; verbose=true)
@@ -324,6 +328,6 @@ plot!(identity, 0, 1.5,
     line=:dash,
     color=:red,
 )
-annotate!(0, 1.5, text("Above line Julia faster\nBelow line Java Faster", :left, 10))
+annotate!(1.5, 0.1, text("Above line Julia faster\nBelow line Java Faster", :right, 10))
 
 savefig("test/javaCompare/results/comparison_timing.png")

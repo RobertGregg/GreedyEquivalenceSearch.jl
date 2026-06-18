@@ -93,7 +93,7 @@ end
 
 #Revert a graph to undirected edges and unshielded colliders
 #An unshielded collider at node y look like: x → y ← z and requires that x and z are not adjacent.
-function graphVStructure!(g)
+function graphVStructure!(g; verbose)
 
     edgesToUndirect = Set{GraphEdge}()
 
@@ -122,6 +122,10 @@ function graphVStructure!(g)
 
     #Loop through edges and undirect edges not in unshielded colliders
     for edge in edgesToUndirect
+        if verbose
+            printstyled("[VStructures] ", color=12, bold=true)
+            println("undirecting edge $edge")
+        end
         unorientEdge!(g, edge)
     end
 
@@ -129,7 +133,7 @@ end
 
 
 
-function meekRules!(g)
+function meekRules!(g; verbose)
 
     rulesFound = true
 
@@ -142,12 +146,12 @@ function meekRules!(g)
             #For clarity extract the edge vertices
             (x, y) = edge.parent, edge.child
 
-            if R1(g, x, y) || R2(g, x, y) || R3(g, x, y)
+            if R1(g, x, y; verbose) || R2(g, x, y; verbose) || R3(g, x, y; verbose)
                 #Change x-y to x→y
                 orientEdge!(g, x, y)
                 rulesFound = true
                 break
-            elseif R1(g, y, x) || R2(g, y, x) || R3(g, y, x)
+            elseif R1(g, y, x; verbose) || R2(g, y, x; verbose) || R3(g, y, x; verbose)
                 #Change y-x to y→x
                 orientEdge!(g, y, x)
                 rulesFound = true
@@ -161,10 +165,14 @@ function meekRules!(g)
 end
 
 
-function R1(g, x, y)
+function R1(g, x, y; verbose)
     #given x-y, look for patterns that match v₁→x and not(v₁→y)
     for v₁ in parents(g, x)
         if !isAdjacent(g, v₁, y)
+            if verbose
+                printstyled("[Meek Rule 1] ", color=88, bold=true)
+                println("$v₁→$x-$y becomes $v₁→$x→$y")
+            end
             return true
         end
     end
@@ -172,21 +180,29 @@ function R1(g, x, y)
 end
 
 
-function R2(g, x, y)
+function R2(g, x, y; verbose)
     #given x-y, look for patterns that match x→v₁→y
     for v₁ in children(g, x)
         if isParent(g, v₁, y)
+            if verbose
+                printstyled("[Meek Rule 2] ", color=89, bold=true)
+                println("$x-$y becomes $x→$y because $x→$v₁→$y")
+            end
             return true
         end
     end
     return false
 end
 
-function R3(g, x, y)
+function R3(g, x, y; verbose)
 
     #given x-y, find x-v₁→y and x-v₂→y and v₁-v₂
     for (v₁, v₂) in allCombinationPairs(neighbors(g, x))
         if isParent(g, v₁, y) && isParent(g, v₂, y) && !isAdjacent(g, v₁, v₂)
+            if verbose
+                printstyled("[Meek Rule 3] ", color=90, bold=true)
+                println("$x-$y becomes $x→$y when $x-$v₁→$y and $x-$v₂→$y and $v₁-$v₂")
+            end
             return true
         end
     end
