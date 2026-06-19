@@ -31,11 +31,15 @@ function getUIntType(n::Int)
 end
 
 
+#Extension functions
+function plotNetwork end
+
 
 export
     #GreedyEquivalenceSearch.jl
     powerset,
     adjacency_matrix,
+    plotNetwork,
     #LRU.jl
     LRUCache,
     place!,

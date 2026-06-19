@@ -11,28 +11,33 @@ BangBang = "198e06fe-97b7-11e9-32a5-e1d131e6ad66"
 BitIntegers = "c3b6d118-76ef-56ca-8cc7-ebb389d030a1"
 ChunkSplitters = "ae650224-84b6-46f8-82ea-d812ca08434e"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+NetworkLayout = "46757867-2c16-5918-afeb-47bfcb05e46a"
 OhMyThreads = "67456a42-1dca-4109-a031-0a68de7e3ad5"
 SmallCollections = "2b935e18-93d6-40ac-ae34-fe54c09f00e1"
 SmallCombinatorics = "4c2fb5cd-5fa8-4952-858b-935ef2e5e854"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
+[weakdeps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+
+[extensions]
+GreedyEquivalenceSearchDataFramesExt = "DataFrames"
+GreedyEquivalenceSearchMakieExt = "CairoMakie"
+
 [compat]
 BangBang = "0.4.9"
 BitIntegers = "0.3.7"
+CairoMakie = "0.15.11"
 ChunkSplitters = "3.2.0"
 DataFrames = "1.8.2"
 LinearAlgebra = "1.12.0"
+NetworkLayout = "0.4.10"
 OhMyThreads = "0.8.6"
 SmallCollections = "0.6.2"
 SmallCombinatorics = "0.1.2"
 Statistics = "1.11.1"
 julia = "1.11"
-
-[weakdeps]
-DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-
-[extensions]
-GreedyEquivalenceSearchDataFramesExt = "DataFrames"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
