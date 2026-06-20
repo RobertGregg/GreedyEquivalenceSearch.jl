@@ -15,9 +15,9 @@ function ges(data::AbstractMatrix; verbose=false, maxDegree=16, penalty=1.0)
     g = Graph(stats.variablesCount; maxDegree)
 
     score = forwardPhase!(g, stats; verbose)
-    backwardPhase!(g, stats; verbose)
+    backwardPhase!(g, score; verbose)
 
-    return (g,score)
+    return g
 end
 
 
@@ -60,7 +60,7 @@ function forwardPhase!(g, stats; verbose=false)
     # #Cached score function for InsertOperator
     score = CachedScore(stats, eltype(g.parents))
 
-    ops = [InsertOperator(g, x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
+    ops = [(x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
 
 
     #1. For each pair of nodes, generate all possible candidates
@@ -70,8 +70,9 @@ function forwardPhase!(g, stats; verbose=false)
     while true
 
         #TODO Use saved neighbors and parents of y to skip some validity checks
-        bestInsertOperator = tmapreduce(max, ops) do currentInsertOperator
+        bestInsertOperator = tmapreduce(max, ops) do (x,y)
 
+            currentInsertOperator = InsertOperator(g,x,y)
             precheckValidInsert(g, currentInsertOperator) || return currentInsertOperator
     
             for op in insertCandidates(g, currentInsertOperator)
@@ -120,18 +121,16 @@ backwardPhase!(g, stats::SufficientStats)
 
 Search equivance class space and continually add edges to `g` until the score stops increasing
 """
-function backwardPhase!(g, stats; verbose=false)
-
-    #TODO resuse same cached score
-    #Cached score function for DeleteOperator
-    score = CachedScore(stats, eltype(g.parents))
+function backwardPhase!(g, score; verbose=false)
     
-    ops = [DeleteOperator(g, x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
+    ops = [(x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
 
 
     while true
 
-        bestDeleteOperator = tmapreduce(max, ops) do currentDeleteOperator
+        bestDeleteOperator = tmapreduce(max, ops) do (x,y)
+
+            currentDeleteOperator = DeleteOperator(g,x,y)
 
             for op in deleteCandidates(g, currentDeleteOperator)
                 isValidDelete(g, op) || continue
