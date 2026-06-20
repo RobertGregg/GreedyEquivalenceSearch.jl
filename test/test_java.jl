@@ -2,7 +2,7 @@ using GreedyEquivalenceSearch
 using CSV, DataFrames
 using Printf
 
-dataID = @sprintf("%04d", 1)
+dataID = @sprintf("%04d", 12)
 data = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame)
 gJulia = ges(data; verbose=true)
 @benchmark ges($data)
@@ -42,11 +42,11 @@ modelPrecision(continTable) = continTable[1, 1] / sum(continTable[:, 1])
 modelRecall(continTable) = continTable[1, 1] / sum(continTable[1, :])
 
 
-function runComparisons(idnum; verbose=true)
+function runComparisons(id; verbose=true)
 
-    dataID = @sprintf("%04d", idnum)
+    dataID = @sprintf("%04d", id)
 
-    println("running DAG $idnum")
+    println("running DAG $id")
 
     ##################
     # Julia
@@ -92,54 +92,82 @@ function runComparisons(idnum; verbose=true)
     end
 
     continTableJulia = contingencyTable(gJulia, gTrue)
-    jp = modelPrecision(continTableJulia)
-    jr = modelRecall(continTableJulia)
-    jf = 2 * (jp * jr) / (jp + jr)
-    jh = sum(adjacency_matrix(gJulia) .≠ adjacency_matrix(gTrue))
+    juliaPrecision = modelPrecision(continTableJulia)
+    juliaRecall = modelRecall(continTableJulia)
+    juliaF1 = 2 * (juliaPrecision * juliaRecall) / (juliaPrecision + juliaRecall)
+    juliaHamming = sum(adjacency_matrix(gJulia) .≠ adjacency_matrix(gTrue))
 
 
     continTableJava = contingencyTable(gJava, gTrue)
-    qp = modelPrecision(continTableJava)
-    qr = modelRecall(continTableJava)
-    qf = 2 * (qp * qr) / (qp + qr)
-    qh = sum(adjacency_matrix(gJava) .≠ adjacency_matrix(gTrue))
+    javaPrecision = modelPrecision(continTableJava)
+    javaRecall = modelRecall(continTableJava)
+    javaF1 = 2 * (javaPrecision * javaRecall) / (javaPrecision + javaRecall)
+    javaHamming = sum(adjacency_matrix(gJava) .≠ adjacency_matrix(gTrue))
 
-    return (precision=jp, recall=jr, f1=jf, ham=jh), (precision=qp, recall=qr, f1=qf, ham=qh)
+    return (
+            id = id,
+            language = "julia",
+            precision = juliaPrecision,
+            recall = juliaRecall,
+            f1 = juliaF1,
+            hamming = juliaHamming
+        ), 
+        (
+            id = id,
+            language = "java",
+            precision = javaPrecision,
+            recall = javaRecall,
+            f1 = javaF1,
+            hamming = javaHamming
+        )
 end
 
 
 # Preallocate the DataFrame with typed columns
 results = DataFrame(
     id=Int[],
-    java_prec=Float64[],
-    java_rec=Float64[],
-    java_ham=Int[],
-    java_f1=Float64[],
-    julia_prec=Float64[],
-    julia_rec=Float64[],
-    julia_f1=Float64[],
-    julia_ham=Int[]
+    language=String[],
+    precision=Float64[],
+    recall=Float64[],
+    f1=Float64[],
+    hamming=Int[],
 )
 
 for id in 1:36
-    julia_metrics, java_metrics = runComparisons(id)
+    julia_metrics, java_metrics = runComparisons(id; verbose=false)
 
-    push!(results, (
-        id=id,
-        java_prec=java_metrics.precision,
-        java_rec=java_metrics.recall,
-        java_f1=java_metrics.f1,
-        java_ham=java_metrics.ham,
-        julia_prec=julia_metrics.precision,
-        julia_rec=julia_metrics.recall,
-        julia_f1=julia_metrics.f1,
-        julia_ham=julia_metrics.ham
-    ))
+    push!(results, julia_metrics)
+    push!(results, java_metrics)
 end
 
 
+using TidierPlots
 
-using Plots, StatsPlots, Statistics
+
+results_long = stack(
+    results,
+    [:precision, :recall, :f1],
+    [:id, :language, :hamming];
+    variable_name = :metric,
+    value_name = :value
+)
+
+
+ggplot(results_long, aes(x = :metric, y = :value, fill=:language)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(
+        title = "FGES: Java vs Julia",
+        x = "Metric",
+        y = "Metric Value")
+
+
+ggplot(results, aes(x=:id, y=:hamming, fill=:language)) +
+    geom_col(position="dodge", gap=0.3) +
+    theme_minimal()
+
+
+
 
 ids = results.id
 

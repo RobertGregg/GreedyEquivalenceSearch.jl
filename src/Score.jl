@@ -155,6 +155,7 @@ function calculateMSE(Σ, y, X, k)
     Xᵥ = collect(X)
 
 
+    #TODO worry about BLAS threads oversubscribing with parallelization
     return @views Σ[y, y] - Σ[Xᵥ, y]' * (cholesky(Σ[Xᵥ, Xᵥ]) \ Σ[Xᵥ, y])
 end
 

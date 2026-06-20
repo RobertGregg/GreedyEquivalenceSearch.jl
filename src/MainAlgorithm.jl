@@ -45,9 +45,127 @@ function printState(stage, op, cache)
     println(cache_pct, "%")
 end
 
+####################################################################
+# Forward Search
+####################################################################
+
+
+"""
+    forwardSearch!(g, stats::SufficientStats)
+
+Search equivance class space and continually add edges to `g` until the score stops increasing
+"""
+function forwardPhase!(g, stats; verbose=false)
+
+    # #Cached score function for InsertOperator
+    score = CachedScore(stats, eltype(g.parents))
+
+    ops = [InsertOperator(g, x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
+
+
+    #1. For each pair of nodes, generate all possible candidates
+    #2. Test if candidate is valid
+    #3. If valid score and check against best found operator
+    #4. After iterating all nodes, insert the best candidate
+    while true
+
+        #TODO Use saved neighbors and parents of y to skip some validity checks
+        bestInsertOperator = tmapreduce(max, ops) do currentInsertOperator
+
+            precheckValidInsert(g, currentInsertOperator) || return currentInsertOperator
+    
+            for op in insertCandidates(g, currentInsertOperator)
+                isValidInsert(g, op) || continue
+                op = score(op)
+                op > currentInsertOperator && (currentInsertOperator = op)
+            end
+    
+            return currentInsertOperator
+        end
+
+
+
+        if bestInsertOperator.scoreDelta > 0
+            verbose && printState("Forward Search", bestInsertOperator, score.cache)
+            Insert!(g, bestInsertOperator; verbose)
+        else
+            break
+        end
+
+    end
+
+    return nothing
+end
+
+
+
+function insertCandidates(g, op)
+
+    (; x, y) = op
+
+    #neighbors of y that are not adjacent to x
+    T = setdiff(neighbors(g, y), adjacencies(g, x))
+
+    return (setT(op, Tᵢ) for Tᵢ in powerset(T))
+end
 
 ####################################################################
-# Forward Search Functions
+# Backward Search Functions
+####################################################################
+
+
+
+"""
+backwardPhase!(g, stats::SufficientStats)
+
+Search equivance class space and continually add edges to `g` until the score stops increasing
+"""
+function backwardPhase!(g, stats; verbose=false)
+
+    #TODO resuse same cached score
+    #Cached score function for DeleteOperator
+    score = CachedScore(stats, eltype(g.parents))
+    
+    ops = [DeleteOperator(g, x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
+
+
+    while true
+
+        bestDeleteOperator = tmapreduce(max, ops) do currentDeleteOperator
+
+            for op in deleteCandidates(g, currentDeleteOperator)
+                isValidDelete(g, op) || continue
+                op = score(op)
+                op > currentDeleteOperator && (currentDeleteOperator = op)
+            end
+    
+            return currentDeleteOperator
+        end
+
+
+        if bestDeleteOperator.scoreDelta > 0
+            verbose && printState("Backward Search", bestDeleteOperator, score.cache)
+            Delete!(g, bestDeleteOperator; verbose)
+        else
+            break
+        end
+
+    end
+
+    return nothing
+end
+
+
+
+function deleteCandidates(g, op)
+    #neighbors of y that are adjacent to x
+    H = op.NAyx
+    return (setH(op, Hᵢ) for Hᵢ in powerset(H))
+end
+
+
+####################################################################
+# Insert/Delete Edges
 ####################################################################
 
 
@@ -77,125 +195,6 @@ function Insert!(g, op::InsertOperator; verbose)
     return nothing
 end
 
-
-"""
-    forwardSearch!(g, stats::SufficientStats)
-
-Search equivance class space and continually add edges to `g` until the score stops increasing
-"""
-function forwardPhase!(g, stats; verbose=false, nbuffers=Threads.nthreads())
-
-    # #Cached score function for InsertOperator
-    score = CachedScore(stats, eltype(g.parents))
-
-    #potential idea: save the "base" operator for each (x,y) and only update T,score,etc
-    # operators = [InsertOperator(g, x, y) for (x,y) in allPermutationPairs(vertices(g))]
-
-    # tmap!(operators, operators) do currentInsertOperator
-
-    #     for op in insertCandidates(g, currentInsertOperator)
-    #         if isValidInsert(g, op)
-
-    #             #Calculate the change in score for applying this operator
-    #             op = score(op)
-
-    #             if op > currentInsertOperator
-    #                 currentInsertOperator = op
-    #             end
-    #         end
-    #     end
-
-    #     currentInsertOperator
-    # end
-
-
-    #1. For each pair of nodes, generate all possible candidates
-    #2. Test if candidate is valid
-    #3. If valid score and check against best found operator
-    #4. After iterating all nodes, insert the best candidate
-    while true
-
-        #TODO Use saved neighbors and parents of y to skip some validity checks
-        bestInsertOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x, y)
-
-            currentInsertOperator = InsertOperator(g, x, y)
-
-            #If prechecks pass then continue to try and insert
-            precheckValidInsert(g, currentInsertOperator) || return currentInsertOperator
-
-            for op in insertCandidates(g, currentInsertOperator)
-
-                #Clique and Semi-directed paths check
-                isValidInsert(g, op) || continue
-
-                #Calculate the change in score for applying this operator
-                op = score(op)
-
-                if op > currentInsertOperator
-                    currentInsertOperator = op
-                end
-
-            end
-
-            return currentInsertOperator
-        end
-
-        #For profiling it's easier to optimize other parts of the code using the nonparallel loop
-        # bestInsertOperator = InsertOperator(g, 1, 2)
-        # for (x,y) in allPermutationPairs(vertices(g))
-
-        #     currentInsertOperator = InsertOperator(g, x, y)
-
-        #     precheckValidInsert(g, currentInsertOperator) || continue
-
-        #     for op in insertCandidates(g, currentInsertOperator)
-
-        #         #Check for adjacencies, cliques, and semi-directed paths
-        #         isValidInsert(g, op) || continue
-
-        #         #Calculate the change in score for applying this operator
-        #         op = score(op)
-
-        #         if op > bestInsertOperator
-        #             bestInsertOperator = op
-        #         end
-
-        #     end
-        # end
-
-
-        if bestInsertOperator.scoreDelta > 0
-            if verbose
-                printState("Forward Search", bestInsertOperator, score.cache)
-            end
-            Insert!(g, bestInsertOperator; verbose)
-        else
-            break
-        end
-
-    end
-
-    return nothing
-end
-
-
-
-function insertCandidates(g, op)
-
-    (; x, y) = op
-
-    #neighbors of y that are not adjacent to x
-    T = setdiff(neighbors(g, y), adjacencies(g, x))
-
-    return (setT(op, Tᵢ) for Tᵢ in powerset(T))
-end
-
-
-####################################################################
-# Backward Search Functions
-####################################################################
-
-
 """
 Delete!(g, op::DeleteOperator)
 Modify the graph `g` by removing the edge `op.x`→`op.y`. Additionally, orient all neighbors of `x` and `y` away from `x` and `y`.
@@ -209,7 +208,7 @@ function Delete!(g, op::DeleteOperator; verbose)
     #Orient all vertices in H toward x and y
     for h in H
         orientEdge!(g, y, h) #y→h
-        orientEdge!(g, x, h) #x→h
+        isNeighbor(g,x,h) && orientEdge!(g, x, h) #x→h (check if edge is undirected first)
     end
 
     #Extend to CPDAG 
@@ -217,87 +216,4 @@ function Delete!(g, op::DeleteOperator; verbose)
     meekRules!(g; verbose)
 
     return nothing
-end
-
-
-
-
-"""
-backwardPhase!(g, stats::SufficientStats)
-
-Search equivance class space and continually add edges to `g` until the score stops increasing
-"""
-function backwardPhase!(g, stats; verbose=false)
-
-    #TODO resuse same cached score
-    #Cached score function for DeleteOperator
-    score = CachedScore(stats, eltype(g.parents))
-
-    #1. For each pair of nodes, generate all possible candidates
-    #2. Iterate candidates and test if they are valid
-    #3. If valid score and check against best found operator
-    #4. After iterating all nodes, insert the best candidate
-    while true
-        bestDeleteOperator = tmapreduce(max, PermutationPairs(nv(g))) do (x, y)
-
-            currentDeleteOperator = DeleteOperator(g, x, y)
-
-            for op in deleteCandidates(g, currentDeleteOperator)
-                if isValidDelete(g, op)
-
-                    op = score(op)
-
-                    if op > currentDeleteOperator
-                        currentDeleteOperator = op
-                    end
-
-                end
-            end
-
-            currentDeleteOperator
-        end
-
-        # bestDeleteOperator = DeleteOperator(g,1,2)
-        # for (x,y) in allPermutationPairs(vertices(g))
-
-        #     currentDeleteOperator = DeleteOperator(g, x, y)
-
-        #     for op in deleteCandidates(g, currentDeleteOperator)
-        #         if isValidDelete(g, op)
-
-        #             op = score(op)
-
-        #             if op > bestDeleteOperator
-        #                 bestDeleteOperator = op
-        #             end
-
-        #         end
-        #     end
-        #     currentDeleteOperator
-        # end
-
-
-        if bestDeleteOperator.scoreDelta > 0
-            if verbose
-                printState("Backward Search", bestDeleteOperator, score.cache)
-            end
-            Delete!(g, bestDeleteOperator; verbose)
-        else
-            break
-        end
-
-    end
-
-    return nothing
-end
-
-
-
-function deleteCandidates(g, op)
-
-
-    #neighbors of y that are adjacent to x
-    H = op.NAyx
-
-    return (setH(op, Hᵢ) for Hᵢ in powerset(H))
 end

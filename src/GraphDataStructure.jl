@@ -226,17 +226,21 @@ addEdge!(g, edge::GraphEdge) = addEdge!(g, edge.parent, edge.child; directed=edg
 
 """
 removeEdge!(g,x,y)
-Remove the edge `x`→`y` or `x`-`y` from the graph `g`. 
+Remove any edge between `x` and `y` from the graph `g`. 
 """
 function removeEdge!(g, x, y)
 
-    #Removing potential undirected edge
+    #Removing potential undirected edge (x-y)
     g.neighbors[x] = delete(neighbors(g, x), y)
     g.neighbors[y] = delete(neighbors(g, y), x)
 
-    #Removing potential directed edge
+    #Removing potential directed edge (x → y)
     g.children[x] = delete(children(g, x), y)
     g.parents[y] = delete(parents(g, y), x)
+
+    #Removing potential directed edge (x ← y)
+    g.children[y] = delete(children(g, y), x)
+    g.parents[x] = delete(parents(g, x), y)
 
     return nothing
 end
