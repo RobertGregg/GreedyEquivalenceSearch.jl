@@ -14,10 +14,10 @@ function ges(data::AbstractMatrix; verbose=false, maxDegree=16, penalty=1.0)
     stats = SufficientStats(data; penalty)
     g = Graph(stats.variablesCount; maxDegree)
 
-    forwardPhase!(g, stats; verbose)
+    score = forwardPhase!(g, stats; verbose)
     backwardPhase!(g, stats; verbose)
 
-    return g
+    return (g,score)
 end
 
 
@@ -94,7 +94,7 @@ function forwardPhase!(g, stats; verbose=false)
 
     end
 
-    return nothing
+    return score
 end
 
 

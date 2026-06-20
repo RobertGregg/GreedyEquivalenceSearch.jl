@@ -2,13 +2,11 @@ module GreedyEquivalenceSearch
 
 using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
-using OhMyThreads, ChunkSplitters #parallelization
-using OhMyThreads: TaskLocalValue
+using OhMyThreads #parallelization
 using BangBang #update immutable operator properties
 using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
 
 include("LRU.jl")
-include("CustomPairIterators.jl")
 include("GraphDataStructure.jl")
 include("GraphAlgorithms.jl")
 include("Operators.jl")
@@ -20,6 +18,9 @@ include("MainAlgorithm.jl")
 powerset(x) = Iterators.flatten(subsets(x, i) for i in 0:length(x))
 adjacency_matrix(g) = BitMatrix(isAncestor(g, x, y) for x in vertices(g), y in vertices(g))
 
+#Iterating through pairs
+allCombinationPairs(v) = ((x, y) for (i, x) in enumerate(v) for y in Iterators.drop(v, i))
+allPermutationPairs(v) = ((x, y) for x in v for y in v if x ≠ y)
 
 function getUIntType(n::Int)
 
@@ -91,7 +92,6 @@ export
     #Score.jl
     SufficientStats,
     CachedScore,
-    score,
     #MainAlgorithm.jl
     forwardPhase!,
     backwardPhase!,

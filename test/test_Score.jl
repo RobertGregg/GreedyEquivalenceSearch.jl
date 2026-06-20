@@ -1,13 +1,15 @@
 using GreedyEquivalenceSearch
-using SmallCollections, LRUCache
+using SmallCollections
+
 
 data = rand(100, 50)
-data .-= mean(data, dims=1)
 
-stats = SufficientStats(data)
+stats = SufficientStats(data; penalty=1.0)
 
-score = GreedyEquivalenceSearch.CachedScore(stats)
+s =  SmallBitSet{UInt16}()
 
-score(5, SmallSet{16}(1:3))
-score(4, SmallSet{16}(1:2))
-score(7, SmallSet{16}(2:2:10))
+score = GreedyEquivalenceSearch.CachedScore(stats, typeof(s))
+
+score(5, SmallBitSet{UInt16}(1:3))
+score(4, SmallBitSet{UInt16}(1:2))
+score(7, SmallBitSet{UInt16}(2:2:10))

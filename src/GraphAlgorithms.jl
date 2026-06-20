@@ -122,10 +122,10 @@ function graphVStructure!(g; verbose)
 
     #Loop through edges and undirect edges not in unshielded colliders
     for edge in edgesToUndirect
-        if verbose
-            printstyled("[VStructures] ", color=12, bold=true)
-            println("undirecting edge $edge")
-        end
+        # if verbose
+        #     printstyled("[VStructures] ", color=12, bold=true)
+        #     println("undirecting edge $edge")
+        # end
         unorientEdge!(g, edge)
     end
 
@@ -169,10 +169,10 @@ function R1(g, x, y; verbose)
     #given x-y, look for patterns that match v₁→x and not(v₁→y)
     for v₁ in parents(g, x)
         if !isAdjacent(g, v₁, y)
-            if verbose
-                printstyled("[Meek Rule 1] ", color=88, bold=true)
-                println("$v₁→$x-$y becomes $v₁→$x→$y")
-            end
+            # if verbose
+            #     printstyled("[Meek Rule 1] ", color=88, bold=true)
+            #     println("$v₁→$x-$y becomes $v₁→$x→$y")
+            # end
             return true
         end
     end
@@ -184,10 +184,10 @@ function R2(g, x, y; verbose)
     #given x-y, look for patterns that match x→v₁→y
     for v₁ in children(g, x)
         if isParent(g, v₁, y)
-            if verbose
-                printstyled("[Meek Rule 2] ", color=89, bold=true)
-                println("$x-$y becomes $x→$y because $x→$v₁→$y")
-            end
+            # if verbose
+            #     printstyled("[Meek Rule 2] ", color=89, bold=true)
+            #     println("$x-$y becomes $x→$y because $x→$v₁→$y")
+            # end
             return true
         end
     end
@@ -199,10 +199,10 @@ function R3(g, x, y; verbose)
     #given x-y, find x-v₁→y and x-v₂→y and v₁-v₂
     for (v₁, v₂) in allCombinationPairs(neighbors(g, x))
         if isParent(g, v₁, y) && isParent(g, v₂, y) && !isAdjacent(g, v₁, v₂)
-            if verbose
-                printstyled("[Meek Rule 3] ", color=90, bold=true)
-                println("$x-$y becomes $x→$y when $x-$v₁→$y and $x-$v₂→$y and $v₁-$v₂")
-            end
+            # if verbose
+            #     printstyled("[Meek Rule 3] ", color=90, bold=true)
+            #     println("$x-$y becomes $x→$y when $x-$v₁→$y and $x-$v₂→$y and $v₁-$v₂")
+            # end
             return true
         end
     end
