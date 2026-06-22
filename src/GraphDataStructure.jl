@@ -378,5 +378,3 @@ directedEdges(g) = (
     for src in vertices(g)
     for dst in children(g, src)
 )
-
-

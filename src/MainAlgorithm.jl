@@ -49,7 +49,7 @@ end
 # Forward Search
 ####################################################################
 
-
+#TODO Try local dicts + static schedule for each thread to avoid locks
 """
     forwardSearch!(g, stats::SufficientStats)
 
@@ -60,7 +60,7 @@ function forwardPhase!(g, stats; verbose=false)
     # #Cached score function for InsertOperator
     score = CachedScore(stats, eltype(g.parents))
 
-    ops = [(x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
+    ops = collect(allPermutationPairs(vertices(g)))
 
 
     #1. For each pair of nodes, generate all possible candidates
@@ -123,7 +123,7 @@ Search equivance class space and continually add edges to `g` until the score st
 """
 function backwardPhase!(g, score; verbose=false)
     
-    ops = [(x, y) for x in vertices(g), y in vertices(g) if x ≠ y]
+    ops = collect(allPermutationPairs(vertices(g)))
 
 
     while true

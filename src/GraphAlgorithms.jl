@@ -41,13 +41,16 @@ function isBlocked(g, x, y, nodesRemoved)
     # end
 
     # Start search from y
-    queue = [y]
+    # queue = [y]
+    queue = empty(visited)
+    queue = push(queue, y)
     # visited[y] = true
     visited = push(visited, y)
 
     while !isempty(queue)
 
-        current = popfirst!(queue)
+        # current = popfirst!(queue)
+        (queue, current) = pop(queue)
 
         # children + undirected neighbors i.e., descendents(g, current)
         for v in children(g, current)
@@ -60,7 +63,7 @@ function isBlocked(g, x, y, nodesRemoved)
             # end
             if v ∉ visited
                 visited = push(visited, v)
-                push!(queue, v)
+                queue = push(queue, v)
             end
 
         end
@@ -75,7 +78,7 @@ function isBlocked(g, x, y, nodesRemoved)
             # end
             if v ∉ visited
                 visited = push(visited, v)
-                push!(queue, v)
+                queue = push(queue, v)
             end
 
         end

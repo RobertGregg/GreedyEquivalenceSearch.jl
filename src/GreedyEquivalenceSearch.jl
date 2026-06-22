@@ -36,6 +36,7 @@ end
 function plotNetwork end
 
 
+#TODO Clean up function exports
 export
     #GreedyEquivalenceSearch.jl
     powerset,
