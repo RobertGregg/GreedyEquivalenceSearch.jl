@@ -22,17 +22,21 @@ function plotNetwork(g; arrowgap=0.05, arrowsize=20, nodesize=30, layoutmethod=s
     #Calculate the node positions
     nodePositions = layoutmethod(adjacency_matrix(g) .| adjacency_matrix(g)')
 
+
     edgePairs = [(edge.parent, edge.child) for edge in directedEdges(g)]
-    start = [nudge(arrowgap, nodePositions[i], nodePositions[j]) for (i,j) in edgePairs]
-    stop = [nudge(arrowgap, nodePositions[j], nodePositions[i]) for (i,j) in edgePairs]
-    arrows2d!(ax, start, stop; align=0.5, argmode = :endpoint, tiplength=10)
+    if !isempty(edgePairs)
+        start = [nudge(arrowgap, nodePositions[i], nodePositions[j]) for (i,j) in edgePairs]
+        stop = [nudge(arrowgap, nodePositions[j], nodePositions[i]) for (i,j) in edgePairs]
+        arrows2d!(ax, start, stop; align=0.5, argmode = :endpoint, tiplength=10)
+    end
 
 
     edgePairs = [(edge.parent, edge.child) for edge in undirectedEdges(g)]
-    start = [nudge(arrowgap, nodePositions[i], nodePositions[j]) for (i,j) in edgePairs]
-    stop = [nudge(arrowgap, nodePositions[j], nodePositions[i]) for (i,j) in edgePairs]
-    arrows2d!(ax, start, stop; tip = Point2f[(0, 0), (0, 0), (0, 0)], align=0.5, argmode = :endpoint)
-
+    if !isempty(edgePairs)
+        start = [nudge(arrowgap, nodePositions[i], nodePositions[j]) for (i,j) in edgePairs]
+        stop = [nudge(arrowgap, nodePositions[j], nodePositions[i]) for (i,j) in edgePairs]
+        arrows2d!(ax, start, stop; tip = Point2f[(0, 0), (0, 0), (0, 0)], align=0.5, argmode = :endpoint)
+    end
 
     #Plot the nodes and add labels
     scatter!(ax, nodePositions, color=:dodgerblue, markersize=nodesize, strokewidth=1)

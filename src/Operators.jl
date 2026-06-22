@@ -6,6 +6,7 @@ struct InsertOperator{S<:AbstractSet}
     x::Int
     y::Int
     T::S   # subset of neighborsY \ adjacenciesX
+    NAyx::S
     parentsY::S
     scoreDelta::Float64
 end
@@ -14,8 +15,9 @@ end
 function InsertOperator(g, x, y)
 
     parentsY = parents(g, y)
+    NAyx = neighbors(g, y) ∩ adjacencies(g, x)
     ∅ = empty(parentsY)
-    return InsertOperator(x, y, ∅, parentsY, -Inf)
+    return InsertOperator(x, y, ∅, NAyx, parentsY, -Inf)
 end
 
 

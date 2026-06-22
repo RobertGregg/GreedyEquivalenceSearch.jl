@@ -3,7 +3,7 @@ using CSV, DataFrames
 using Printf
 using CairoMakie, AlgebraOfGraphics
 
-dataID = @sprintf("%04d", 11)
+dataID = @sprintf("%04d", 1)
 df = CSV.read("test/javaCompare/simulatedDAGs/dag_data_$(dataID).csv", DataFrame)
 gJulia = ges(df; verbose=true)
 @benchmark ges($df)
