@@ -3,7 +3,6 @@ module GreedyEquivalenceSearch
 using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads #parallelization
-using BangBang #update immutable operator properties
 using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
 
 include("LRU.jl")
@@ -39,17 +38,13 @@ function plotNetwork end
 #TODO Clean up function exports
 export
     #GreedyEquivalenceSearch.jl
-    powerset,
+    allPermutationPairs,
+    allCombinationPairs,
     adjacency_matrix,
     plotNetwork,
-    #LRU.jl
-    LRUCache,
-    place!,
     #GraphStructure.jl
     Graph,
     GraphEdge,
-    heads,
-    tails,
     maxDegree,
     vertices,
     nv,
@@ -57,7 +52,6 @@ export
     addEdge!,
     removeEdge!,
     orientEdge!,
-    hasEdge,
     isAdjacent,
     isNeighbor,
     isParent,
@@ -71,8 +65,6 @@ export
     descendents,
     ancestors,
     adjacencies,
-    allPermutationPairs,
-    allCombinationPairs,
     edges,
     undirectedEdges,
     directedEdges,
@@ -81,23 +73,22 @@ export
     isBlocked,
     graphVStructure!,
     meekRules!,
-    isPotentialSink,
-    PDAGtoDAG,
-    topologicalSort,
-    DAGtoCPDAG,
     #Operators.jl
-    isValidInsert,
-    isValidDelete,
     InsertOperator,
     DeleteOperator,
+    setT,
+    setH,
+    setScore,
     #Score.jl
     SufficientStats,
     CachedScore,
+    #ValidityTests.jl
+    isValid,
     #MainAlgorithm.jl
-    forwardPhase!,
-    backwardPhase!,
     ges,
-    insertCandidates,
-    precheckValidInsert
+    search,
+    getCandidates,
+    applyOperator!
+
 
 end

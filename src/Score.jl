@@ -18,7 +18,7 @@ function SufficientStats(data; penalty)
 
     #Computes the covariance matrix of the mean centered features
     #corrected=false divides by n instead of n-1
-    #both needed to get correct regression results
+    #dim=1 mean centers the columns before computing covariance
     covariance = cov(data, dims=1, corrected=false)
     observationsCount, variablesCount = size(data)
 
@@ -63,7 +63,7 @@ function calculateMSE(Σ, y, X, k)
         b = Σ[xᵢ, xⱼ]
         c = Σ[xⱼ, xⱼ]
 
-        return Σ[y, y] - (c * x₁^2 + a * x₂^2 - 2 * b * x₁ * x₂) / (a * c - b^2)
+        return Σ[y, y] - (c*x₁^2 + a*x₂^2 - 2b*x₁*x₂) / (a*c - b^2)
     end
 
     #Compute xᵀΣ⁻¹x
@@ -82,9 +82,9 @@ function calculateMSE(Σ, y, X, k)
         e = Σ[xⱼ, xₖ]
         f = Σ[xₖ, xₖ]
 
-        Δ = a * d * f + 2b * c * e - a * e^2 - d * c^2 - f * b^2
+        Δ = a*d*f + 2b*c*e - a*e^2 - d*c^2 - f*b^2
 
-        return Σ[y, y] - ((d * f - e^2) * x₁^2 + (a * f - c^2) * x₂^2 + (a * d - b^2) * x₃^2 + 2(c * e - b * f) * x₁ * x₂ + 2(b * e - c * d) * x₁ * x₃ + 2(b * c - a * e) * x₂ * x₃) / Δ
+        return Σ[y, y] - ((d*f - e^2)*x₁^2 + (a*f - c^2)*x₂^2 + (a*d - b^2)*x₃^2 + 2(c*e - b*f)*x₁*x₂ + 2(b*e - c*d)*x₁*x₃ + 2(b*c - a*e)*x₂*x₃) / Δ
     end
 
     #This hand written method is 10x faster than the matrix solve which is crazy
@@ -114,30 +114,30 @@ function calculateMSE(Σ, y, X, k)
         j = Σ[xₗ, xₗ]
 
         Δ =
-            a * e * h * j - a * e * i^2 - a * f^2 * j + 2a * f * g * i - a * g^2 * h -
-            b^2 * h * j + b^2 * i^2 + 2b * c * f * j - 2b * c * g * i -
-            2b * d * f * i + 2b * d * g * h -
-            c^2 * e * j + 2c * d * e * i + c^2 * g^2 -
-            2c * d * f * g - d^2 * e * h + d^2 * f^2
+            a*e*h*j - a*e*i^2 - a*f^2*j + 2a*f*g*i - a*g^2*h -
+            b^2*h*j + b^2*i^2 + 2b*c*f*j - 2b*c*g*i -
+            2b*d*f*i + 2b*d*g*h -
+            c^2*e*j + 2c*d*e*i + c^2*g^2 -
+            2c*d*f*g - d^2*e*h + d^2*f^2
 
-        C11 = e * h * j - e * i^2 - f^2 * j + 2f * g * i - g^2 * h
-        C22 = a * h * j - a * i^2 - c^2 * j + 2c * d * i - d^2 * h
-        C33 = a * e * j - a * g^2 - b^2 * j + 2b * d * g - d^2 * e
-        C44 = a * e * h - a * f^2 - b^2 * h + 2b * c * f - c^2 * e
+        C11 = e*h*j - e*i^2 - f^2*j + 2f*g*i - g^2*h
+        C22 = a*h*j - a*i^2 - c^2*j + 2c*d*i - d^2*h
+        C33 = a*e*j - a*g^2 - b^2*j + 2b*d*g - d^2*e
+        C44 = a*e*h - a*f^2 - b^2*h + 2b*c*f - c^2*e
 
         #so many cofactors...
-        C12 = -b * h * j + b * i^2 + c * f * j - c * g * i - d * f * i + d * g * h
-        C13 = b * f * j - b * g * i - c * e * j + c * g^2 + d * e * i - d * f * g
-        C14 = -b * f * i + b * g * h + c * e * i - c * f * g - d * e * h + d * f^2
+        C12 = -b*h*j + b*i^2 + c*f*j - c*g*i - d*f*i + d*g*h
+        C13 = b*f*j - b*g*i - c*e*j + c*g^2 + d*e*i - d*f*g
+        C14 = -b*f*i + b*g*h + c*e*i - c*f*g - d*e*h + d*f^2
 
-        C23 = -a * f * j + a * g * i + b * c * j - b * d * i - c * d * g + d^2 * f
-        C24 = a * f * i - a * g * h - b * c * i + b * d * h + c^2 * g - c * d * f
-        C34 = -a * e * i + a * f * g + b^2 * i - b * c * g - b * d * f + c * d * e
+        C23 = -a*f*j + a*g*i + b*c*j - b*d*i - c*d*g + d^2*f
+        C24 = a*f*i - a*g*h - b*c*i + b*d*h + c^2*g - c*d*f
+        C34 = -a*e*i + a*f*g + b^2*i - b*c*g - b*d*f + c*d*e
 
         return Σ[y, y] - (
-            C11 * x₁^2 + C22 * x₂^2 + C33 * x₃^2 + C44 * x₄^2 +
-            2C12 * x₁ * x₂ + 2C13 * x₁ * x₃ + 2C14 * x₁ * x₄ +
-            2C23 * x₂ * x₃ + 2C24 * x₂ * x₄ + 2C34 * x₃ * x₄
+            C11*x₁^2 + C22*x₂^2 + C33*x₃^2 + C44*x₄^2 +
+            2C12*x₁*x₂ + 2C13*x₁*x₃ + 2C14*x₁*x₄ +
+            2C23*x₂*x₃ + 2C24*x₂*x₄ + 2C34*x₃*x₄
         ) / Δ
     end
 
@@ -150,8 +150,8 @@ function calculateMSE(Σ, y, X, k)
     #mse = Cov(y,y) - Cov(X,y)ᵀCov(X,X)⁻¹Cov(X,y)
 
     #Convert set to vector with no allocations
+    #TODO Maybe pass capacity down to here?
     # Xᵥ = SmallVector{SmallCollections.capacity(X)}(X)
-    #TODO NEED TO MAKE THIS DYNAMIC
     Xᵥ = collect(X)
 
 

@@ -14,8 +14,11 @@ function ges(data::AbstractMatrix; verbose=false, maxDegree=16, penalty=1.0)
     stats = SufficientStats(data; penalty)
     g = Graph(stats.variablesCount; maxDegree)
 
-    score = forwardPhase!(g, stats; verbose)
-    backwardPhase!(g, score; verbose)
+    #Cached score function for InsertOperator
+    score = CachedScore(stats, eltype(g.parents))
+
+    search(g, score, InsertOperator; verbose)
+    search(g, score, DeleteOperator; verbose)
 
     return g
 end
@@ -23,7 +26,7 @@ end
 
 
 # executes when verbose flag is true
-function printState(stage, op, cache)
+function printState(op, cache)
     # Helper function for consistent styled printing
     function printfield(label, value, color)
         printstyled(label, color=color, bold=true)
@@ -31,120 +34,57 @@ function printState(stage, op, cache)
     end
 
     # Extract and compute underlying data
-    forward = (stage == "Forward Search")
-    subset  = forward ? collect(op.T) : collect(op.H)
+    forward = op isa InsertOperator
+    stage = forward ? "Forward Search" : "Backward Search"
+    subset = forward ? collect(op.T) : collect(op.H)
     cache_pct = round(100 * length(cache) / cache.capacity, digits=3)
 
     printfield("[$stage]", "", forward ? :green : :red)
     printfield("Edge=", "$(op.x)→$(op.y)", :cyan)
     printfield("ΔScore=", round(op.scoreDelta, digits=4), :black)
     printfield("Subset=", subset, :magenta)
-    
+
 
     printstyled("Cache=", color=:blue, bold=true)
     println(cache_pct, "%")
 end
 
+
+
 ####################################################################
-# Forward Search
+# Search Function for both Forward and Backward
 ####################################################################
+
 
 #TODO Try local dicts + static schedule for each thread to avoid locks
-"""
-    forwardSearch!(g, stats::SufficientStats)
 
-Search equivance class space and continually add edges to `g` until the score stops increasing
-"""
-function forwardPhase!(g, stats; verbose=false)
+function search(g, score, getOperator; verbose=false)
 
-    # #Cached score function for InsertOperator
-    score = CachedScore(stats, eltype(g.parents))
-
-    ops = collect(allPermutationPairs(vertices(g)))
-
+    nodePairs = collect(allPermutationPairs(vertices(g)))
 
     #1. For each pair of nodes, generate all possible candidates
     #2. Test if candidate is valid
-    #3. If valid score and check against best found operator
-    #4. After iterating all nodes, insert the best candidate
+    #3. If valid, score and check against best found operator
+    #4. After iterating all nodes, insert/delete the best candidate
     while true
 
-        #TODO Use saved neighbors and parents of y to skip some validity checks
-        bestInsertOperator = tmapreduce(max, ops) do (x,y)
+        bestOperator = tmapreduce(max, nodePairs) do (x, y)
 
-            currentInsertOperator = InsertOperator(g,x,y)
-            precheckValidInsert(g, currentInsertOperator) || return currentInsertOperator
-    
-            for op in insertCandidates(g, currentInsertOperator)
-                isValidInsert(g, op) || continue
+            currentOperator = getOperator(g, x, y) #Insert or Delete
+
+            for op in getCandidates(g, currentOperator)
+                isValid(g, op) || continue
                 op = score(op)
-                op > currentInsertOperator && (currentInsertOperator = op)
+                op > currentOperator && (currentOperator = op)
             end
-    
-            return currentInsertOperator
+
+            return currentOperator
         end
 
 
-
-        if bestInsertOperator.scoreDelta > 0
-            verbose && printState("Forward Search", bestInsertOperator, score.cache)
-            Insert!(g, bestInsertOperator; verbose)
-        else
-            break
-        end
-
-    end
-
-    return score
-end
-
-
-
-function insertCandidates(g, op)
-
-    (; x, y) = op
-
-    #neighbors of y that are not adjacent to x
-    T = setdiff(neighbors(g, y), adjacencies(g, x))
-
-    return (setT(op, Tᵢ) for Tᵢ in powerset(T))
-end
-
-####################################################################
-# Backward Search Functions
-####################################################################
-
-
-
-"""
-backwardPhase!(g, stats::SufficientStats)
-
-Search equivance class space and continually add edges to `g` until the score stops increasing
-"""
-function backwardPhase!(g, score; verbose=false)
-    
-    ops = collect(allPermutationPairs(vertices(g)))
-
-
-    while true
-
-        bestDeleteOperator = tmapreduce(max, ops) do (x,y)
-
-            currentDeleteOperator = DeleteOperator(g,x,y)
-
-            for op in deleteCandidates(g, currentDeleteOperator)
-                isValidDelete(g, op) || continue
-                op = score(op)
-                op > currentDeleteOperator && (currentDeleteOperator = op)
-            end
-    
-            return currentDeleteOperator
-        end
-
-
-        if bestDeleteOperator.scoreDelta > 0
-            verbose && printState("Backward Search", bestDeleteOperator, score.cache)
-            Delete!(g, bestDeleteOperator; verbose)
+        if bestOperator.scoreDelta > 0
+            verbose && printState(bestOperator, score.cache)
+            applyOperator!(g, bestOperator; verbose)
         else
             break
         end
@@ -156,7 +96,22 @@ end
 
 
 
-function deleteCandidates(g, op)
+####################################################################
+# Get all T/H sets given x and y
+####################################################################
+
+function getCandidates(g, op::InsertOperator)
+
+    (; x, y) = op
+
+    #neighbors of y that are not adjacent to x
+    T = setdiff(neighbors(g, y), adjacencies(g, x))
+
+    return (setT(op, Tᵢ) for Tᵢ in powerset(T))
+end
+
+
+function getCandidates(g, op::DeleteOperator)
     #neighbors of y that are adjacent to x
     H = op.NAyx
     return (setH(op, Hᵢ) for Hᵢ in powerset(H))
@@ -167,12 +122,7 @@ end
 # Insert/Delete Edges
 ####################################################################
 
-
-"""
-    Insert!(g, op::InsertOperator)
-Modify the graph `g` by directing the edge `op.x`→`op.y` and orient all neighbors of `y` not connected to `x` toward `y`. Additionally use Meek rules to convert back to a CPDAG.
-"""
-function Insert!(g, op::InsertOperator; verbose)
+function applyOperator!(g, op::InsertOperator; verbose)
 
     (; x, y, T) = op
 
@@ -188,26 +138,21 @@ function Insert!(g, op::InsertOperator; verbose)
     graphVStructure!(g; verbose)
     meekRules!(g; verbose)
 
-    # PDAGtoDAG(g)
-    # DAGtoCPDAG(g)
-
     return nothing
 end
 
-"""
-Delete!(g, op::DeleteOperator)
-Modify the graph `g` by removing the edge `op.x`→`op.y`. Additionally, orient all neighbors of `x` and `y` away from `x` and `y`.
-"""
-function Delete!(g, op::DeleteOperator; verbose)
+
+function applyOperator!(g, op::DeleteOperator; verbose)
 
     (; x, y, H) = op
-    #remove directed and unidrected edges (x→y and x-y)
+
+    #remove directed and undirected edges (x→y and x-y)
     removeEdge!(g, x, y)
 
     #Orient all vertices in H toward x and y
     for h in H
         orientEdge!(g, y, h) #y→h
-        isNeighbor(g,x,h) && orientEdge!(g, x, h) #x→h (check if edge is undirected first)
+        isNeighbor(g, x, h) && orientEdge!(g, x, h) #x→h (check if edge is undirected first)
     end
 
     #Extend to CPDAG 
