@@ -102,7 +102,7 @@ end
 # Get all T/H sets given x and y
 ####################################################################
 
-function getCandidates(g, op::InsertOperator)
+function getCandidates(g, op) #For Insert and Turn
 
     (; x, y) = op
 
@@ -155,6 +155,27 @@ function applyOperator!(g, op::DeleteOperator; verbose)
     for h in H
         orientEdge!(g, y, h) #y→h
         isNeighbor(g, x, h) && orientEdge!(g, x, h) #x→h (check if edge is undirected first)
+    end
+
+    #Extend to CPDAG 
+    graphVStructure!(g; verbose)
+    meekRules!(g; verbose)
+
+    return nothing
+end
+
+
+#TODO needs updating
+function applyOperator!(g, op::TurnOperator; verbose)
+
+    (; x, y, T) = op
+
+    #Add a directed edge x→y (currently no edge present)
+    addEdge!(g, x, y)
+
+    #Orient all edges incident into child node
+    for t in T
+        orientEdge!(g, t, y) #t→y
     end
 
     #Extend to CPDAG 

@@ -248,3 +248,16 @@ function (score::CachedScore)(op::DeleteOperator)
 
     return setScore(op, scoreDelta)
 end
+
+
+function (score::CachedScore)(op::TurnOperator)
+
+    (; x, y, T, NAyx, parentsY, parentsX) = op
+
+    NAyxTPaY = NAyx ∪ T ∪ parentsY
+
+    scoreDelta = score(y, push(NAyxTPaY, x)) - score(y, NAyxTPaY) + 
+                 score(x, delete(parentsX, y)) - score(x, parentsX)
+
+    return setScore(op, scoreDelta)
+end

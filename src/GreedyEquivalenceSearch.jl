@@ -1,9 +1,11 @@
 module GreedyEquivalenceSearch
 
+#TODO only using subet from SmallCombinatorics and setproperties!! from BangBang
 using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads #parallelization
 using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
+using BangBang #for resetting fields of immutable structs
 using ProgressMeter
 
 include("LRU.jl")
@@ -53,6 +55,8 @@ export
     addEdge!,
     removeEdge!,
     orientEdge!,
+    unorientEdge!,
+    reorientEdge!,
     isAdjacent,
     isNeighbor,
     isParent,
