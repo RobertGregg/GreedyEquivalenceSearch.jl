@@ -4,6 +4,7 @@ using SmallCollections, SmallCombinatorics #for handling set operations, powerse
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads #parallelization
 using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
+using ProgressMeter
 
 include("LRU.jl")
 include("GraphDataStructure.jl")

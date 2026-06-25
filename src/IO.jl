@@ -85,18 +85,19 @@ end
 # Convert graph to table
 ####################################################################
 
-# edgetable(g::T) where T<:Graphs.AbstractGraph = DataFrame(alledges(g))
+#TODO upgrade DataFrames from just an extension
+edgetable(g) = DataFrame(edges(g))
 
 
-# function edgetable(g::T, featureNames) where T<:Graphs.AbstractGraph
+function edgetable(g, featureNames)
 
-#     df = DataFrame(alledges(g))
+    df = DataFrame(alledges(g))
 
-#     df.parent = featureNames[df.parent]
-#     df.child = featureNames[df.child]
+    df.parent = featureNames[df.parent]
+    df.child = featureNames[df.child]
 
-#     return df
-# end
+    return df
+end
 
-# #Easier syntax for R interface when tuple is used
-# edgetable(g_featureNames) = edgetable(g_featureNames...)
+# Easier syntax for R interface when tuple is used
+edgetable(g_featureNames) = edgetable(g_featureNames...)

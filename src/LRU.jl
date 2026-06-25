@@ -72,8 +72,7 @@ to share across `Threads.@spawn` tasks without external synchronization.
 `get!` uses **double-checked locking**: the factory `f` runs *outside* the lock,
 so a slow computation never blocks other threads from reading or writing the
 cache. Two threads racing on the same absent key may both call `f()`; the
-first to re-acquire the lock wins. This is ideal for pure functions (MSE,
-hash, parse). For exactly-once semantics, compute the value yourself and call
+first to re-acquire the lock wins. This is ideal for pure functions. For exactly-once semantics, compute the value yourself and call
 `put!` directly.
 ```julia
 c = LRUCache{String,Int}(3)
