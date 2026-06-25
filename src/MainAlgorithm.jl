@@ -18,6 +18,7 @@ function ges(data::AbstractMatrix; verbose=false, progress=false, maxDegree=16, 
 
     search(g, score, InsertOperator; verbose, progress)
     search(g, score, DeleteOperator; verbose, progress)
+    search(g, score, TurnOperator; verbose, progress)
 
     finish!(progress)
     return g
@@ -34,12 +35,12 @@ function printState(op, cache)
     end
 
     # Extract and compute underlying data
-    forward = op isa InsertOperator
-    stage = forward ? "Forward Search" : "Backward Search"
-    subset = forward ? collect(op.T) : collect(op.H)
+    p = priority(op)
+    stage = ["Insert", "Turn", "Delete"][p]
+    subset = p==3 ? collect(op.H) : collect(op.T)
     cache_pct = round(100 * length(cache) / cache.capacity, digits=3)
 
-    printfield("[$stage]", "", forward ? :green : :red)
+    printfield("[$stage]", "", [:green, :yellow, :red][p])
     printfield("Edge=", "$(op.x)→$(op.y)", :cyan)
     printfield("ΔScore=", round(op.scoreDelta, digits=4), :black)
     printfield("Subset=", subset, :magenta)
@@ -71,7 +72,7 @@ function search(g, score, getOperator; verbose=false, progress)
 
         bestOperator = tmapreduce(max, nodePairs) do (x, y)
 
-            currentOperator = getOperator(g, x, y) #Insert or Delete
+            currentOperator = getOperator(g, x, y) #Insert, Delete, or Turn
 
             for op in getCandidates(g, currentOperator)
                 isValid(g, op) || continue
@@ -165,15 +166,14 @@ function applyOperator!(g, op::DeleteOperator; verbose)
 end
 
 
-#TODO needs updating
 function applyOperator!(g, op::TurnOperator; verbose)
 
     (; x, y, T) = op
 
-    #Add a directed edge x→y (currently no edge present)
-    addEdge!(g, x, y)
+    #re-orienting the edge x←y to x→y
+    reorientEdge!(g, y, x)
 
-    #Orient all edges incident into child node
+    #Orient all edges incident into new child node
     for t in T
         orientEdge!(g, t, y) #t→y
     end

@@ -55,6 +55,9 @@ function isBlocked(g, x, y, nodesRemoved)
         # children + undirected neighbors i.e., descendents(g, current)
         for v in children(g, current)
 
+            #skip y → x for turn operator (this won't affect intsert b/c x and y are not connected)
+            current == y && v == x && continue
+
             v == x && return false   # semi-directed path exists
 
             # if !visited[v]

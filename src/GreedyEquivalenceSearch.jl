@@ -1,11 +1,10 @@
 module GreedyEquivalenceSearch
 
-#TODO only using subet from SmallCombinatorics and setproperties!! from BangBang
 using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads #parallelization
 using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
-using BangBang #for resetting fields of immutable structs
+using BangBang: setproperties!! #for creating operators with new fields
 using ProgressMeter
 
 include("LRU.jl")
@@ -18,6 +17,7 @@ include("MainAlgorithm.jl")
 
 #Small helper functions
 powerset(x) = Iterators.flatten(subsets(x, i) for i in 0:length(x))
+powerset(x::SmallBitSet) = subsets(x)
 adjacency_matrix(g) = BitMatrix(isAncestor(g, x, y) for x in vertices(g), y in vertices(g))
 
 #Iterating through pairs

@@ -184,16 +184,18 @@ results = DataFrame(
     recall=Float64[],
     f1=Float64[],
     hamming=Int[],
-)
-
+    )
+    
 for id in 1:36
     julia_metrics, java_metrics = runComparisons(id; verbose=true)
-
+    
     push!(results, julia_metrics)
     push!(results, java_metrics)
 end
-
-
+    
+    
+#Summary results in a table
+combine(groupby(results, :language), [:precision, :recall, :f1, :hamming] .=> mean)
 
 results_long = stack(
     results,
@@ -230,6 +232,7 @@ results_long_diff.metric_sign = @. ifelse(results_long_diff.value > 0, "Julia Be
 #Precision, Recall, F1 Summary Boxplot
 fig_metric_summary = data(results_long) * visual(BoxPlot) *
     mapping(:metric, :value, color=:language, dodge=:language) |> draw
+
 
 
 save("test/javaCompare/results/metric_summary.png", fig_metric_summary)    

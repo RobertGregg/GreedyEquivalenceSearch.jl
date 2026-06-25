@@ -37,13 +37,31 @@ function isValid(g, op::DeleteOperator)
     return isClique(g, setdiff(NAyx, H))
 end
 
+#=
+The notation from Chickering and Hauser are different and a bit confusing to translate. Hauser wants to re-orient the edge u←v to u→v. We translate this to re-orienting the edge x←y to x→y (so x=u and y=v). 
+
+Next Hauser lets C ⊂ neighbors(g,v) and defines N as neighbors(g,v) ∩ adjacencies(g,u). The validity conditions then become:
+
+    1. C is a clique
+    2. N ⊂ C
+    3. Every (semi-directed) path from v to u in G except u←v has a vertex in C ∪ neighbors(g,u)
+
+In Chickering, T is defined as ⊂ neighbors(g,y) \ adjacencies(g,x) and NAyx as neighbors(g,y) ∩ adjacencies(g,x), so the validity checks are equivalent to:
+
+    1. NAyx ∪ T is a clique
+    2. Every (semi-directed) path from y to x in G except x←y has a vertex in NAyx ∪ T ∪ neighbors(g,x)
+
+Finally, the last implicit check is that x←y exists which can be checked as y ∈ parents(g,x)
+=#
+
 
 """
 Turn validity (Hauser 2012, Proposition 34):
+Change the directed edge x←y to x→y
 Turn(x, y, T) is valid iff:
 1. y ∈ Pa(x) 
 2. NAyxT is a clique 
-3. All semi-directed paths from y to x other than (y, x) are blocked by NAyxT ∪ Ne(x)
+3. All semi-directed paths from y to x other than x←y are blocked by NAyxT ∪ Ne(x)
 """
 function isValid(g, op::TurnOperator)
 

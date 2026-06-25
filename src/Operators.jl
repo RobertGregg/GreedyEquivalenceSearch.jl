@@ -102,7 +102,7 @@ setH(op::AbstractOperator, H) = setproperties!!(op; H)
 setScore(op::AbstractOperator, scoreDelta) = setproperties!!(op; scoreDelta)
 
 # DeleteOperator (3) > TurnOperator (2) > InsertOperator (1)
-# Define priorities based on the abstract type
+# Define priorities based on the abstract type (kind of like a dict)
 priority(::Type{<:DeleteOperator}) = 3
 priority(::Type{<:TurnOperator})   = 2
 priority(::Type{<:InsertOperator}) = 1
