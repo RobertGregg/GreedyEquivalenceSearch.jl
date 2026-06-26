@@ -4,14 +4,14 @@
     g = Graph(6)
 
     # Unshielded collider: 1 → 3 ← 2, with 1 and 2 not adjacent
-    addEdge!(g, 1, 3; directed=true)
-    addEdge!(g, 2, 3; directed=true)
+    addDirectedEdge!(g, 1, 3)
+    addDirectedEdge!(g, 2, 3)
 
     # Shielded collider: 5 → 4 ← 6, but 5 and 6 ARE adjacent (shielded)
-    addEdge!(g, 3, 4; directed=false)
-    addEdge!(g, 5, 4; directed=true)
-    addEdge!(g, 6, 4; directed=true)
-    addEdge!(g, 5, 6; directed=false)
+    addUndirectedEdge!(g, 3, 4)
+    addDirectedEdge!(g, 5, 4)
+    addDirectedEdge!(g, 6, 4)
+    addUndirectedEdge!(g, 5, 6)
 
 
     graphVStructure!(g)
@@ -35,7 +35,7 @@ end
 function buildGraph(n, edgeList)
     g = Graph(n)
     for (x, y, directed) in edgeList
-        addEdge!(g, x, y; directed=directed)
+        directed ? addDirectedEdge!(g,x,y) : addUndirectedEdge!(g,x,y)
     end
     return g
 end
@@ -223,7 +223,7 @@ end
                 for i in 1:n, j in (i+1):n
                     if rand() < 0.4
                         x, y = order[i], order[j]   # respects topological order => acyclic
-                        addEdge!(g, x, y; directed=true)
+                        addDirectedEdge!(g, x, y)
                         push!(originalEdges, (x, y))
                     end
                 end

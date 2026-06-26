@@ -356,20 +356,20 @@ of `dag`:
 ```julia
 # V-structure: 1→3←2, with 1 and 2 non-adjacent → both edges compelled
 dag = Graph(3)
-addEdge!(dag, 1, 3)
-addEdge!(dag, 2, 3)
+addDirectedEdge!(dag, 1, 3)
+addDirectedEdge!(dag, 2, 3)
 cpdag = DAGtoCPDAG(dag)       # 1→3, 2→3  (directed)
  
 # Chain: 1→2→3 → both edges reversible
 dag = Graph(3)
-addEdge!(dag, 1, 2)
-addEdge!(dag, 2, 3)
+addDirectedEdge!(dag, 1, 2)
+addDirectedEdge!(dag, 2, 3)
 cpdag = DAGtoCPDAG(dag)       # 1-2-3  (undirected)
  
 # Fork: 1←2→3 → both edges reversible
 dag = Graph(3)
-addEdge!(dag, 2, 1)
-addEdge!(dag, 2, 3)
+addDirectedEdge!(dag, 2, 1)
+addDirectedEdge!(dag, 2, 3)
 cpdag = DAGtoCPDAG(dag)       # 1-2-3  (undirected)
 ```
 """

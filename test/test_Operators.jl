@@ -16,15 +16,15 @@
 
     g = Graph(7)
 
-    addEdge!(g, 1, 3; directed=true)
-    addEdge!(g, 2, 3; directed=true)
-    addEdge!(g, 1, 4; directed=false)
-    addEdge!(g, 3, 4; directed=false)
-    addEdge!(g, 2, 4; directed=false)
-    addEdge!(g, 3, 5; directed=true)
-    addEdge!(g, 4, 6; directed=true)
-    addEdge!(g, 5, 6; directed=false)
-    addEdge!(g, 6, 7; directed=true)
+    addDirectedEdge!(g, 1, 3)
+    addDirectedEdge!(g, 2, 3)
+    addUndirectedEdge!(g, 1, 4)
+    addUndirectedEdge!(g, 3, 4)
+    addUndirectedEdge!(g, 2, 4)
+    addDirectedEdge!(g, 3, 5)
+    addDirectedEdge!(g, 4, 6)
+    addUndirectedEdge!(g, 5, 6)
+    addDirectedEdge!(g, 6, 7)
 
 
     op1 = InsertOperator(g, 1, 5)

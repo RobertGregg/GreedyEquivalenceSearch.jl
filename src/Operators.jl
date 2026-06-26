@@ -106,10 +106,12 @@ setScore(op::AbstractOperator, scoreDelta) = setproperties!!(op; scoreDelta)
 priority(::Type{<:DeleteOperator}) = 3
 priority(::Type{<:TurnOperator})   = 2
 priority(::Type{<:InsertOperator}) = 1
-priority(op::AbstractOperator)     = priority(typeof(op))
+priority(op::AbstractOperator) = priority(typeof(op))
 
-#Operators are the same, use score
-Base.isless(a::T, b::T) where T<:AbstractOperator = a.scoreDelta < b.scoreDelta
+#Operators are the same, use score then x then y to define odering
+function Base.isless(a::T, b::T) where T<:AbstractOperator
+    return (a.scoreDelta, a.x, a.y) < (b.scoreDelta, b.x, b.y)
+end
 
 #Operators are different, use priority
 Base.isless(a::AbstractOperator, b::AbstractOperator) = priority(a) < priority(b)

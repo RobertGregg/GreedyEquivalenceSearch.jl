@@ -130,7 +130,7 @@ function applyOperator!(g, op::InsertOperator; verbose)
     (; x, y, T) = op
 
     #Add a directed edge x→y (currently no edge present)
-    addEdge!(g, x, y)
+    addDirectedEdge!(g, x, y)
 
     #Orient all edges incident into child node
     for t in T
@@ -149,8 +149,12 @@ function applyOperator!(g, op::DeleteOperator; verbose)
 
     (; x, y, H) = op
 
-    #remove directed and undirected edges (x→y and x-y)
-    removeEdge!(g, x, y)
+    #remove directed and unidrected edges (x→y and x-y)
+    if isDirected(g, x, y)
+        removeDirectedEdge!(g, x, y)
+    else
+        removeUndirectedEdge!(g,x,y)
+    end
 
     #Orient all vertices in H toward x and y
     for h in H

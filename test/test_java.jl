@@ -123,7 +123,11 @@ function runComparisons(id; verbose=true)
 
     for (i, edge) in enumerate(javaEdges)
 
-        addEdge!(gJava, edge..., directed=javaResult[i][3] == "-->")
+        if javaResult[i][3] == "-->"
+            addDirectedEdge!(gJava, edge...)
+        else
+            addUndirectedEdge!(gJava, edge...)
+        end
 
     end
 
@@ -141,7 +145,7 @@ function runComparisons(id; verbose=true)
 
     for i in axes(simEdges, 1)
         nodes = parse.(Int, filter.(isdigit, simEdges[i, [1, 3]]))
-        addEdge!(gTrue, nodes...)
+        addDirectedEdge!(gTrue, nodes...)
     end
 
     continTableJulia = contingencyTable(gJulia, gTrue)

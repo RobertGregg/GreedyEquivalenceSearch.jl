@@ -75,7 +75,7 @@ function loadGraph(fileName)
 
         #Check if edge is directed
         directed = sublines[2] == "→"
-        addEdge!(g, v₁, v₂; directed)
+        addDirectedEdge!(g, v₁, v₂; directed)
     end
 
     return g, nodeNames

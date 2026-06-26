@@ -20,14 +20,14 @@
         g = Graph(4)
 
         # Add a directed edge: 1 → 2
-        addEdge!(g, 1, 2, directed=true)
+        addDirectedEdge!(g, 1, 2)
         @test 2 ∈ children(g, 1)
         @test 1 ∈ parents(g, 2)
         @test 1 ∉ neighbors(g, 2)  # Should not be bidirectional
         @test ne(g) == 1
 
         # Add an undirected edge: 2 - 3
-        addEdge!(g, 2, 3, directed=false)
+        addUndirectedEdge!(g, 2, 3)
         @test 3 ∈ neighbors(g, 2) && 2 ∈ neighbors(g, 3)
         @test ne(g) == 2
 
@@ -38,7 +38,7 @@
         @test ne(g) == 2       # Edge count remains the same
 
         # Remove an edge
-        removeEdge!(g, 1, 2)
+        removeDirectedEdge!(g, 1, 2)
         @test !isAdjacent(g, 1, 2)
         @test ne(g) == 1
     end
@@ -48,9 +48,9 @@
         # Building a canonical testing graph:
         # 1 → 2,  2 - 3,  3 → 4
         g = Graph(4)
-        addEdge!(g, 1, 2, directed=true)
-        addEdge!(g, 2, 3, directed=false)
-        addEdge!(g, 3, 4, directed=true)
+        addDirectedEdge!(g, 1, 2)
+        addUndirectedEdge!(g, 2, 3)
+        addDirectedEdge!(g, 3, 4)
 
         # Directed checks
         @test isParent(g, 1, 2)
@@ -74,9 +74,9 @@
     @testset "Neighborhoods" begin
         # Graph: 1 → 2, 1 - 3, 4 → 1
         g = Graph(4)
-        addEdge!(g, 1, 2, directed=true)
-        addEdge!(g, 1, 3, directed=false)
-        addEdge!(g, 4, 1, directed=true)
+        addDirectedEdge!(g, 1, 2)
+        addUndirectedEdge!(g, 1, 3)
+        addDirectedEdge!(g, 4, 1)
 
         # 1) Checking standard streaming iterators
         @test neighbors(g, 1) == SmallSet{maxDegree(g)}([3])
@@ -89,9 +89,9 @@
     @testset "Global Iterators & Clique" begin
         # Pure undirected triangle: 1 - 2 - 3
         g = Graph(3)
-        addEdge!(g, 1, 2, directed=false)
-        addEdge!(g, 2, 3, directed=false)
-        addEdge!(g, 1, 3, directed=false)
+        addUndirectedEdge!(g, 1, 2)
+        addUndirectedEdge!(g, 2, 3)
+        addUndirectedEdge!(g, 1, 3)
 
         # allCombinationPairs check
         pairs = collect(allCombinationPairs([1, 2, 3]))
