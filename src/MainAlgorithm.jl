@@ -11,14 +11,14 @@ Compute a causal graph for the given observed data.
 """
 function ges(data::AbstractMatrix; verbose=false, progress=false, maxDegree=16, penalty=1.0)
         
-    progress = ProgressUnknown(desc="Searching for Graph"; spinner=true, showspeed=true, enabled=progress)
+    progressBar = ProgressUnknown(desc="Searching for Graph"; spinner=true, showspeed=true, enabled=progress)
     stats = SufficientStats(data; penalty)
     g = Graph(stats.variablesCount; maxDegree)
     score = CachedScore(stats, eltype(g.parents))
 
-    search(g, score, InsertOperator; verbose, progress)
-    search(g, score, DeleteOperator; verbose, progress)
-    search(g, score, TurnOperator; verbose, progress)
+    search(g, score, InsertOperator; verbose, progressBar)
+    search(g, score, DeleteOperator; verbose, progressBar)
+    search(g, score, TurnOperator; verbose, progressBar)
 
     finish!(progress)
     return g
@@ -57,9 +57,7 @@ end
 ####################################################################
 
 
-#TODO Try local dicts + static schedule for each thread to avoid locks
-
-function search(g, score, getOperator; verbose=false, progress)
+function search(g, score, getOperator; verbose=false, progressBar)
 
 
     nodePairs = collect(allPermutationPairs(vertices(g)))
@@ -91,7 +89,7 @@ function search(g, score, getOperator; verbose=false, progress)
             break
         end
 
-        next!(progress; showvalues = [("Number of Edges",ne(g)), ("Best Score",bestOperator.scoreDelta)])
+        next!(progressBar; showvalues = [("Number of Edges",ne(g)), ("Best Score",bestOperator.scoreDelta)])
     end
 
     return nothing

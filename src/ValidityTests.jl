@@ -76,6 +76,5 @@ function isValid(g, op::TurnOperator)
     isClique(g, NAyxT) || return false
 
     #If blocking, then valid
-    #TODO how do you avoid the x-y edge?
     return isBlocked(g, x, y, NAyxT ∪ neighbors(g, x))
 end

@@ -277,6 +277,18 @@ function unorientEdge!(g, x, y)
     return nothing
 end
 
+"""
+unorientEdge!(g, x, y)
+Update the edge `x`→`y` to `x`←`y` in the graph `g`. 
+"""
+function reorientEdge!(g, x, y)
+
+    removeDirectedEdge!(g, x, y)
+    addDirectedEdge!(g, y, x)
+  
+    return nothing
+end
+
 
 #Updates with a GraphEdge 
 addUndirectedEdge!(g, edge::GraphEdge) = addUndirectedEdge!(g, edge.parent, edge.child)
@@ -285,26 +297,9 @@ removeUndirectedEdge!(g, edge::GraphEdge) = removeUndirectedEdge!(g, edge.parent
 removeDirectedEdge!(g, edge::GraphEdge) = removeDirectedEdge!(g, edge.parent, edge.child)
 orientEdge!(g, edge::GraphEdge) = orientEdge!(g, edge.parent, edge.child)
 unorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
-
-
-
-"""
-unorientEdge!(g, x, y)
-Update the edge `x`→`y` to `x`←`y` in the graph `g`. 
-"""
-function reorientEdge!(g, x, y)
-
-    #Remove directed edge
-    g.children[x] = delete(children(g, x), y)
-    g.parents[y] = delete(parents(g, y), x)
-
-    #Add directed edge
-    g.parents[x] = push(parents(g, x), y)
-    g.children[y] = push(children(g, y), x)
-    return nothing
-end
-
 reorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
+
+
 
 ####################################################################
 # Relationship between two verticies
