@@ -15,6 +15,7 @@
 @testset "Insert/Delete Operators" begin
 
     g = Graph(7)
+    setType = eltype(g.parents)
 
     addDirectedEdge!(g, 1, 3)
     addDirectedEdge!(g, 2, 3)
@@ -28,16 +29,16 @@
 
 
     op1 = InsertOperator(g, 1, 5)
-    op1 = GreedyEquivalenceSearch.setT(op1, SmallBitSet{UInt8}(6))
+    op1 = GreedyEquivalenceSearch.setT(op1, setType(6))
 
     op2 = InsertOperator(g, 2, 6)
-    op2 = GreedyEquivalenceSearch.setT(op2, SmallBitSet{UInt8}(5))
+    op2 = GreedyEquivalenceSearch.setT(op2, setType(5))
 
 
-    @test isValidInsert(g, op1) == true # 6 blocks the path
-    @test isValidInsert(g, op2) == true
-    @test isValidInsert(g, InsertOperator(g, 1, 7)) == true
-    @test isValidInsert(g, InsertOperator(g, 2, 5)) == true
+    @test isValid(g, op1) == true # 6 blocks the path
+    @test isValid(g, op2) == true
+    @test isValid(g, InsertOperator(g, 1, 7)) == true
+    @test isValid(g, InsertOperator(g, 2, 5)) == true
 
 end
 

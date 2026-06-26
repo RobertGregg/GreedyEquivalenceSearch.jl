@@ -99,7 +99,7 @@ end
 
 #Revert a graph to undirected edges and unshielded colliders
 #An unshielded collider at node y look like: x → y ← z and requires that x and z are not adjacent.
-function graphVStructure!(g; verbose)
+function graphVStructure!(g; verbose=false)
 
     edgesToUndirect = Set{GraphEdge}()
 
@@ -139,7 +139,7 @@ end
 
 
 
-function meekRules!(g; verbose)
+function meekRules!(g; verbose=false)
 
     rulesFound = true
 

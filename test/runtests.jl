@@ -22,7 +22,7 @@ end
     function test_powerset(x)
         s = 0
 
-        for xᵢ in powerset(x)
+        for xᵢ in GreedyEquivalenceSearch.powerset(x)
             s += length(xᵢ)
         end
         return s

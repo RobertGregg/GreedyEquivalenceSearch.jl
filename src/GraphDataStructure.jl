@@ -259,7 +259,7 @@ Update the edge `x`-`y` to `x`→`y` in the graph `g`.
 function orientEdge!(g, x, y)
 
     removeUndirectedEdge!(g, x, y)
-    addUndirectedEdge!(g, x, y)
+    addDirectedEdge!(g, x, y)
 
     return nothing
 end
@@ -273,6 +273,8 @@ function unorientEdge!(g, x, y)
 
     removeDirectedEdge!(g, x, y)
     addUndirectedEdge!(g, x, y)
+
+    return nothing
 end
 
 
