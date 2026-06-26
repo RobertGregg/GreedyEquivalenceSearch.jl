@@ -9,3 +9,6 @@ NetworkLayout = "46757867-2c16-5918-afeb-47bfcb05e46a"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 SmallCollections = "2b935e18-93d6-40ac-ae34-fe54c09f00e1"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+NetworkLayout = "0.4.10"
