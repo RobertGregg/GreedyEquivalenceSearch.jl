@@ -3,7 +3,8 @@ module GreedyEquivalenceSearch
 using SmallCollections, SmallCombinatorics #for handling set operations, powersets, etc.
 using Statistics, LinearAlgebra #covariance and solving systems
 using OhMyThreads #parallelization
-using BitIntegers #Lightening fast bit operations for smallish graphs (less than 1024 nodes)
+using BitIntegers #Fast bit operations for small-ish graphs (less than 1024 nodes)
+using StaticArrays: SVector, SMatrix #Used to optimize small scores
 using BangBang: setproperties!! #for creating operators with new fields
 using ProgressMeter
 

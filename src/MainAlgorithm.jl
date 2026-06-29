@@ -20,7 +20,7 @@ function ges(data::AbstractMatrix; verbose=false, progress=false, maxDegree=16, 
     search(g, score, DeleteOperator; verbose, progressBar)
     search(g, score, TurnOperator; verbose, progressBar)
 
-    finish!(progress)
+    finish!(progressBar)
     return g
 end
 

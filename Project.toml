@@ -15,6 +15,7 @@ OhMyThreads = "67456a42-1dca-4109-a031-0a68de7e3ad5"
 ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
 SmallCollections = "2b935e18-93d6-40ac-ae34-fe54c09f00e1"
 SmallCombinatorics = "4c2fb5cd-5fa8-4952-858b-935ef2e5e854"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [weakdeps]
@@ -36,6 +37,7 @@ OhMyThreads = "0.8.6"
 ProgressMeter = "1.11.0"
 SmallCollections = "0.6.2"
 SmallCombinatorics = "0.1.2"
+StaticArrays = "1.9.18"
 Statistics = "1.11.1"
 julia = "1.11"
 
