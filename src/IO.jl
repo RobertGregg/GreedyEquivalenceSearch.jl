@@ -93,8 +93,8 @@ function edgetable(g, featureNames)
 
     df = DataFrame(alledges(g))
 
-    df.parent = featureNames[df.parent]
-    df.child = featureNames[df.child]
+    df.x = featureNames[df.x]
+    df.y = featureNames[df.y]
 
     return df
 end

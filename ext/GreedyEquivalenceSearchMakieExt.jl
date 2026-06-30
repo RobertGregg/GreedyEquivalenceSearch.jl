@@ -23,18 +23,16 @@ function plotNetwork(g; arrowgap=0.05, arrowsize=20, nodesize=30, layoutmethod=s
     nodePositions = layoutmethod(adjacency_matrix(g) .| adjacency_matrix(g)')
 
 
-    edgePairs = [(edge.parent, edge.child) for edge in directedEdges(g)]
-    if !isempty(edgePairs)
-        start = [nudge(arrowgap, nodePositions[i], nodePositions[j]) for (i,j) in edgePairs]
-        stop = [nudge(arrowgap, nodePositions[j], nodePositions[i]) for (i,j) in edgePairs]
+    if !isempty(directedEdges(g))
+        start = [nudge(arrowgap, nodePositions[x], nodePositions[y]) for (;x,y) in directedEdges(g)]
+        stop = [nudge(arrowgap, nodePositions[y], nodePositions[x]) for (;x,y) in directedEdges(g)]
         arrows2d!(ax, start, stop; align=0.5, argmode = :endpoint, tiplength=10)
     end
 
 
-    edgePairs = [(edge.parent, edge.child) for edge in undirectedEdges(g)]
-    if !isempty(edgePairs)
-        start = [nudge(arrowgap, nodePositions[i], nodePositions[j]) for (i,j) in edgePairs]
-        stop = [nudge(arrowgap, nodePositions[j], nodePositions[i]) for (i,j) in edgePairs]
+    if !isempty(undirectedEdges(g))
+        start = [nudge(arrowgap, nodePositions[x], nodePositions[y]) for (;x,y) in undirectedEdges(g)]
+        stop = [nudge(arrowgap, nodePositions[y], nodePositions[x]) for (;x,y) in undirectedEdges(g)]
         arrows2d!(ax, start, stop; tip = Point2f[(0, 0), (0, 0), (0, 0)], align=0.5, argmode = :endpoint)
     end
 

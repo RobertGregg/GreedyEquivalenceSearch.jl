@@ -14,7 +14,7 @@ redirect_stdio(stdout="output.log") do
 end
 
 df = CSV.read("test/javaCompare/simulatedDAGs/large_sim_data.csv", DataFrame)
-gJulia = ges(df; verbose=true)
+gJulia = ges(df; progress=true)
 
 
 

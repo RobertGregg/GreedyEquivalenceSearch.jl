@@ -18,7 +18,6 @@ function isClique(g, nodes)
 end
 
 
-#TODO eliminate allocations with visited and queue. Changing visited from a BitVector to a SmallBitSet does remove the allocation, but checking if a node has been visited visited[v] vs v ∈ visited are essentially the same timing (so minor improvement)
 """
     isBlocked(g, x, y, nodesRemoved)
 
@@ -32,27 +31,19 @@ where directed edges point away from y.
 """
 function isBlocked(g, x, y, nodesRemoved)
 
-    # visited = falses(nv(g))
     visited = nodesRemoved
+    visited = push(visited, y)
 
-    # Remove blocked nodes
-    # for v in nodesRemoved
-    #     visited[v] = true
-    # end
 
-    # Start search from y
-    # queue = [y]
     queue = empty(visited)
     queue = push(queue, y)
-    # visited[y] = true
-    visited = push(visited, y)
+    
 
     while !isempty(queue)
 
-        # current = popfirst!(queue)
         (queue, current) = pop(queue)
 
-        # children + undirected neighbors i.e., descendents(g, current)
+        # Note: doing the children and neighbors loops separately is faster for SmallSets because it avoid a union
         for v in children(g, current)
 
             #skip y → x for turn operator (this won't affect intsert b/c x and y are not connected)
@@ -60,10 +51,6 @@ function isBlocked(g, x, y, nodesRemoved)
 
             v == x && return false   # semi-directed path exists
 
-            # if !visited[v]
-            #     visited[v] = true
-            #     push!(queue, v)
-            # end
             if v ∉ visited
                 visited = push(visited, v)
                 queue = push(queue, v)
@@ -75,10 +62,6 @@ function isBlocked(g, x, y, nodesRemoved)
 
             v == x && return false   # semi-directed path exists
 
-            # if !visited[v]
-            #     visited[v] = true
-            #     push!(queue, v)
-            # end
             if v ∉ visited
                 visited = push(visited, v)
                 queue = push(queue, v)
@@ -108,7 +91,7 @@ function graphVStructure!(g; verbose=false)
     for edge in directedEdges(g)
 
         undirectCurrentEdge = true
-        (x, y) = edge.parent, edge.child
+        (; x, y) = edge
 
         #Find directed edges that share same child node
         #Check for unshielded collider
@@ -150,7 +133,7 @@ function meekRules!(g; verbose=false)
         for edge in undirectedEdges(g)
 
             #For clarity extract the edge vertices
-            (x, y) = edge.parent, edge.child
+            (; x, y) = edge
 
             if R1(g, x, y; verbose) || R2(g, x, y; verbose) || R3(g, x, y; verbose)
                 #Change x-y to x→y
@@ -391,7 +374,7 @@ function DAGtoCPDAG(dag::Graph)
     labeledEdges = Dict(rankedEdges .=> :unknown)
 
     for edge in rankedEdges
-        x, y = edge.parent, edge.child
+        (; x, y) = edge
 
         # Rule 2 (applied to a previous edge) may have pre-labeled this edge.
         labeledEdges[edge] ≠ :unknown && continue

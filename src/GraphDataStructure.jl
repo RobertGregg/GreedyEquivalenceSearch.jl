@@ -185,8 +185,8 @@ end
 A data type to hold edge information.
 """
 struct GraphEdge
-    parent::Int
-    child::Int
+    x::Int
+    y::Int
     directed::Bool
 end
 
@@ -195,7 +195,7 @@ function Base.show(io::IO, edge::GraphEdge)
 
     arrow = edge.directed ? " → " : " - "
 
-    print(io, edge.parent, arrow, edge.child)
+    print(io, edge.x, arrow, edge.y)
 end
 
 ####################################################################
@@ -291,13 +291,13 @@ end
 
 
 #Updates with a GraphEdge 
-addUndirectedEdge!(g, edge::GraphEdge) = addUndirectedEdge!(g, edge.parent, edge.child)
-addDirectedEdge!(g, edge::GraphEdge) = addDirectedEdge!(g, edge.parent, edge.child)
-removeUndirectedEdge!(g, edge::GraphEdge) = removeUndirectedEdge!(g, edge.parent, edge.child)
-removeDirectedEdge!(g, edge::GraphEdge) = removeDirectedEdge!(g, edge.parent, edge.child)
-orientEdge!(g, edge::GraphEdge) = orientEdge!(g, edge.parent, edge.child)
-unorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
-reorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.parent, edge.child)
+addUndirectedEdge!(g, edge::GraphEdge) = addUndirectedEdge!(g, edge.x, edge.y)
+addDirectedEdge!(g, edge::GraphEdge) = addDirectedEdge!(g, edge.x, edge.y)
+removeUndirectedEdge!(g, edge::GraphEdge) = removeUndirectedEdge!(g, edge.x, edge.y)
+removeDirectedEdge!(g, edge::GraphEdge) = removeDirectedEdge!(g, edge.x, edge.y)
+orientEdge!(g, edge::GraphEdge) = orientEdge!(g, edge.x, edge.y)
+unorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.x, edge.y)
+reorientEdge!(g, edge::GraphEdge) = unorientEdge!(g, edge.x, edge.y)
 
 
 
@@ -364,10 +364,10 @@ isDescendent(g, x, y) = isNeighbor(g, x, y) || isParent(g, y, x)
 Return an iterator to generate all edges within the graph `g`. Similar to `Graphs.edges()` but does not double count undirected edges
 """
 edges(g) = (
-    GraphEdge(src, dst, isDirected(g, src, dst))
-    for src in vertices(g)
-    for dst in descendents(g, src)
-    if src < dst || isDirected(g, src, dst)
+    GraphEdge(x, y, isDirected(g, x, y))
+    for x in vertices(g)
+    for y in descendents(g, x)
+    if x < y || isDirected(g, x, y)
 )
 
 """
@@ -376,10 +376,10 @@ edges(g) = (
 Return an iterator to generate all edges within the graph `g` that are undirected.
 """
 undirectedEdges(g) = (
-    GraphEdge(src, dst, false)
-    for src in vertices(g)
-    for dst in neighbors(g, src)
-    if src < dst
+    GraphEdge(x, y, false)
+    for x in vertices(g)
+    for y in neighbors(g, x)
+    if x < y
 )
 
 
@@ -389,7 +389,7 @@ undirectedEdges(g) = (
 Return an iterator to generate all edges within the graph `g` that are directed.
 """
 directedEdges(g) = (
-    GraphEdge(src, dst, true)
-    for src in vertices(g)
-    for dst in children(g, src)
+    GraphEdge(x, y, true)
+    for x in vertices(g)
+    for y in children(g, x)
 )
