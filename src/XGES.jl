@@ -14,8 +14,8 @@ function XGES0(data::AbstractMatrix; verbose=false, progress=false, maxDegree=16
 
     score = CachedScore(stats, setType)
 
-    operatorSet = SortedSet{Operator{setType}}(
-        InsertOperator(g, x, y) for (x, y) in allPermutationPairs(vertices(g))
+    operatorSet = Set{Operator{setType}}(
+        score(InsertOperator(g, x, y)) for (x, y) in allPermutationPairs(vertices(g))
     )
 
     while !isempty(operatorSet)

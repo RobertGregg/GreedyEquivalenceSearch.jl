@@ -15,6 +15,9 @@ score(4, SmallBitSet{UInt16}(1:2))
 score(7, SmallBitSet{UInt16}(2:2:10))
 
 
-node=5
-nodeSet =  SmallBitSet{UInt16}(2:2:10)
-@benchmark $score($node, $nodeSet)
+node=12
+
+for n=0:11
+    nodeSet =  SmallBitSet{UInt16}(1:n)
+    @btime $score($node, $nodeSet)
+end

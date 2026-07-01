@@ -19,15 +19,35 @@ end
 
 
 """
+    isBlocked!(g, x, y, nodesRemoved, T, witnesses)
+
+Like `isBlocked`, but exploits monotonicity: if some previously-tested
+`Tᵢ ⊆ T` already blocked every semi-directed path, so does `T`
+(Chickering 2002). Skips the search whenever a witness already covers `T`,
+and records `T` as a new witness otherwise.
+"""
+function isBlocked(g, x, y, nodesRemoved, T, witnesses)
+    any(w -> w ⊆ T, witnesses) && return (true, witnesses)
+
+    blocked = isBlocked(g, x, y, nodesRemoved)
+    if blocked && length(witnesses) < maxDegree(g)
+        witnesses = push(witnesses, T)
+    end
+
+    return blocked, witnesses
+end
+
+
+"""
     isBlocked(g, x, y, nodesRemoved)
 
 Return true if every semi-directed path from y to x intersects `nodesRemoved`.
 
-A semi-directed path from y to x contains only:
+A semi-directed path from y to x contains only undirected edges and edges that point away from y:
 
     y → v₁ - v₂ → ... → x
 
-where directed edges point away from y.
+Solved by counterexample. We traverse the graph using breadth-first search and try to find any semi-directed path that does not pass through `nodesRemoved`.
 """
 function isBlocked(g, x, y, nodesRemoved)
 

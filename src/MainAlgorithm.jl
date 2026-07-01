@@ -61,6 +61,7 @@ function search(g, score, getOperator; verbose=false, progressBar)
 
 
     nodePairs = collect(allPermutationPairs(vertices(g)))
+    S = eltype(g.parents)
 
     #1. For each pair of nodes, generate all possible candidates
     #2. Test if candidate is valid
@@ -72,8 +73,13 @@ function search(g, score, getOperator; verbose=false, progressBar)
 
             currentOperator = getOperator(g, x, y) #Insert, Delete, or Turn
 
+            #save sets that already block semi-directed paths
+            witnesses = SmallVector{maxDegree(g), S}()
+
             for op in getCandidates(g, currentOperator)
-                isValid(g, op) || continue
+                valid, witnesses = isValid(g, op, witnesses)
+                valid || continue
+
                 op = score(op)
                 op > currentOperator && (currentOperator = op)
             end

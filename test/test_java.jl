@@ -234,7 +234,7 @@ results_long_diff.metric_sign = @. ifelse(results_long_diff.value > 0, "Julia Be
 
 
 #Precision, Recall, F1 Summary Boxplot
-fig_metric_summary = data(results_long) * visual(BoxPlot) *
+fig_metric_summary = AlgebraOfGraphics.data(results_long) * visual(BoxPlot) *
     mapping(:metric, :value, color=:language, dodge=:language) |> draw
 
 
@@ -242,7 +242,7 @@ fig_metric_summary = data(results_long) * visual(BoxPlot) *
 save("test/javaCompare/results/metric_summary.png", fig_metric_summary)    
 
 #Precision, Recall, F1 Differences per ID
-fig_metric_differences = data(results_long_diff) * visual(BarPlot) *
+fig_metric_differences = AlgebraOfGraphics.data(results_long_diff) * visual(BarPlot) *
     mapping(:id, :value => "Metric Difference",
     color=:metric_sign => "Language",
     layout=:metric => renamer("recall_diff" => "Recall", "precision_diff" => "Precision", "f1_diff" => "F1", "hamming_diff" => "Hamming")) |>
@@ -265,3 +265,9 @@ align = (:right, :bottom) )
 fig_hamming
 
 save("test/javaCompare/results/hamming.png", fig_hamming) 
+
+
+df = CSV.read("test/testdata.csv", DataFrame)
+df = df[:,1:1000]
+
+g = ges(df; progress=true)

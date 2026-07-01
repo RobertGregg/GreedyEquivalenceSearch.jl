@@ -4,19 +4,20 @@ Insert(x, y, T) is valid in CPDAG G iff:
 1. NAyxT is a clique 
 2. Every undirected path between x and y is blocked by NAyxT.
 """
-function isValid(g, op::InsertOperator)
+function isValid(g, op::InsertOperator, witnesses)
 
     (; x, y, T) = op
+    invalid = (false, witnesses)
 
-    isAdjacent(g, x, y) && return false
+    isAdjacent(g, x, y) && return invalid
 
     NAyxT = neighbors(g, y) ∩ adjacencies(g, x) ∪ T
 
     #If NAyxT not a clique, then invalid
-    isClique(g, NAyxT) || return false
+    isClique(g, NAyxT) || return invalid
 
     #If blocking, then valid
-    return isBlocked(g, x, y, NAyxT)
+    return isBlocked(g, x, y, NAyxT, T, witnesses)
 end
 
 
@@ -36,6 +37,9 @@ function isValid(g, op::DeleteOperator)
     #If NAyx \ H is a clique, then valid
     return isClique(g, setdiff(NAyx, H))
 end
+
+# Delete never calls isBlocked, so it just ignores the cache
+isValid(g, op::DeleteOperator, witnesses) = (isValid(g, op), witnesses)
 
 #=
 The notation from Chickering and Hauser are different and a bit confusing to translate. Hauser wants to re-orient the edge u←v to u→v. We translate this to re-orienting the edge x←y to x→y (so x=u and y=v). 
@@ -63,18 +67,20 @@ Turn(x, y, T) is valid iff:
 2. NAyxT is a clique 
 3. All semi-directed paths from y to x other than x←y are blocked by NAyxT ∪ Ne(x)
 """
-function isValid(g, op::TurnOperator)
+function isValid(g, op::TurnOperator, witnesses)
 
     (; x, y, T, NAyx) = op
 
+    invalid = (false, witnesses)
+
     #If y is not a parent of x, then invalid
-    isParent(g, y, x) || return false
+    isParent(g, y, x) || return invalid
 
     NAyxT = NAyx ∪ T
 
     #If NAyxT not a clique, then invalid
-    isClique(g, NAyxT) || return false
+    isClique(g, NAyxT) || return invalid
 
     #If blocking, then valid
-    return isBlocked(g, x, y, NAyxT ∪ neighbors(g, x))
+    return isBlocked(g, x, y, NAyxT ∪ neighbors(g, x), T, witnesses)
 end
